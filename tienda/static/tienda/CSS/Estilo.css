@@ -1,0 +1,841 @@
+
+/*Pantalla Grande*/
+@media  (max-width: 8000px){
+/*Titulos*/
+.Titulo{
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center;
+    border: double rgb(183, 2, 255);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.678);
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+.TituloPL{
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center;
+    border: double rgb(2, 183, 255);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.678);
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+.TituloX{
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center;
+    border: double rgb(21, 255, 0);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.678);
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+.TituloN{
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center;
+    border: double rgb(255, 2, 2);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.678);
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+.TituloST{
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center;
+    border: double rgb(2, 61, 255);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.678);
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+/*Subtitulo*/
+.STitulo{
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    border: double rgb(183, 2, 255);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.678);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.STituloPL{
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    border: double rgba(1, 255, 242, 0.959);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.678);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.STituloX{
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    border: double rgb(123, 255, 0);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.678);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.STituloN{
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    border: double rgb(255, 2, 2);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.678);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.STituloST{
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    border: double rgb(0, 89, 255);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.678);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+span{
+    color: slateblue;
+}
+
+.colorP{
+    background-color:rgba(0, 0, 0, 0.562);
+    border: double rgba(183, 2, 255);
+    padding: 20px;
+}
+
+.letra{
+    color: rgb(255, 255, 255);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+.letraJ{
+    color: rgb(255, 255, 255);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/*color bordes*/
+.colorF{
+    background-color: rgba(0, 0, 0, 0.692);
+    border: double rgb(183, 2, 255);
+    color: rgb(255, 255, 255);
+    font-family: Arial, Helvetica, sans-serif;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 50px;
+}
+
+.colorPL{
+    background-color: rgba(0, 0, 0, 0.692);
+    border: double rgb(0, 217, 255);
+    color: rgb(255, 255, 255);
+    font-family: Arial, Helvetica, sans-serif;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 50px;
+}
+.colorXbox{
+
+    background-color: rgba(0, 0, 0, 0.692);
+    border: double rgb(0, 255, 21);
+    color: rgb(255, 255, 255);
+    font-family: Arial, Helvetica, sans-serif;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 50px;
+}
+.colornin{
+    background-color: rgba(0, 0, 0, 0.692);
+    border: double rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
+    font-family: Arial, Helvetica, sans-serif;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 30px;
+}
+.colostim{
+    background-color: rgba(0, 0, 0, 0.692);
+    border: double rgb(12, 0, 121);
+    color: rgb(255, 255, 255);
+    font-family: Arial, Helvetica, sans-serif;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 50px;
+}
+
+
+.centrado{
+    	text-align: center;
+        align-items: center;
+}
+
+label{
+    color: aliceblue;
+    margin-top: 25px;
+}
+.imgp{
+    width: 100%;
+    max-width: 140px;
+    height: 100%;
+    max-height: 500px;
+    
+}
+.imgicon{
+    width: 100%;
+    max-width: 70px;
+    height: 100%;
+    max-height: 70px;
+    
+}
+.imgiconav{
+    width: 100%;
+    max-width: 50px;
+    height: 100%;
+    max-height: 50px;
+    margin-left: 10px;
+    
+}
+.imgpj{
+    width: 100%;
+    max-width: 300px;
+    height: 100%;
+    max-height: 500px;
+}
+
+.perfilb{
+    border: solid violet;
+    border-radius: 5px;
+    
+}
+.imgJ{
+    width: 100%;
+    max-width: 200px;
+    height: 100%;
+    max-height: 225px; 
+}
+}
+/*Pantalla Mediana*/
+@media only screen and (max-width: 1300px){
+    /*Titulos*/
+    .Titulo{
+        color: rgb(255, 255, 255);
+        font-size: 30px;
+        font-weight: bolder;
+        text-align: center;
+        border: double rgb(183, 2, 255);
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.678);
+        font-family: Arial, Helvetica, sans-serif;
+        
+    }
+    .TituloPL{
+        color: rgb(255, 255, 255);
+        font-size: 30px;
+        font-weight: bolder;
+        text-align: center;
+        border: double rgb(2, 183, 255);
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.678);
+        font-family: Arial, Helvetica, sans-serif;
+        
+    }
+    .TituloX{
+        color: rgb(255, 255, 255);
+        font-size: 30px;
+        font-weight: bolder;
+        text-align: center;
+        border: double rgb(21, 255, 0);
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.678);
+        font-family: Arial, Helvetica, sans-serif;
+        
+    }
+    .TituloN{
+        color: rgb(255, 255, 255);
+        font-size: 30px;
+        font-weight: bolder;
+        text-align: center;
+        border: double rgb(255, 2, 2);
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.678);
+        font-family: Arial, Helvetica, sans-serif;
+        
+    }
+    .TituloST{
+        color: rgb(255, 255, 255);
+        font-size: 30px;
+        font-weight: bolder;
+        text-align: center;
+        border: double rgb(2, 61, 255);
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.678);
+        font-family: Arial, Helvetica, sans-serif;
+        
+    }
+    /*Subtitulo*/
+    .STitulo{
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        font-weight: bolder;
+        text-align: center;
+        border: double rgb(183, 2, 255);
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.678);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .STituloPL{
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        font-weight: bolder;
+        text-align: center;
+        border: double rgba(1, 255, 242, 0.959);
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.678);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .STituloX{
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        font-weight: bolder;
+        text-align: center;
+        border: double rgb(95, 255, 3);
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.678);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .STituloN{
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        font-weight: bolder;
+        text-align: center;
+        border: double rgb(255, 2, 2);
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.678);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .STituloST{
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        font-weight: bolder;
+        text-align: center;
+        border: double rgb(2, 27, 255);
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.678);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    span{
+        color: slateblue;
+    }
+    
+    .colorP{
+        background-color:rgba(0, 0, 0, 0.445);
+        border: double rgba(183, 2, 255);
+    }
+    
+    .letra{
+        color: rgb(255, 255, 255);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: large;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    
+        
+    }
+    /*color bordes*/
+    .colorF{
+        background-color: rgba(0, 0, 0, 0.692);
+        border: double rgb(183, 2, 255);
+        color: rgb(255, 255, 255);
+        font-family: Arial, Helvetica, sans-serif;
+    
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 30px;
+    }
+    
+    .colorPL{
+        background-color: rgba(0, 0, 0, 0.719);
+        border: double rgb(0, 217, 255);
+        color: rgb(255, 255, 255);
+        font-family: Arial, Helvetica, sans-serif;
+    
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .colorXbox{
+        background-color: rgba(0, 0, 0, 0.692);
+        border: double rgb(0, 255, 21);
+        color: rgb(255, 255, 255);
+        font-family: Arial, Helvetica, sans-serif;
+    
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 30px;
+    }
+    .colornin{
+        background-color: rgba(0, 0, 0, 0.692);
+        border: double rgb(255, 0, 0);
+        color: rgb(255, 255, 255);
+        font-family: Arial, Helvetica, sans-serif;
+    
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 30px;
+    }
+    .colostim{
+        background-color: rgba(0, 0, 0, 0.692);
+        border: double rgb(12, 0, 121);
+        color: rgb(255, 255, 255);
+        font-family: Arial, Helvetica, sans-serif;
+    
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 30px;
+    }
+    
+    
+    .centrado{
+            text-align: center;
+            align-items: center;
+    }
+
+
+    label{
+        color: aliceblue;
+        margin-top: 25px;
+    }
+    .imgp{
+        width: 100%;
+        max-width: 140px;
+        height: 100%;
+        max-height: 500px;
+        
+    }
+    .imgicon{
+        width: 100%;
+        max-width: 70px;
+        height: 100%;
+        max-height: 70px;
+        
+    }
+    .imgiconav{
+        width: 100%;
+        max-width: 50px;
+        height: 100%;
+        max-height: 50px;
+        margin-left: 10px;
+        
+    }
+    
+    .perfilb{
+        border: solid violet;
+        border-radius: 5px;
+        
+    }
+    
+    }
+/*Pantalla Celular*/
+@media only screen and (max-width: 760px){
+        /*Titulos*/
+        .Titulo{
+            color: rgb(255, 255, 255);
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+            border: double rgb(183, 2, 255);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.678);
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        .TituloPL{
+            color: rgb(255, 255, 255);
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+            border: double rgb(2, 183, 255);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.678);
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        .TituloX{
+            color: rgb(255, 255, 255);
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+            border: double rgb(21, 255, 0);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.678);
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        .TituloN{
+            color: rgb(255, 255, 255);
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+            border: double rgb(255, 2, 2);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.678);
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        .TituloST{
+            color: rgb(255, 255, 255);
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+            border: double rgb(2, 61, 255);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.678);
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        /*Subtitulo*/
+        .STitulo{
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            font-weight: bolder;
+            text-align: center;
+            border: double rgb(183, 2, 255);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.678);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .STituloPL{
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            font-weight: bolder;
+            text-align: center;
+            border: double rgba(1, 255, 242, 0.959);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.678);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .STituloX{
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            font-weight: bolder;
+            text-align: center;
+            border: double rgb(0, 255, 0);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.678);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .STituloN{
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            font-weight: bolder;
+            text-align: center;
+            border: double rgb(255, 2, 2);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.678);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .STituloST{
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            font-weight: bolder;
+            text-align: center;
+            border: double rgb(2, 27, 255);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.678);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        span{
+            color: slateblue;
+        }
+        
+        .colorP{
+            background-color:rgba(0, 0, 0, 0.445);
+            border: double rgba(183, 2, 255);
+        }
+        
+        .letra{
+            color: rgb(255, 255, 255);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: large;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        
+            
+        }
+        /*color bordes*/
+        .colorF{
+            background-color: rgba(0, 0, 0, 0.692);
+            border: double rgb(183, 2, 255);
+            color: rgb(255, 255, 255);
+            font-family: Arial, Helvetica, sans-serif;
+        
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .colorPL{
+            background-color: rgba(0, 0, 0, 0.692);
+            border: double rgb(0, 217, 255);
+            color: rgb(255, 255, 255);
+            font-family: Arial, Helvetica, sans-serif;
+        
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 20px;
+        }
+        .colorXbox{
+            background-color: rgba(0, 0, 0, 0.692);
+            border: double rgb(0, 255, 21);
+            color: rgb(255, 255, 255);
+            font-family: Arial, Helvetica, sans-serif;
+        
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 20px;
+        }
+        .colornin{
+            background-color: rgba(0, 0, 0, 0.692);
+            border: double rgb(255, 0, 0);
+            color: rgb(255, 255, 255);
+            font-family: Arial, Helvetica, sans-serif;
+        
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 20px;
+        }
+        .colostim{
+            background-color: rgba(0, 0, 0, 0.692);
+            border: double rgb(12, 0, 121);
+            color: rgb(255, 255, 255);
+            font-family: Arial, Helvetica, sans-serif;
+        
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 20px;
+        }
+        
+        
+        .centrado{
+
+                text-align: center;
+                align-items: center;
+            
+        }
+        .medio{
+            
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            margin-right: 150px;
+        }
+
+    
+    
+        label{
+            color: aliceblue;
+            margin-top: 25px;
+        }
+        .imgp{
+            width: 100%;
+            max-width: 140px;
+            height: 100%;
+            max-height: 500px;
+            
+        }
+        .imgicon{
+            width: 100%;
+            max-width: 70px;
+            height: 100%;
+            max-height: 70px;
+            
+        }
+        .imgiconav{
+            width: 100%;
+            max-width: 50px;
+            height: 100%;
+            max-height: 50px;
+            margin-left: 10px;
+            
+        }
+        
+        .perfilb{
+            border: solid violet;
+            border-radius: 5px;
+            
+        }
+        
+        }
+
+img{
+    width: 100%;
+    max-width: 140px;
+    height: 100%;
+    max-height: 500px;
+    
+}
+
+
+
+
+    /*Fondos*/
+.fondoCambiarC{
+    background-size: 100% 100%;
+    background-image: url(/IMG/FondoOC.jpg);
+}
+
+   
+@media only screen and (max-width: 650px)  { 
+	.fondoCambiarC { 
+		background-image: url(/IMG/FondoCel.jpg); 
+	}   
+}
+
+
+.FondoCuenta{
+    background-size: 100% 100%;
+    background-image: url(/IMG/fondoct.png);
+}
+@media only screen and (max-width: 1300px)  { 
+	.FondoCuenta { 
+		background-image: url(/IMG/fondoIS.jpg); 
+	}   
+}
+.fondoEditarP{
+    background-size: 100% 100%;
+    background-image: url(/IMG/fondoct.png);
+}
+@media only screen and (max-width: 1300px)  { 
+	.fondoEditarP { 
+		background-image: url(/IMG/fondoIS.jpg); 
+	}   
+}
+.FondoINS{
+    background-size: 100%;
+    background-image: url(/IMG/fondoIS.jpg);
+}
+@media only screen and (max-width: 1300px)  { 
+	.FondoINS { 
+		background-image: url(/IMG/FondoCel.jpg); 
+        background-size: 100%;
+	}   
+}
+.Fondonotros{
+    background-size: 100%;
+    background-image: url(/IMG/fondoNS.jpg);
+}
+@media only screen and (max-width: 1300px)  { 
+	.Fondonotros { 
+		background-image: url(/IMG/FondoCel.jpg); 
+	}   
+}
+.fondoregistro{
+    background-size:  100%;
+    background-image: url(/IMG/fondoIS.jpg);
+}
+@media only screen and (max-width: 1300px)  { 
+	.fondoregistro { 
+		background-image: url(/IMG/fondoIS.jpg); 
+	}   
+}
+.tiendaFondo{
+    background-size: 100% 100%;
+    background-image: url(/IMG/fondoct.png);
+}
+@media only screen and (max-width: 1300px)  { 
+	.tiendaFondo { 
+		background-image: url(/IMG/FondoCel.jpg); 
+	}   
+}
+.tiendaFondo2{
+    background-size: 100%  100%;
+    background-image: url(/IMG/fondoct.png);
+}
+@media only screen and (max-width: 1300px)  { 
+	.tiendaFondo2 { 
+		background-image: url(/IMG/FondoCel.jpg); 
+	}   
+}
+.FondoPlei{
+    background-size:  100%;
+    background-image: url(/IMG/fondoPlay.jpg);
+}
+@media only screen and (max-width: 1300px)  { 
+	.FondoPlei { 
+		background-image: url(/IMG/FondoPleiC.jpg);
+        background-size: 100% 100%; 
+	}   
+}
+.FondoXbos{
+    background-size: 100% 100%;
+    background-image: url(/IMG/FondoXbox.jpg);
+}
+@media only screen and (max-width: 1300px)  { 
+	.FondoXbos { 
+		background-image: url(/IMG/FondoXboxC.jpg); 
+        background-size: 100% 100%; 
+	}   
+}
+.FondoNin{
+    background-size:   100%;
+    background-image: url(/IMG/FondoNintendo.jpeg);
+}
+@media only screen and (max-width: 1300px)  { 
+	.FondoNin { 
+		background-image: url(/IMG/FondoNinC.jpg); 
+        background-size: 100% 100%;
+	}   
+}
+.FondoPici{
+    background-size:100%;
+    background-image: url(/IMG/fondoPC.jpg);
+}
+@media only screen and (max-width: 1300px)  { 
+	.FondoPici { 
+		background-image: url(/IMG/FondoPiciC.jpg); 
+        background-size:100% 100%;
+	}   
+}
+.FondoCarrito{
+    background-size: 100% 100%;
+    background-image: url(/IMG/fondoCarrito.jpg);
+}
+@media only screen and (max-width: 1300px)  { 
+	.FondoCarrito { 
+		background-image: url(/IMG/FondoCel.jpg); 
+	}   
+}
+
+.ram{
+    background-size: 100% 100%;
+    background-image: url(/IMG/Colab.jpg);
+}
+@media only screen and (max-width: 1300px)  { 
+	.FondoCarrito { 
+		background-image: url(/IMG/FondoCel.jpg); 
+	}   
+}

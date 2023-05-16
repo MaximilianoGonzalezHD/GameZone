@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playstation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+    <style>
+        .FondoPlei{
+    background-size:  100%;
+    background-image: url(/IMG/fondoPlay.jpg);
+}
+@media only screen and (max-width: 1300px)  { 
+	.FondoPlei { 
+		background-image: url(/IMG/FondoPleiC.jpg);
+        background-size: 100% 100%; 
+	}   
+}
+    </style>
+</head>
+
+<body class="FondoPlei">
+    <div class="container">
+        <div class="centrado">
+            <div class="row mb-5">
+                <div class="col-xl-12 mb-4">
+                    <div class="navbar fixed-top navbar-expand-lg navbar-light  " style="background-color: #e3f2fd;">
+                        <a href="/Inicio/tienda.html" class="navbar-brand mt-3">
+                            <h3>G<span style="color: blue;">Z</span></h3>
+                        </a>
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#onenavbar">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="onenavbar">
+                            <ul class="navbar-nav">
+                                <li class="nav-item mt-3"><a href="/Inicio/tienda.html" class="nav-link">Tienda</a></li>
+                                <li class="nav-item dropdown mt-3">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cuenta</a>
+                                    <div class="dropdown-menu">
+                                        <a href="/Inicio/Cuenta.html" class="dropdown-item">Mi Perfil</a>
+                                        <a href="/Inicio/Colaboracion.html" class="dropdown-item">Colaboración</a>
+                                        <a href="/Inicio/inicio_sesion.html" class="dropdown-item">Cerrar Sesión</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item mt-3"><a href="/Inicio/Nosotros.html" class="nav-link">Nosotros</a>
+                                </li>
+                                <li class="nav-item"><a href="/productos/Seccion_Play/seccion_playstation.html"
+                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/iconoplei.png"
+                                            alt="plei"></a></li>
+                                <li class="nav-item"><a href="/productos/Seccion_Xbox/seccion_xbox.html"
+                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/iconoxbos.png"
+                                            alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="/productos/SeccionNintendo/seccion_nintendo.html"
+                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/NS_logo.png"
+                                            alt="nintendo"></a></li>
+                                <li class="nav-item"><a href="/productos/SeccionPC/Seccion_Pc.html"
+                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/steam-logo.png"
+                                            alt="Steam"></a></li>
+                                <li class="nav-item mt-2"><a href="/productos/carrito.html"><img class="imgiconav"
+                                            src="/IMG/Iconos IMG/icon_carrito.png" alt="carro"></a></li>
+                            </ul>
+                            <form class="form-inline ml-auto mt-3" action="#">
+                                <input type="text" class="form-control" placeholder="Buscar">
+                                <button type="button" class="btn btn-outline-primary ml-1">Buscar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-4">
+                    <h2 class="TituloPL">Game<span style="color: rgb(0, 255, 221);">Zone</span> </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="STituloPL">Playstation</h2>
+                </div>
+            </div>
+            <div class="medio">
+                <div class="row ml-5">
+                    <div class="col-md-3 colorPL ml-5">
+                        <a href="Juegos/bloodborne.html"><img class="imgJ" src="IMG_JUEGOS/Blood.jpg" alt="blood"></a>
+                        <div class="row">
+                            <div class="col-md-12"><span class="letraJ">BloodBorne</span>
+                            </div>
+                            <div class="row ml-4">
+                                <div class="col-md-12"><span class="letraJ">Precio: 20.000$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 colorPL ml-5">
+                        <a href="Juegos/last_2.html"><img class="imgJ" src="IMG_JUEGOS/Thelast2.jpg" alt="last2"></a>
+                        <div class="row">
+                            <div class="col-md-12"><span class="letraJ">The Last Of us Parte 2</span>
+                            </div>
+                            <div class="row ml-4">
+                                <div class="col-md-12"><span class="letraJ">Precio: 30.000$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 colorPL ml-5">
+                        <a href="Juegos/last.html"><img class="imgJ" src="IMG_JUEGOS/Thelast.jpg" alt="last"></a>
+                        <div class="row">
+                            <div class="col-md-12"><span class="letraJ">The Last Of uS Remastered</span>
+                            </div>
+                            <div class="row ml-4">
+                                <div class="col-md-12"><span class="letraJ">Precio: 10.000$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 colorPL ml-5">
+                        <a href="Juegos/demonS.html"><img class="imgJ" src="IMG_JUEGOS/demon.jpg" alt="Demon"></a>
+                        <div class="row">
+                            <div class="col-md-12"><span class="letraJ">Demon Souls</span>
+                            </div>
+                            <div class="row ml-4">
+                                <div class="col-md-12"><span class="letraJ">Precio: 20.000$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 colorPL ml-5">
+                        <a href="Juegos/God_of_war.html"><img class="imgJ" src="IMG_JUEGOS/god.jpeg" alt="God"></a>
+                        <div class="row">
+                            <div class="col-md-12"><span class="letraJ">God Of War</span>
+                            </div>
+                            <div class="row ml-4">
+                                <div class="col-md-12"><span class="letraJ">Precio: 10.000$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 colorPL ml-5">
+                        <a href="Juegos/godR.html"><img class="imgJ" src="IMG_JUEGOS/godR.jpg" alt="GodR"></a>
+                        <div class="row">
+                            <div class="col-md-12"><span class="letraJ">God Of War Ragnarok</span>
+                            </div>
+                            <div class="row ml-4">
+                                <div class="col-md-12"><span class="letraJ">Precio: 25.000$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
