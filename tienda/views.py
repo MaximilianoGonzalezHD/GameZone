@@ -8,3 +8,7 @@ def tienda(request):
 #Secciones
 def seccion_playstation(request):
     return render(request,'tienda/productos/Seccion_Play/seccion_playstation.html')
+
+#productos
+def bloodborne(request):
+    return render(request,'tienda/productos/Seccion_Play/bloodborne.html')

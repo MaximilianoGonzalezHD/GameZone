@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import tienda, seccion_playstation
+from .views import tienda, seccion_playstation,bloodborne
 
 urlpatterns = [
     path('',tienda,name="tienda"),
+    
+    
+    #seccion play
     path('playstation/',seccion_playstation,name="seccion_playstation"),
+    path('playstation/bloodborne/',bloodborne,name="bloodborne"),
 ]
