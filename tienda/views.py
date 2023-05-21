@@ -21,9 +21,22 @@ def seccion_Pc(request):
 def carrito(request):
     return render(request,'tienda/productos/carrito.html')
 
-#productos
+#productos play
 def bloodborne(request):
     return render(request,'tienda/productos/Seccion_Play/bloodborne.html')
+#Productos Xbox
+def haloi(request):
+    return render(request,'tienda/productos/Seccion_Xbox/haloi.html')
+#Productos nintendo
+def zelda(request):
+    return render(request,'tienda/productos/SeccionNintendo/zelda.html')
+#Productos PC
+def cyber(request):
+    return render(request,'tienda/productos/SeccionPc/cyber.html')
+
+
+
+
 #Paginas iniciales
 def registro(request):
     return render(request, 'tienda/inicio/registro.html')
