@@ -13,9 +13,20 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+    <style>
+    .FondoPlei{
+        background-size:  100%;
+        background-image: url(/IMG/fondoPlay.jpg);
+    }
+    @media only screen and (max-width: 1300px)  { 
+        .FondoPlei { 
+            background-image: url(/IMG/FondoPleiC.jpg);
+            background-size: 100% 100%; 
+        }   
+    }
+    </style>
 
-    {% block estilo %}
-    {% block estilo %}
+    
 </head>
 
 <body class="FondoPlei">
@@ -24,7 +35,7 @@
             <div class="row mb-5">
                 <div class="col-xl-12 mb-4">
                     <div class="navbar fixed-top navbar-expand-lg navbar-light  " style="background-color: #e3f2fd;">
-                        <a href="/Inicio/tienda.html" class="navbar-brand mt-3">
+                        <a href="{% url 'tienda' %}" class="navbar-brand mt-3">
                             <h3>G<span style="color: blue;">Z</span></h3>
                         </a>
                         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#onenavbar">
@@ -33,34 +44,39 @@
 
                         <div class="collapse navbar-collapse" id="onenavbar">
                             <ul class="navbar-nav">
-                                <li class="nav-item mt-3"><a href="/Inicio/tienda.html" class="nav-link">Tienda</a></li>
+                                <li class="nav-item mt-3"><a href="{% url 'tienda' %}" class="nav-link">Tienda</a></li>
                                 <li class="nav-item dropdown mt-3">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cuenta</a>
                                     <div class="dropdown-menu">
-                                        <a href="/Inicio/Cuenta.html" class="dropdown-item">Mi Perfil</a>
-                                        <a href="/Inicio/inicio_sesion.html" class="dropdown-item">Cerrar Sesión</a>
+                                        <a href="{% url 'Cuenta' %}" class="dropdown-item">Mi Perfil</a>
+                                        <a href="{% url 'Colaboracion' %}" class="dropdown-item">Colaboración</a>
+                                        <a href="{% url 'Administracion' %}" class="dropdown-item">Administración</a>
+                                        <a href="{% url 'inicio_sesion' %}" class="dropdown-item">Cerrar Sesión</a>
                                     </div>
                                 </li>
-                                <li class="nav-item mt-3"><a href="/Inicio/Nosotros.html" class="nav-link">Nosotros</a>
+                                <li class="nav-item mt-3"><a href="{% url 'Nosotros' %}" class="nav-link">Nosotros</a>
                                 </li>
-                                <li class="nav-item"><a href="/productos/Seccion_Play/seccion_playstation.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/iconoplei.png"
-                                            alt="plei"></a></li>
-                                <li class="nav-item"><a href="/productos/Seccion_Xbox/seccion_xbox.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/iconoxbos.png"
-                                            alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="/productos/SeccionNintendo/seccion_nintendo.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/NS_logo.png"
-                                            alt="nintendo"></a></li>
-                                <li class="nav-item"><a href="/productos/SeccionPC/Seccion_Pc.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/steam-logo.png"
-                                            alt="Steam"></a></li>
-                                <li class="nav-item mt-2"><a href="/productos/carrito.html"><img class="imgiconav"
-                                            src="/IMG/Iconos IMG/icon_carrito.png" alt="carro"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}"
+                                        class="nav-link"><img class="imgiconav"
+                                            src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="plei"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}"
+                                        class="nav-link"><img class="imgiconav"
+                                            src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}"
+                                        class="nav-link"><img class="imgiconav"
+                                            src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nintendo"></a>
+                                </li>
+                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}"
+                                        class="nav-link"><img class="imgiconav"
+                                            src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="Steam"></a>
+                                </li>
+                                <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
+                                            src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
+                                </li>
                             </ul>
                             <form class="form-inline ml-auto mt-3" action="#">
                                 <input type="text" class="form-control" placeholder="Buscar">
-                                <button type="button" class="btn btn-outline-primary ml-1">Buscar</button>
+                                <button type="button" class="btn btn-outline-light">Buscar</button>
                             </form>
                         </div>
                     </div>
@@ -78,13 +94,14 @@
             </div>
             <div>
                 <div class="row colorPL">
-                    <div class="col-md-6"><img class="imgpj" src="/productos/Seccion_Play/IMG_JUEGOS/Blood.jpg"
-                            alt="blood">
+                    {% block imagen %}
+                    {% endblock imagen %}
 
 
                     </div>
                     <div class="col-md-6 letraJ " style="border: double white">
-                        <h2>Bloodborne</h2>
+                        {% block tituloV %}
+                        {% endblock tituloV %}
                         <div row>
                             <div class="col-md-12 Letraj">
                                 <h4>Descripcion:</h4>
@@ -92,30 +109,21 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <p class="letraj">
-                                    Bloodborne es un videojuego de rol de acción dirigido por Hidetaka Miyazaki,
-                                    desarrollado
-                                    por From Software y JapanStudio distribuido por Sony Computer Entertainment para la
-                                    plataforma de PlayStation 4 El videojuego sigue las acciones
-                                    del personaje del jugador, el Cazador, a través de Yharnam, una ciudad ficticia de
-                                    estilo victoriano, cuyos habitantes han sido afectados con una enfermedad de
-                                    transmisión sanguínea anormal. Al despertar en Yharnam durante la noche de «la caza»
-                                    tras recibir un
-                                    tratamiento de la conocida «sangre milagrosa», el Cazador busca algo conocido solo
-                                    como paleblood ("sangre pálida" en español) para terminar la cacería.</p>
+                            {% block descripcion %}
+                            {% endblock descripcion %}
                             </div>
                         </div>
                     </div>
                     <div class="row ml-auto mr-5">
-                        <div class="col-md-12"><h5 class="letraj">precio: 20.000$</h5></div>
+                        <div class="col-md-12">{% block precio %} {% endblock precio %}</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <button class="btn btn-light"><a href="/productos/carrito.html">Añadir Al Carrito</a></button>
+                        <button class="btn btn-light"><a href="{% url 'Carrito' %}">Añadir Al Carrito</a></button>
                     </div>
                     <div class="col-md-6 mt-1">
-                        <button class="btn btn-light"><a href="/productos/carrito.html">Comprar</a></button>
+                        <button class="btn btn-light"><a href="#">Comprar</a></button>
                     </div>
 
                 </div>
