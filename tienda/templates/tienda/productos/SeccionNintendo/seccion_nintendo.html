@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <link type="text/css" rel="stylesheet" href="/CSS/Estilo.css">
+    <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
 </head>
 
 <body class="FondoNin">
@@ -20,7 +20,7 @@
             <div class="row mb-5">
                 <div class="col-xl-12 row mb-4">
                     <div class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: red;">
-                        <a href="/Inicio/tienda.html" class="navbar-brand mt-3">
+                        <a href="{% url 'tienda' %}" class="navbar-brand mt-3">
                             <h3 style="color: white;">G<span style="color: rgb(0, 0, 0);">Z</span></h3>
                         </a>
                         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#onenavbar">
@@ -29,31 +29,35 @@
 
                         <div class="collapse navbar-collapse" id="onenavbar">
                             <ul class="navbar-nav">
-                                <li class="nav-item mt-3"><a href="/Inicio/tienda.html" class="nav-link">Tienda</a></li>
+                                <li class="nav-item mt-3"><a href="{% url 'tienda' %}" class="nav-link">Tienda</a></li>
                                 <li class="nav-item dropdown mt-3">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cuenta</a>
                                     <div class="dropdown-menu">
-                                        <a href="/Inicio/Cuenta.html" class="dropdown-item">Mi Perfil</a>
-                                        <a href="/Inicio/Colaboracion.html" class="dropdown-item">Colaboración</a>
-                                        <a href="/Inicio/inicio_sesion.html" class="dropdown-item">Cerrar Sesión</a>
+                                        <a href="{% url 'Cuenta' %}" class="dropdown-item">Mi Perfil</a>
+                                        <a href="{% url 'Colaboracion' %}" class="dropdown-item">Colaboración</a>
+                                        <a href="{% url 'Administracion' %}" class="dropdown-item">Administración</a>
+                                        <a href="{% url 'inicio_sesion' %}" class="dropdown-item">Cerrar Sesión</a>
                                     </div>
                                 </li>
-                                <li class="nav-item mt-3"><a href="/Inicio/Nosotros.html" class="nav-link">Nosotros</a>
+                                <li class="nav-item mt-3"><a href="{% url 'Nosotros' %}" class="nav-link">Nosotros</a>
                                 </li>
-                                <li class="nav-item"><a href="/productos/Seccion_Play/seccion_playstation.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/iconoplei.png"
-                                            alt="plei"></a></li>
-                                <li class="nav-item"><a href="/productos/Seccion_Xbox/seccion_xbox.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/iconoxbos.png"
-                                            alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="/productos/SeccionNintendo/seccion_nintendo.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/NS_logo.png"
-                                            alt="nintendo"></a></li>
-                                <li class="nav-item"><a href="/productos/SeccionPC/Seccion_Pc.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/steam-logo.png"
-                                            alt="Steam"></a></li>
-                                <li class="nav-item mt-2"><a href="/productos/carrito.html"><img class="imgiconav"
-                                            src="/IMG/Iconos IMG/icon_carrito.png" alt="carro"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}"
+                                        class="nav-link"><img class="imgiconav"
+                                            src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="plei"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}"
+                                        class="nav-link"><img class="imgiconav"
+                                            src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}"
+                                        class="nav-link"><img class="imgiconav"
+                                            src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nintendo"></a>
+                                </li>
+                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}"
+                                        class="nav-link"><img class="imgiconav"
+                                            src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="Steam"></a>
+                                </li>
+                                <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
+                                            src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
+                                </li>
                             </ul>
                             <form class="form-inline ml-auto mt-3" action="#">
                                 <input type="text" class="form-control" placeholder="Buscar">
@@ -76,7 +80,7 @@
             <div class="medio">
                 <div class="row ml-5">
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/Kirbo.html"><img class="imgJ" src="img_juegosN/Kirby.jpg" alt="kirbo"></a>
+                        <a href="Juegos/Kirbo.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Kirby.jpg' %}" alt="kirbo"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Kirby y La Tierra Olvidada</span>
                             </div>
@@ -86,7 +90,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/mario.html"><img class="imgJ" src="img_juegosN/Mario.jpg" alt="mario"></a>
+                        <a href="Juegos/mario.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Mario.jpg' %}" alt="mario"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Mario Odyssey</span>
                             </div>
@@ -96,7 +100,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/pokemon.html"><img class="imgJ" src="img_juegosN/pokemon-escarlata.jpg"
+                        <a href="Juegos/pokemon.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/pokemon-escarlata.jpg' %}"
                                 alt="poke"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Pokemon Escarlata</span>
@@ -107,7 +111,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/smash.html"><img class="imgJ" src="img_juegosN/Smash.jpg" alt="smash"></a>
+                        <a href="Juegos/smash.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Smash.jpg' %}" alt="smash"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Super Smash Ultimate</span>
                             </div>
@@ -117,7 +121,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/zelda.html"><img class="imgJ" src="img_juegosN/Zelda.jpg" alt="zelda"></a>
+                        <a href="Juegos/zelda.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Zelda.jpg' %}" alt="zelda"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Zelda Breath Of The Wild</span>
                             </div>
@@ -127,7 +131,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/zeldaA.html"><img class="imgJ" src="img_juegosN/zeldaA.jpg" alt="zeldaA"></a>
+                        <a href="Juegos/zeldaA.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/zeldaA.jpg' %}" alt="zeldaA"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Zelda Link's Awakening</span>
                             </div>

@@ -1,7 +1,7 @@
 @ -1,61 +0,0 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="/CSS/Estilo.css">
+    <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
 
 </head>
 
@@ -43,7 +43,7 @@
 
                         <br>
                         <div class="row p-2">
-                            <div class="col-md-6 mb-2"><a class="btn btn-dark" href="Cuenta.html">Volver</a></div>
+                            <div class="col-md-6 mb-2"><a class="btn btn-dark" href="{% url 'cuenta' %}">Volver</a></div>
                             <div class="col-md-6"><button type="submit" class="btn btn-dark">Cambiar Contraseña</button>
                             </div>
 
@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    <script src="/JS/Validacion_Contra.js"></script>
+    <script src="{% static 'tienda/JS/Validacion_Contra.js' %}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

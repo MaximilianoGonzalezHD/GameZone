@@ -44,6 +44,8 @@ urlpatterns = [
     path('Agregar/Xbox/',AgregarX,name="AgregarX")
     path('Agregar/Playstation/',AgregarP,name="AgregarP")
     path('Agregar/Steam',AgregarPC,name="AgregarPC")
+    path('Eliminar/',Eliminar,name="Eliminar")
+    path('Modificar/',Modificar,name="Modificar")
 
 
     #seccion play
@@ -61,5 +63,8 @@ urlpatterns = [
     #Seccion Pc
     path('Steam/',Seccion_Pc,name="Seccion_Pc")
     path('Steam/Cyberpunk/',cyber,name="cyber")
+
+    #Carrito
+    path('Carrito/',Carrito,name="Carrito")
 
 ]
