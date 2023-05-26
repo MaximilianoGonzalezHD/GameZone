@@ -1,6 +1,6 @@
 $(document).ready(function(){
 $("#formR").submit(function(e){
-    e.preventDefault();
+    
     var correor = $("#emailR").val();
     var nombrer = $("#NombreR").val();
     var nombreCon =  nombrer;
@@ -34,6 +34,7 @@ $("#formR").submit(function(e){
         }
     if (enviar) {
         $("#warnings").html(mostrarmsj);
+        e.preventDefault();
     }
     else {
         $("#warnings").html("Enviado");

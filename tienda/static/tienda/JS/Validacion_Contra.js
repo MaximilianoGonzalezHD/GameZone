@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $("#formCC").submit(function(e){
-        e.preventDefault();
+        
 
         var contrasenar = $("#NuevaContrasena").val();
         var confcontrasenar = $("#ConfirmarContrasena").val();
@@ -27,6 +27,7 @@ $(document).ready(function(){
             }
         if (enviar) {
             $("#warnings").html(mostrarmsj);
+            e.preventDefault();
         }
         else {
             $("#warnings").html("Enviado");
