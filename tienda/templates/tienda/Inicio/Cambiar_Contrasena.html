@@ -31,7 +31,8 @@
             <div class="col-md-12">
                 <h3 class="text-center" style="color: rgb(255, 255, 255);">Cambiar Contraseña</h3>
                 <div class="centrado ">
-                    <form action="" id="formCC">
+                    <form action="{% url '' %}" method="post" id="formCC">
+                    {% crsf_token %}
                         <label class="letra" for="ContrasenaA">Contraseña Actual:</label>
                         <input type="text" id="ContrasenaA"required />
                         <br>
