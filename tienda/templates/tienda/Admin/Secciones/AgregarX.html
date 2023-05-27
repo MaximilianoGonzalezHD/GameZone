@@ -81,7 +81,7 @@
             <div class="row">
                 <div class="col-md-12 colorXbox">
                     <form class="centrado" action="{% url '' %}" method="get" id="formAdm">
-                        {% crsf_token %}
+                        {% csrf_token %}
                         <label for=""><p class="letra">Nombre Del Juego:</p></label>
                         <input class=" centrado mr-5" type="text" id="NameGame"  required>
                         <br>

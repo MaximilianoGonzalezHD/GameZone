@@ -74,7 +74,7 @@
         </div>
         <div class="centrado medio colorP p-2">
             <form action="{% url '' %}" method="post" class="form-box login">
-            {% crsf_token %}
+            {% csrf_token %}
                 <div class="input-box mr-1">
                     <label> Ingrese su Email:</label>
                     <input type="email" required>

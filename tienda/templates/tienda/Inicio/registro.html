@@ -75,8 +75,8 @@
         <div class="centrado colorP p-2">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="" method="POST" action="{% url '' %}" id="formR">
-                        {% crsf_token  %}
+                    <form  method="POST" action="{% url '' %}" id="formR">
+                        {% csrf_token  %}
                         <label class="Letra mr-3 mb-3 mr-4" for="email">Correo Electronico:</label>
                         <input type="email" id="emailR" placeholder="Ingrese Correo.." required>
                         <br>
