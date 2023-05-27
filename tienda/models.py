@@ -14,7 +14,6 @@ class Usuario (models.Model):
     imagenu = models.ImageField(blank=True,verbose_name="Imagen De Usuario",upload_to="ImagenUser")
     rol = models.ForeignKey(Rol,on_delete=models.CASCADE)
 
-
 class Seccion (models.Model):
         id_seccions = models.AutoField(primary_key=True)
         nombres = models.CharField(max_length=30)
