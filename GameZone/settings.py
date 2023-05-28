@@ -78,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': '127.0.0.1:1521/orcl', #20 o 21 es xe 
-        'USER': 'gamezone',
-        'PASSWORD': 'zonajuegos',
+        'USER': 'bdgamezone',
+        'PASSWORD': 'bdgamezone',
         'TEST':{
             'USER': 'default_test',
             'TBLSPACE': 'default_test_tbls',
