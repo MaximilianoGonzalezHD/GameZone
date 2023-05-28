@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,19 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+
+    <style>
+        .Fondonotros {
+            background-size: 100%;
+            background-image: url("{% static 'tienda/IMG/fondoNS.jpg' %}");
+        }
+
+        @media only screen and (max-width: 1300px) {
+            .Fondonotros {
+                background-image: url("{% static 'tienda/IMG/FondoCel.jpg'}");
+            }
+        }
+    </style>
 </head>
 
 <body class="Fondonotros">
@@ -41,19 +55,19 @@
                                 </li>
                                 <li class="nav-item mt-3"><a href="{% url 'Nosotros' %}" class="nav-link">Nosotros</a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="plei"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nintendo"></a>
+                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}"
+                                            alt="plei"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}"
+                                            alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}"
+                                            alt="nintendo"></a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="Steam"></a>
+                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
+                                            alt="Steam"></a>
                                 </li>
                                 <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
@@ -68,7 +82,7 @@
                 </div>
             </div>
             <br> <br>
-            <div class="row" >
+            <div class="row">
                 <div class="col-md-12">
                     <h2 class="Titulo">Sobre <span>Nosotros</span></h2>
                 </div>
@@ -76,50 +90,54 @@
 
             <div class="row mt-2">
                 <div class="col-xl-12">
-                    <p class="letra colorF mb-2 p-3">Somos una Tienda exclusiva de videojuegos online, otorgamos una experiencia comoda a nuestros clientes prometiendo seguridad y accesibilidad de precios. 
-                        Nuestros servicios están adaptados para todo tipo plataformas gaming (Nintendo, Xbox, PlayStantion, Pc y más)
+                    <p class="letra colorF mb-2 p-3">Somos una Tienda exclusiva de videojuegos online, otorgamos una
+                        experiencia comoda a nuestros clientes prometiendo seguridad y accesibilidad de precios.
+                        Nuestros servicios están adaptados para todo tipo plataformas gaming (Nintendo, Xbox,
+                        PlayStantion, Pc y más)
                         ¡Disfruta nuestras ofertas exclusivas y beneficios que tenemos para ti!
                     </p>
                 </div>
             </div>
             <div class="row m-3">
-                <div class="col-md-12"> <h4 class="STitulo">Contáctanos en:</h3></div>
+                <div class="col-md-12">
+                    <h4 class="STitulo">Contáctanos en:</h3>
+                </div>
             </div>
 
             <div class="row colorF p-3">
                 <div class="col-md-4 mb-3">
-                     <span class="letra">WhatsApp:</span>
-                     <div class="row">
+                    <span class="letra">WhatsApp:</span>
+                    <div class="row">
                         <div class="col-md-12">
                             <img class="imgicon" src="{% static 'tienda/IMG/IconosIMG/Waps.png' %}" alt="#">
                             <div class="row">
                                 <div class="col-md-12"><a href="#"></a>+56 9 9999 9999</div>
                             </div>
                         </div>
-                     </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <span class="letra">Instagram:</span>
-                        <div class="row">
-                           <div class="col-md-12">
-                               <img class="imgicon" src="{% static 'tienda/IMG/IconosIMG/ins.png' %}" alt="#">
-                               <div class="row">
-                                   <div class="col-md-12"><a href="#"></a>Game <span>Zone</span></div>
-                               </div>
-                           </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <span class="letra">Instagram:</span>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img class="imgicon" src="{% static 'tienda/IMG/IconosIMG/ins.png' %}" alt="#">
+                            <div class="row">
+                                <div class="col-md-12"><a href="#"></a>Game <span>Zone</span></div>
+                            </div>
                         </div>
-                       </div>
-                       <div class="col-md-4">
-                        <span class="letra">Gmail:</span>
-                        <div class="row">
-                           <div class="col-md-12">
-                               <img class="imgicon" src="{% static 'tienda/IMG/IconosIMG/gmail.png' %}" alt="#">
-                               <div class="row">
-                                   <div class="col-md-12"><a href="#">gamezone@gmail.com</a></div>
-                               </div>
-                           </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <span class="letra">Gmail:</span>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img class="imgicon" src="{% static 'tienda/IMG/IconosIMG/gmail.png' %}" alt="#">
+                            <div class="row">
+                                <div class="col-md-12"><a href="#">gamezone@gmail.com</a></div>
+                            </div>
                         </div>
-                       </div>
+                    </div>
+                </div>
             </div>
 
         </div>

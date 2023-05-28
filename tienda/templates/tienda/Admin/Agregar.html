@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,18 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+    <style>
+        .tiendaFondo {
+            background-size: 100% 100%;
+            background-image: url("{% static 'tienda/IMG/fondoct.png' %}");
+        }
+
+        @media only screen and (max-width: 1300px) {
+            .tiendaFondo {
+                background-image: url("{% static 'tienda/IMG/FondoCel.jpg' %}");
+            }
+        }
+    </style>
 </head>
 
 <body class="tiendaFondo">
@@ -41,19 +54,19 @@
                                 </li>
                                 <li class="nav-item mt-3"><a href="{% url 'Nosotros' %}" class="nav-link">Nosotros</a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="plei"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nintendo"></a>
+                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}"
+                                            alt="plei"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}"
+                                            alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}"
+                                            alt="nintendo"></a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="Steam"></a>
+                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
+                                            alt="Steam"></a>
                                 </li>
                                 <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
@@ -79,35 +92,35 @@
                 </div>
             </div>
             <div class="medio">
-            <div class="row ml-5">
-                <div class="col-md-3 colorPL p-5 ml-5">
-                    <h3>Playstation</h3>
-                    <div class="row">
-                        <div class="col-md-12"> <a href="{% url 'AgregarP' %}"> <img
-                                    class="imgp" src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="pleis"></a></div>
+                <div class="row ml-5">
+                    <div class="col-md-3 colorPL p-5 ml-5">
+                        <h3>Playstation</h3>
+                        <div class="row">
+                            <div class="col-md-12"> <a href="{% url 'AgregarP' %}"> <img class="imgp"
+                                        src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="pleis"></a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 colorXbox p-5 ml-5">
+                        <h3>XBOX</h3>
+                        <div class="row">
+                            <div class="col-md-12"> <a href="{% url 'AgregarX' %}"> <img class="imgp"
+                                        src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="sbos"></a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 colornin p-5 ml-5">
+                        <h3>Nintendo</h3>
+                        <div class="row">
+                            <div class="col-md-12"> <a href="{% url 'AgregarN' %}"> <img class="imgp"
+                                        src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nin"></a></div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3 colorXbox p-5 ml-5">
-                    <h3>XBOX</h3>
-                    <div class="row">
-                        <div class="col-md-12"> <a href="{% url 'AgregarX' %}"> <img
-                                    class="imgp" src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="sbos"></a></div>
-                    </div>
-                </div>
-                <div class="col-md-3 colornin p-5 ml-5">
-                    <h3>Nintendo</h3>
-                    <div class="row">
-                        <div class="col-md-12"> <a href="{% url 'AgregarN' %}"> <img
-                                    class="imgp" src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nin"></a></div>
-                    </div>
-                </div>
-            </div>
                 <div class="row ml-5">
                     <div class="col-sm-10 colostim p-5 ml-5">
                         <h3>STEAM</h3>
                         <div class="row">
-                            <div class="col-md-12"> <a href="{% url 'AgregarPC' %}"> <img
-                                        class="imgp" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="nin"></a></div>
+                            <div class="col-md-12"> <a href="{% url 'AgregarPC' %}"> <img class="imgp"
+                                        src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="nin"></a></div>
                         </div>
                     </div>
                 </div>

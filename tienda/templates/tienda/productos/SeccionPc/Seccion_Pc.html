@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,19 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+    <style>
+        .FondoPici {
+            background-size: 100%;
+            background-image: url("{% static 'tienda/IMG/fondoPC.jpg' %}");
+        }
+
+        @media only screen and (max-width: 1300px) {
+            .FondoPici {
+                background-image: url("{% static 'tienda/IMG/FondoPiciC.jpg' %}");
+                background-size: 100% 100%;
+            }
+        }
+    </style>
 </head>
 
 <body class="FondoPici">
@@ -41,19 +55,19 @@
                                 </li>
                                 <li class="nav-item mt-3"><a href="{% url 'Nosotros' %}" class="nav-link">Nosotros</a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="plei"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nintendo"></a>
+                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}"
+                                            alt="plei"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}"
+                                            alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}"
+                                            alt="nintendo"></a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="Steam"></a>
+                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
+                                            alt="Steam"></a>
                                 </li>
                                 <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
@@ -80,7 +94,8 @@
             <div class="medio">
                 <div class="row ml-5">
                     <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/cyber.html"><img class="imgJ" src="{% static 'tienda/IMG_JuegosS/cyberpunk.jpg' %}" alt="Cyber"></a>
+                        <a href="Juegos/cyber.html"><img class="imgJ"
+                                src="{% static 'tienda/IMG_JuegosS/cyberpunk.jpg' %}" alt="Cyber"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">CyberPunk</span>
                             </div>
@@ -90,7 +105,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/elden.html"><img class="imgJ" src="{% static 'tienda/IMG_JuegosS/Elden.jpg' %}" alt="elden"></a>
+                        <a href="Juegos/elden.html"><img class="imgJ" src="{% static 'tienda/IMG_JuegosS/Elden.jpg' %}"
+                                alt="elden"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Elden Ring</span>
                             </div>
@@ -100,7 +116,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/howar.html"><img class="imgJ" src="{% static 'tienda/IMG_JuegosS/Howar.jpg' %}" alt="Howars"></a>
+                        <a href="Juegos/howar.html"><img class="imgJ" src="{% static 'tienda/IMG_JuegosS/Howar.jpg' %}"
+                                alt="Howars"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Hogwarts Legacy</span>
                             </div>
@@ -110,7 +127,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/phasmo.html"><img class="imgJ" src="{% static 'tienda/IMG_JuegosS/Phasmofobia.jpg' %}" alt="phasmo"></a>
+                        <a href="Juegos/phasmo.html"><img class="imgJ"
+                                src="{% static 'tienda/IMG_JuegosS/Phasmofobia.jpg' %}" alt="phasmo"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Phasmofobia</span>
                             </div>
@@ -120,7 +138,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/project.html"><img class="imgJ" src="{% static 'tienda/IMG_JuegosS/Project.jpg' %}" alt="proj"></a>
+                        <a href="Juegos/project.html"><img class="imgJ"
+                                src="{% static 'tienda/IMG_JuegosS/Project.jpg' %}" alt="proj"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Project Zomboid</span>
                             </div>
@@ -130,7 +149,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/resident.html"><img class="imgJ" src="{% static 'tienda/IMG_JuegosS/Resident.jpg' %}" alt="Residente"></a>
+                        <a href="Juegos/resident.html"><img class="imgJ"
+                                src="{% static 'tienda/IMG_JuegosS/Resident.jpg' %}" alt="Residente"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Resident Evil 4 Remake</span>
                             </div>

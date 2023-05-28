@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,6 +16,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+
+    <style>
+        .fondoEditarP {
+            background-size: 100% 100%;
+            background-image: url("{% static 'tienda/IMG/fondoct.png' %}");
+        }
+
+        @media only screen and (max-width: 1300px) {
+            .fondoEditarP {
+                background-image: url("{% static 'tienda/IMG/fondoIS.jpg' %}");
+            }
+        }
+    </style>
 </head>
 
 <body class="fondoEditarP">
@@ -44,19 +58,19 @@
                                 </li>
                                 <li class="nav-item mt-3"><a href="{% url 'Nosotros' %}" class="nav-link">Nosotros</a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="plei"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nintendo"></a>
+                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}"
+                                            alt="plei"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}"
+                                            alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}"
+                                            alt="nintendo"></a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="Steam"></a>
+                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
+                                            alt="Steam"></a>
                                 </li>
                                 <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>

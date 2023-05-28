@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,19 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+    <style>
+        .FondoPlei {
+            background-size: 100%;
+            background-image: url("{% static 'tienda/IMG/fondoPlay.jpg'}");
+        }
+
+        @media only screen and (max-width: 1300px) {
+            .FondoPlei {
+                background-image: url("{% static 'tienda/IMG/FondoPleiC.jpg' %}");
+                background-size: 100% 100%;
+            }
+        }
+    </style>
 </head>
 
 <body class="FondoPlei">
@@ -41,19 +55,19 @@
                                 </li>
                                 <li class="nav-item mt-3"><a href="{% url 'Nosotros' %}" class="nav-link">Nosotros</a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="plei"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nintendo"></a>
+                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}"
+                                            alt="plei"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}"
+                                            alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}"
+                                            alt="nintendo"></a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="Steam"></a>
+                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
+                                            alt="Steam"></a>
                                 </li>
                                 <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
@@ -82,18 +96,24 @@
                 <div class="col-md-12 colorPL">
                     <form class="centrado" action="{% url '' %}" method="get" id="formAdm">
                         {% csrf_token %}
-                        <label for=""><p class="letra">Nombre Del Juego:</p></label>
-                        <input class=" centrado mr-5" type="text" id="NameGame"  required>
+                        <label for="">
+                            <p class="letra">Nombre Del Juego:</p>
+                        </label>
+                        <input class=" centrado mr-5" type="text" id="NameGame" required>
                         <br>
-                        <label for=""><p class="letra mr-2">Precio:</p></label>
+                        <label for="">
+                            <p class="letra mr-2">Precio:</p>
+                        </label>
                         <input class=" centrado ml-5" type="text" id="PrecioG" required>
                         <br>
 
-                        <label for=""><p class="letra text-left">Descripción:</p></label>
+                        <label for="">
+                            <p class="letra text-left">Descripción:</p>
+                        </label>
                         <br>
                         <textarea id="DescripcionG" class=" ml-5" cols="30" rows="10"></textarea>
                         <br>
-                        <button class="btn btn-dark ml-3 mb-2 " > Agregar Imagen</button>
+                        <button class="btn btn-dark ml-3 mb-2 "> Agregar Imagen</button>
                         <br>
                         <a class="btn btn-dark" href="{% url 'Agregar' %}">Volver</a>
                         <button type="submit" class="btn btn-dark  ml-5">Agregar </button>

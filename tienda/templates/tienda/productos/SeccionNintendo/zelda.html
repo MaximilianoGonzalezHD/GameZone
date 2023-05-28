@@ -12,6 +12,19 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="/CSS/Estilo.css">
+    <style>
+        .FondoNin {
+            background-size: 100%;
+            background-image: url("{% static 'tienda/IMG/FondoNintendo.jpeg' %}");
+        }
+
+        @media only screen and (max-width: 1300px) {
+            .FondoNin {
+                background-image: url("{% static 'tienda/IMG/FondoNinC.jpg' %}");
+                background-size: 100% 100%;
+            }
+        }
+    </style>
 </head>
 
 <body class="FondoNin">
@@ -92,7 +105,7 @@
                                     The Legend of Zelda: Breath of the Wild es un videojuego de acción-aventura de 2017
                                     de la serie The Legend of Zelda, desarrollado por la filial Nintendo EPD en
                                     colaboración con Monolith Soft y publicado por Nintendo para las consolas Wii U y
-                                    Nintendo Switch.  Es la décimo octava entrega de la serie y la tercera en utilizar
+                                    Nintendo Switch. Es la décimo octava entrega de la serie y la tercera en utilizar
                                     gráficos en alta definición. Se lanzó el 3 de marzo de 2017 para Wii U (siendo el
                                     último juego publicado por Nintendo en salir para dicha consola) y Nintendo
                                     Switch.

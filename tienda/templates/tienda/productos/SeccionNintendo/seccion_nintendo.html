@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,19 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+    <style>
+        .FondoNin {
+            background-size: 100%;
+            background-image: url("{% static 'tienda/IMG/FondoNintendo.jpeg' %}");
+        }
+
+        @media only screen and (max-width: 1300px) {
+            .FondoNin {
+                background-image: url("{% static 'tienda/IMG/FondoNinC.jpg' %}");
+                background-size: 100% 100%;
+            }
+        }
+    </style>
 </head>
 
 <body class="FondoNin">
@@ -41,19 +55,19 @@
                                 </li>
                                 <li class="nav-item mt-3"><a href="{% url 'Nosotros' %}" class="nav-link">Nosotros</a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="plei"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nintendo"></a>
+                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}"
+                                            alt="plei"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}"
+                                            alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}"
+                                            alt="nintendo"></a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="Steam"></a>
+                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
+                                            alt="Steam"></a>
                                 </li>
                                 <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
@@ -80,7 +94,8 @@
             <div class="medio">
                 <div class="row ml-5">
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/Kirbo.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Kirby.jpg' %}" alt="kirbo"></a>
+                        <a href="Juegos/Kirbo.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Kirby.jpg' %}"
+                                alt="kirbo"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Kirby y La Tierra Olvidada</span>
                             </div>
@@ -90,7 +105,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/mario.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Mario.jpg' %}" alt="mario"></a>
+                        <a href="Juegos/mario.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Mario.jpg' %}"
+                                alt="mario"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Mario Odyssey</span>
                             </div>
@@ -100,8 +116,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/pokemon.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/pokemon-escarlata.jpg' %}"
-                                alt="poke"></a>
+                        <a href="Juegos/pokemon.html"><img class="imgJ"
+                                src="{% static 'tienda/img_juegosN/pokemon-escarlata.jpg' %}" alt="poke"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Pokemon Escarlata</span>
                             </div>
@@ -111,7 +127,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/smash.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Smash.jpg' %}" alt="smash"></a>
+                        <a href="Juegos/smash.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Smash.jpg' %}"
+                                alt="smash"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Super Smash Ultimate</span>
                             </div>
@@ -121,7 +138,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/zelda.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Zelda.jpg' %}" alt="zelda"></a>
+                        <a href="Juegos/zelda.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Zelda.jpg' %}"
+                                alt="zelda"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Zelda Breath Of The Wild</span>
                             </div>
@@ -131,7 +149,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/zeldaA.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/zeldaA.jpg' %}" alt="zeldaA"></a>
+                        <a href="Juegos/zeldaA.html"><img class="imgJ"
+                                src="{% static 'tienda/img_juegosN/zeldaA.jpg' %}" alt="zeldaA"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">Zelda Link's Awakening</span>
                             </div>

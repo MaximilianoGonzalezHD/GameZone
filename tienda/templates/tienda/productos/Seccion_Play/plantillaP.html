@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,19 +15,20 @@
         crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
     <style>
-    .FondoPlei{
-        background-size:  100%;
-        background-image: url(/IMG/fondoPlay.jpg);
-    }
-    @media only screen and (max-width: 1300px)  { 
-        .FondoPlei { 
-            background-image: url(/IMG/FondoPleiC.jpg);
-            background-size: 100% 100%; 
-        }   
-    }
+        .FondoPlei {
+            background-size: 100%;
+            background-image: url("{% static 'tienda/IMG/fondoPlay.jpg' %}");
+        }
+
+        @media only screen and (max-width: 1300px) {
+            .FondoPlei {
+                background-image: url("{% static 'tienda/IMG/FondoPleiC.jpg' %}");
+                background-size: 100% 100%;
+            }
+        }
     </style>
 
-    
+
 </head>
 
 <body class="FondoPlei">
@@ -56,19 +58,19 @@
                                 </li>
                                 <li class="nav-item mt-3"><a href="{% url 'Nosotros' %}" class="nav-link">Nosotros</a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="plei"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nintendo"></a>
+                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}"
+                                            alt="plei"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}"
+                                            alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}"
+                                            alt="nintendo"></a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="Steam"></a>
+                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
+                                            alt="Steam"></a>
                                 </li>
                                 <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
@@ -93,42 +95,50 @@
                 </div>
             </div>
             <div>
-                <div class="row colorPL">
-                    <div class="col-md-6">
-                        {% block imagenp %}                      
-                        {% endblock imagenp %}
+
+                <div class="col-md-12 STituloPL">
+                    {% block tituloV %}
+                    {% endblock tituloV %}
+                </div>
+                <div class="colorPL">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% block imagenp %}
+                            {% endblock imagenp %}
+                        </div>
                     </div>
-                    </div>
-                    <div class="col-md-6 letraJ " style="border: double white">
-                        {% block tituloV %}
-                        {% endblock tituloV %}
-                        <div row>
-                            <div class="col-md-12 Letraj">
+                    
+
+                        <div class="row">
+                            <div class="col-md-12 mt-2">
                                 <h4>Descripcion:</h4>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                            {% block descripcion %}
-                            {% endblock descripcion %}
+                                {% block descripcion %}
+                                {% endblock descripcion %}
                             </div>
                         </div>
                     </div>
-                    <div class="row ml-auto mr-5">
-                        <div class="col-md-12">{% block precioV %} {% endblock precioV %}</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="letra STituloPL p-2">{% block precioV %} {% endblock precioV %}</h5>
+                        </div>
                     </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-light"><a href="{% url 'Carrito' %}">Añadir Al Carrito</a></button>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-light"><a href="{% url 'Carrito' %}">Añadir Al Carrito</a></button>
-                    </div>
-                    <div class="col-md-6 mt-1">
-                        <button class="btn btn-light"><a href="#">Comprar</a></button>
-                    </div>
+                <div class="col-md-6 mt-1">
+                    <button class="btn btn-light"><a href="#">Comprar</a></button>
+                </div>
 
-                </div>
             </div>
         </div>
+    </div>
     </div>
 
     </div>

@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,6 +17,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+
+    <style>
+        .fondoCambiarC {
+            background-size: 100% 100%;
+            background-image: url("{% static 'tienda/IMG/FondoOC.jpg' %}");
+        }
+
+
+        @media only screen and (max-width: 650px) {
+            .fondoCambiarC {
+                background-image: url("{% static 'tienda/IMG/FondoCel.jpg' %}");
+            }
+        }
+    </style>
 
 </head>
 
@@ -32,19 +47,20 @@
                 <h3 class="text-center" style="color: rgb(255, 255, 255);">Cambiar Contraseña</h3>
                 <div class="centrado ">
                     <form action="{% url '' %}" method="post" id="formCC">
-                    {% csrf_token %}
+                        {% csrf_token %}
                         <label class="letra" for="ContrasenaA">Contraseña Actual:</label>
-                        <input type="text" id="ContrasenaA"required />
+                        <input type="text" id="ContrasenaA" required />
                         <br>
                         <label class="letra" for="NuevaContrasena">Nueva Contraseña:</label>
-                        <input type="password" id="NuevaContrasena"required/>
+                        <input type="password" id="NuevaContrasena" required />
                         <br>
                         <label class="letra" for="ConfirmarContrasena">Confirmar Contraseña:</label>
                         <input type="password" id="ConfirmarContrasena" required />
 
                         <br>
                         <div class="row p-2">
-                            <div class="col-md-6 mb-2"><a class="btn btn-dark" href="{% url 'cuenta' %}">Volver</a></div>
+                            <div class="col-md-6 mb-2"><a class="btn btn-dark" href="{% url 'cuenta' %}">Volver</a>
+                            </div>
                             <div class="col-md-6"><button type="submit" class="btn btn-dark">Cambiar Contraseña</button>
                             </div>
 
