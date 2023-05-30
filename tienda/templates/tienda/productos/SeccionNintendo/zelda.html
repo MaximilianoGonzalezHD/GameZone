@@ -1,152 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'tienda/productos/SeccionNintendo/plantillaN.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nintendo</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <link type="text/css" rel="stylesheet" href="/CSS/Estilo.css">
-    <style>
-        .FondoNin {
-            background-size: 100%;
-            background-image: url("{% static 'tienda/IMG/FondoNintendo.jpeg' %}");
-        }
-
-        @media only screen and (max-width: 1300px) {
-            .FondoNin {
-                background-image: url("{% static 'tienda/IMG/FondoNinC.jpg' %}");
-                background-size: 100% 100%;
-            }
-        }
-    </style>
-</head>
-
-<body class="FondoNin">
-    <div class="container">
-        <div class="centrado">
-            <div class="row mb-5">
-                <div class="col-xl-12 row mb-4">
-                    <div class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: red;">
-                        <a href="/Inicio/tienda.html" class="navbar-brand mt-3">
-                            <h3 style="color: white;">G<span style="color: rgb(0, 0, 0);">Z</span></h3>
-                        </a>
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#onenavbar">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="onenavbar">
-                            <ul class="navbar-nav">
-                                <li class="nav-item mt-3"><a href="/Inicio/tienda.html" class="nav-link">Tienda</a></li>
-                                <li class="nav-item dropdown mt-3">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cuenta</a>
-                                    <div class="dropdown-menu">
-                                        <a href="/Inicio/Cuenta.html" class="dropdown-item">Mi Perfil</a>
-                                        <a href="inicio_sesion.html" class="dropdown-item">Cerrar Sesión</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item mt-3"><a href="/Inicio/Nosotros.html" class="nav-link">Nosotros</a>
-                                </li>
-                                <li class="nav-item"><a href="/productos/Seccion_Play/seccion_playstation.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/iconoplei.png"
-                                            alt="plei"></a></li>
-                                <li class="nav-item"><a href="/productos/Seccion_Xbox/seccion_xbox.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/iconoxbos.png"
-                                            alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="/productos/SeccionNintendo/seccion_nintendo.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/NS_logo.png"
-                                            alt="nintendo"></a></li>
-                                <li class="nav-item"><a href="/productos/SeccionPC/Seccion_Pc.html"
-                                        class="nav-link"><img class="imgiconav" src="/IMG/Iconos IMG/steam-logo.png"
-                                            alt="Steam"></a></li>
-                                <li class="nav-item mt-2"><a href="/productos/carrito.html"><img class="imgiconav"
-                                            src="/IMG/Iconos IMG/icon_carrito.png" alt="carro"></a></li>
-                            </ul>
-                            <form class="form-inline ml-auto mt-3" action="#">
-                                <input type="text" class="form-control" placeholder="Buscar">
-                                <button type="button" class="btn btn-outline-light">Buscar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 mt-4">
-                    <h2 class="TituloN">Game<span style="color: rgb(255, 0, 0);">Zone</span> </h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="STituloN">Nintendo</h2>
-                </div>
-            </div>
-            <div>
-                <div class="row colornin">
-                    <div class="col-md-6"><img class="imgpj" src="/productos/SeccionNintendo/img_juegosN/Zelda.jpg"
-                            alt="zelda">
+{% block titulo %}
+<title></title>
+{% endblock titulo %}
 
 
-                    </div>
-                    <div class="col-md-6 letraJ" style="border: double rgb(238, 1, 1)">
-                        <h2>Zelda Breath Of The Wild</h2>
-                        <div row>
-                            <div class="col-md-12 Letraj">
-                                <h4>Descripcion:</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="letraj">
-                                    The Legend of Zelda: Breath of the Wild es un videojuego de acción-aventura de 2017
-                                    de la serie The Legend of Zelda, desarrollado por la filial Nintendo EPD en
-                                    colaboración con Monolith Soft y publicado por Nintendo para las consolas Wii U y
-                                    Nintendo Switch. Es la décimo octava entrega de la serie y la tercera en utilizar
-                                    gráficos en alta definición. Se lanzó el 3 de marzo de 2017 para Wii U (siendo el
-                                    último juego publicado por Nintendo en salir para dicha consola) y Nintendo
-                                    Switch.
+{% block imagenp %}
+<img class="imgpj" src="{% static 'tienda/IMG_JUEGOS/Blood.jpg' %}" alt="blood">
+{% endblock imagenp %}
 
-                                    El jugador controla a Link, que despierta en un mundo postapocalíptico después de
-                                    estar cien años durmiendo para derrotar a Ganon y salvar al reino de Hyrule. A
-                                    diferencia de los otros títulos predecesores de la serie, el juego presenta un mundo
-                                    abierto que le permite al jugador encontrar distintas maneras de completar un
-                                    objetivo y que la historia pueda ser completada de forma no lineal.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row ml-auto mr-5">
-                        <div class="col-md-12">
-                            <h5 class="letraj">precio: 150.000$</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-danger"><a href="/productos/carrito.html"><span class="letra">Añadir al
-                                    carrito</span></a></button>
-                    </div>
-                    <div class="col-md-6 mt-1">
-                        <button class="btn btn-danger"><a href="/productos/carrito.html"><span
-                                    class="letra">Comprar</span> </a></button>
-                    </div>
+{% block tituloV %}
+<h3 class="STituloN">Bloodborne</h3>
+{% endblock tituloV %}
 
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-</body>
+{% block descripcion %}
+<p class="letra">
+    Bloodborne es un videojuego de rol de acción dirigido por Hidetaka Miyazaki,
+    desarrollado
+    por From Software y JapanStudio distribuido por Sony Computer Entertainment para la
+    plataforma de PlayStation 4 El videojuego sigue las acciones
+    del personaje del jugador, el Cazador, a través de Yharnam, una ciudad ficticia de
+    estilo victoriano, cuyos habitantes han sido afectados con una enfermedad de
+    transmisión sanguínea anormal. Al despertar en Yharnam durante la noche de «la caza»
+    tras recibir un
+    tratamiento de la conocida «sangre milagrosa», el Cazador busca algo conocido solo
+    como paleblood ("sangre pálida" en español) para terminar la cacería.</p>
+{% endblock descripcion %}
 
-</html>
+{% block precioV %}
+precio: 20.000$
+{% endblock precioV %}   
