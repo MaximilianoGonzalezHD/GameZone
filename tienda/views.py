@@ -65,11 +65,12 @@ def Cambiar_Contrasena(request):
 #Paginas Administrativas
 def Administracion(request):
     return render(request, 'tienda/admin/Administracion.html')
-
-#Seccion agregar
 def Agregar(request):
     return render(request, 'tienda/admin/Agregar.html')
+def Listado(request):
+    return render(request, 'tienda/admin/Listado.html')
 
+#Seccion agregar
 def AgregarN(request):
     return render(request, 'tienda/admin/Secciones/AgregarN.html')
 
@@ -83,9 +84,9 @@ def AgregarX(request):
     return render(request, 'tienda/admin/Secciones/AgregarX.html')
 
 
-#Eliminar Productos
-def Eliminar(request):
-    return render(request, 'tienda/admin/Eliminar.html')
+#Modificar Usuarios
+def ModificarU(request):
+    return render(request, 'tienda/admin/ModificarU.html')
 #modificar Productos
 def Modificar(request):
     return render(request, 'tienda/admin/Modificar.html')

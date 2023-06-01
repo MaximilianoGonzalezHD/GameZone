@@ -87,14 +87,14 @@
             </div>
         </div>
         <div class="centrado colorP p-2">
-            <form action="" method="get" id="form" class="form-box login">
+            <form action="" method="POST" id="form" class="form-box login">
                 {% csrf_token %}
                 <div class="input-box mr-1">
-                    <label>Email</label>
+                    <label for="correoI">Email</label>
                     <input id="correoI" type="email" required>
                 </div>
                 <div class="input-box mr-5">
-                    <label>Contraseña</label>
+                    <label for="contrasenaI">Contraseña</label>
                     <input id="contrasenaI" type="password" required>
 
                 </div>

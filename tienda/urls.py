@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Eliminar,Modificar,seccion_playstation,bloodborne,seccion_nintendo,zelda,seccion_Xbox,haloi,seccion_Pc,cyber,carrito
+from .views import tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,ModificarU,Modificar,seccion_playstation,bloodborne,seccion_nintendo,zelda,seccion_Xbox,haloi,seccion_Pc,cyber,carrito,Listado
  
 
 
@@ -38,8 +38,9 @@ urlpatterns = [
     path('Agregar/Xbox/',AgregarX,name="AgregarX"),
     path('Agregar/Playstation/',AgregarP,name="AgregarP"),
     path('Agregar/Steam',AgregarPC,name="AgregarPC"),
-    path('Eliminar/',Eliminar,name="Eliminar"),
-    path('Modificar/',Modificar,name="Modificar"),
+    path('Listado/',Listado,name="Listado"),
+    path('Lista_Usuario/',ModificarU,name="ModificarU"),
+    path('Lista_Videojuegos/',Modificar,name="Modificar"),
 
 
     #seccion play

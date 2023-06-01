@@ -42,38 +42,39 @@
             </div>
         </div>
 
-        <div class="row colorP">
-            <div class="col-md-12">
-                <h3 class="text-center" style="color: rgb(255, 255, 255);">Cambiar Contraseña</h3>
-                <div class="centrado ">
-                    <form action="{% url '' %}" method="post" id="formCC">
-                        {% csrf_token %}
-                        <label class="letra" for="ContrasenaA">Contraseña Actual:</label>
-                        <input type="text" id="ContrasenaA" required />
-                        <br>
-                        <label class="letra" for="NuevaContrasena">Nueva Contraseña:</label>
-                        <input type="password" id="NuevaContrasena" required />
-                        <br>
-                        <label class="letra" for="ConfirmarContrasena">Confirmar Contraseña:</label>
-                        <input type="password" id="ConfirmarContrasena" required />
-
-                        <br>
-                        <div class="row p-2">
-                            <div class="col-md-6 mb-2"><a class="btn btn-dark" href="{% url 'cuenta' %}">Volver</a>
-                            </div>
-                            <div class="col-md-6"><button type="submit" class="btn btn-dark">Cambiar Contraseña</button>
-                            </div>
-
-                        </div>
-                    </form>
+        <div class="form-row colorP">
+            <h3 class="text-center" style="color: rgb(255, 255, 255);">Cambiar Contraseña</h3>
+            <form action="{% url '' %}" method="POST" id="formCC">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="letra" for="ContrasenaA">Contraseña Actual:</label>
+                    <input type="text" id="ContrasenaA" required />
                 </div>
-            </div>
+                <div class="form-group">
+                    <label class="letra" for="NuevaContrasena">Nueva Contraseña:</label>
+                    <input type="password" id="NuevaContrasena" required />
+                </div>
+                <div class="form-group">
+                    <label class="letra" for="ConfirmarContrasena">Confirmar Contraseña:</label>
+                    <input type="password" id="ConfirmarContrasena" required />
+                </div>
+                <br>
+                <div class="row p-2">
+                    <div class="col-md-6 mb-2"><a class="btn btn-dark" href="{% url 'cuenta' %}">Volver</a>
+                    </div>
+                    <div class="col-md-6"><button type="submit" class="btn btn-dark">Cambiar Contraseña</button>
+                    </div>
+
+                </div>
+            </form>
+
         </div>
-        <div class="row">
-            <div class="col-md-12 col-sm-12  mt-1">
-                <p class="STitulo p-3" id="warnings"></p>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12  mt-1">
+            <p class="STitulo p-3" id="warnings"></p>
         </div>
+    </div>
     </div>
     <script src="{% static 'tienda/JS/Validacion_Contra.js' %}"></script>
 

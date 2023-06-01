@@ -92,34 +92,40 @@
                     <h2 class="STituloST">Agregar Productos:</h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 colostim">
-                    <form class="centrado" method="POST" action="{% url '' %}" id="formAPC">
-                        {% csrf_token %}
-                        <label for="">
+            <div class="form-row">
+                <form class="centrado" action="{% url '' %}" method="POST" enctype="multipart/form-data" name="formPc">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="NameGame">
                             <p class="letra">Nombre Del Juego:</p>
                         </label>
-                        <input class=" centrado mr-5" type="text" id="NameGame" required>
-                        <br>
-                        <label for="">
+                        <input class=" form-control mr-5" type="text" id="NameGame" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PrecioG">
                             <p class="letra mr-2">Precio:</p>
                         </label>
-                        <input class=" centrado ml-5" type="text" id="PrecioG" required>
-                        <br>
-
+                        <input class=" form-control ml-5" type="text" id="PrecioG" required>
+                    </div>
+                    <div class="form-group">
                         <label for="">
                             <p class="letra text-left">Descripción:</p>
                         </label>
-                        <br>
-                        <textarea id="DescripcionG" class=" ml-5" cols="30" rows="10"></textarea>
-                        <br>
-                        <button class="btn btn-dark ml-3 mb-2 "> Agregar Imagen</button>
-                        <br>
+                        <textarea id="DescripcionG" class="form-control ml-5" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="FotoV">Imagen Del Videojuego</label>
+                        <input type="file" class="form-control" id="FotoV" name="foto">
+                    </div>
+                    <div class="form-group">
+                        <label for="SeccionV">Sección:</label>
+                        <input type="text" id="SeccionV" class="form-control" name="SeccionV" value="" readonly>
+                    </div>
+                    <div class="form-group">
                         <a class="btn btn-dark" href="{% url 'Agregar' %}">Volver</a>
                         <button type="submit" class="btn btn-dark  ml-5">Agregar </button>
-                    </form>
-
-                </div>
+                    </div>
+                </form>
             </div>
 
 

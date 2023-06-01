@@ -88,36 +88,43 @@
         </div>
         <hr>
         <div class="centrado colorP p-2">
-            <div class="row">
-                <div class="col-md-12">
-                    <form method="POST" action="" id="formR">
-                        {% csrf_token %}
+            <div class="form-row">
+                <form method="POST" action="" id="formR">
+                    {% csrf_token %}
+                    <div class="form-group">
                         <label class="Letra mr-3 mb-3 mr-4" for="email">Correo Electronico:</label>
                         <input type="email" id="emailR" placeholder="Ingrese Correo.." required>
-                        <br>
+                    </div>
+                    <div class="form-group">
                         <label class="Letra mr-3 mb-3 mr-4" for="Nombre">Nombre de Usuario:</label>
                         <input type="text" id="NombreR" placeholder="Ingrese Nuevo Usuario..." required>
-                        <br>
+                    </div>
+                    <div class="form-group">
+                        <label for="NombreR">Nombre(Opcional):</label>
+                        <input type="text" id="NombreR" placeholder="Ingrese Su Nombre">
+                    </div>
+                    <div class="form-group">
                         <label class="Letra mr-3 mb-3 mr-5" for="Contrasena">Crear Contraseña:</label>
                         <input type="password" id="ContrasenaR" placeholder="Ingrese Contraseña..." required>
-                        <br>
+                    </div>
+                    <div class="form-group">
                         <label class="Letra mr-3 mb-3" for="ConfirmContrasena">Confirmar Contraseña:</label>
                         <input type="password" id="ConfirmContrasenaR" placeholder="Confirme Su contraseña..." required>
-
-                        <br>
-                        <a href="{% url 'inicio_sesion' %}">Ya tengo una Cuenta...</a>
-                        <br>
-                        <button type="submit" class="btn btn-dark mt-2">Crear Cuenta</button>
-                    </form>
-                </div>
-
+                    </div>
+                    <br>
+                    <a href="{% url 'inicio_sesion' %}">Ya tengo una Cuenta...</a>
+                    <br>
+                    <button type="submit" class="btn btn-dark mt-2">Crear Cuenta</button>
+                </form>
             </div>
+
         </div>
-        <div class="row">
-            <div class="col-md-12 col-sm-12  mt-1">
-                <p class="STitulo p-3" id="warnings"></p>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12  mt-1">
+            <p class="STitulo p-3" id="warnings"></p>
         </div>
+    </div>
     </div>
     </div>
 
