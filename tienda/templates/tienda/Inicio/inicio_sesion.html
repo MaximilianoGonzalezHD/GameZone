@@ -91,11 +91,11 @@
                 {% csrf_token %}
                 <div class="input-box mr-1">
                     <label for="correoI">Email</label>
-                    <input id="correoI" type="email" required>
+                    <input id="correoI" type="email" name="correoI" required>
                 </div>
                 <div class="input-box mr-5">
                     <label for="contrasenaI">Contraseña</label>
-                    <input id="contrasenaI" type="password" required>
+                    <input id="contrasenaI" type="password" name="contrasenaI" required>
 
                 </div>
                 <a href="{% url 'olvide_contrasena' %}">Olvide Mi Contraseña...</a>

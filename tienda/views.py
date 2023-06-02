@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Compra,Detallesc,Videojuegos,Seccion,Usuario,Rol
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import authenticate,login, logout
+from django.contrib import messages
 # Create your views here.
 #Paginas Principales
 def tienda(request):
@@ -51,6 +55,13 @@ def registrarUsuario(request):
 
     Usuario.objects.create(emailu = emailus, nombre_usuariou = nombreuser,
                            contrasenau = contrau, nombreu = nombreus, rol = registroRol )
+    user = User.objects.create_user(email='email',
+                                    username = 'NombreR',
+                                    password = 'ContrasenaR'
+                                        )
+    user.is_staff = False
+    user.is_active = True
+    user.save()
     return redirect('inicio_sesion')
 
 def olvide_contrasena(request):
@@ -60,8 +71,20 @@ def Nosotros(request):
     return render(request, 'tienda/inicio/Nosotros.html')
 
 def inicio_sesion(request):
-    return render(request, 'tienda/inicio/inicio_sesion.html')
+    email1 = request.POST['correoI']
+    contrasena1 = request.POST['contrasenaI']
 
+    try:
+        user1 = User.objects.get(email = email1)
+    except User.DoesNotExist:
+        messages.error(request,'El Email o La contraseña es incorrecto')
+        return redirect('inicio_sesion')
+    contra_valida = check_password(contrasena1, user1.password)
+    if not contra_valida:
+        messages.error('El Email o La contraseña es incorrecto')
+        return redirect('inicio_sesion')
+    return render(request, 'tienda/inicio/inicio_sesion.html')
+    
 def editarPerfil(request):
     return render(request, 'tienda/inicio/editarPerfil.html')
 
