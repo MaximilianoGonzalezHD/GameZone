@@ -94,33 +94,33 @@
                 </div>
             </div>
             <div class="form-row colornin">
-                <form  class="col" action="" method="POST" enctype="multipart/form-data" name="formN">
+                <form  class="col" action="{% url 'AgregarNintendo' %}" method="POST" enctype="multipart/form-data" name="formN">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="NameGameN">
                             <p class="letra">Nombre Del Juego:</p>
                         </label>
-                        <input class="centrado form-control " type="text" id="NameGameN" required>
+                        <input class="centrado form-control " type="text" id="NameGameN" name="NameGameN" placeholder="Ingrese Nombre De Videojuego.." required>
                     </div>
                     <div class=" form-group">
                         <label for="PrecioN">
                             <p class="letra mr-2">Precio del Videojuego:</p>
                         </label>
-                        <input class="centrado form-control " type="text" id="PrecioN" required>
+                        <input class="centrado form-control " type="number" id="PrecioN" name="PrecioN" placeholder="Ingrece Precio..." required>
                     </div>
                     <div class="form-group">
                         <label for="DescripcionN">
                             <p class="letra">Descripción:</p>
                         </label>
-                        <textarea id="DescripcionN" class="form-control " cols="30" rows="10" required></textarea>
+                        <textarea id="DescripcionN" name="DescripcionN" class="form-control centrado" cols="30" rows="10" placeholder="Ingrese Decripción..." required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="FotoVN">Imagen Del Videojuego</label>
-                        <input type="file" class="centrado form-control" id="FotoVN" name="foto" required>
+                        <input type="file" class="centrado form-control" id="FotoVN" name="FotoVN" required>
                     </div>
                     <div class="form-group">
-                        <label for="SeccionVN">Sección:</label>
-                        <input type="text" id="SeccionV" class="centrado form-control" name="SeccionVN" value="" readonly>
+                        <label for="SeccionVN">ID De La Sección:</label>
+                        <input type="text" id="SeccionV" class="centrado form-control" name="SeccionVN" value="{{ Nintendo }}" readonly>
                     </div>
                     <div class="form-group">
                         <a class="btn btn-dark" href="{% url 'Agregar' %}">Volver</a>

@@ -93,33 +93,33 @@
                 </div>
             </div>
             <div class="form-row colorPL">
-                <form  class="col" action="" method="POST" enctype="multipart/form-data" name="formP">
+                <form  class="col" action="{% url 'AgregarPlaystation' %}" method="POST" enctype="multipart/form-data" name="formP">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="NameGameP">
                             <p class="letra">Nombre Del Juego:</p>
                         </label>
-                        <input class="centrado form-control " type="text" id="NameGameP" required>
+                        <input class="centrado form-control " type="text" id="NameGameP" name="NameGameP" placeholder="Ingrese Nombre De Videojuego.." required>
                     </div>
                     <div class=" form-group">
                         <label for="PrecioP">
                             <p class="letra mr-2">Precio del Videojuego:</p>
                         </label>
-                        <input class="centrado form-control " type="text" id="PrecioP" required>
+                        <input class="centrado form-control " type="number" id="PrecioP" name="PrecioP" placeholder="Ingrece Precio..." required>
                     </div>
                     <div class="form-group">
                         <label for="DescripcionP">
                             <p class="letra">Descripción:</p>
                         </label>
-                        <textarea id="DescripcionP" class="form-control " cols="30" rows="10" required></textarea>
+                        <textarea id="DescripcionP" name="DescripcionP" class="form-control centrado " cols="30" rows="10" placeholder="Ingrese Decripción..." required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="FotoP">Imagen Del Videojuego</label>
-                        <input type="file" class="centrado form-control" id="FotoP" name="foto" required>
+                        <input type="file" class="centrado form-control" id="FotoP" name="fotoP" required>
                     </div>
                     <div class="form-group">
-                        <label for="SeccionVP">Sección:</label>
-                        <input type="text" id="SeccionVP" class="centrado form-control" name="SeccionVP" value="" readonly>
+                        <label for="SeccionVP">ID De La Sección:</label>
+                        <input type="text" id="SeccionVP" class="centrado form-control" name="SeccionVP" value="{{ Playstation }}" readonly>
                     </div>
                     <div class="form-group">
                         <a class="btn btn-dark" href="{% url 'Agregar' %}">Volver</a>

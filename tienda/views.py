@@ -1,5 +1,5 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from .models import Compra,Detallesc,Videojuegos,Seccion,Usuario,Rol
 # Create your views here.
 #Paginas Principales
 def tienda(request):
@@ -72,17 +72,81 @@ def Listado(request):
 
 #Seccion agregar
 def AgregarN(request):
-    return render(request, 'tienda/admin/Secciones/AgregarN.html')
+    nin = 1
+    contexto = {
+        "Nintendo": nin
+    }
+    return render(request, 'tienda/admin/Secciones/AgregarN.html',contexto)
+def AgregarNintendo(request):
+    nombreN = request.POST['NameGameN']
+    descripcionN = request.POST['DescripcionN']
+    precioN = request.POST['PrecioN']
+    imagenN = request.FILES['FotoVN']
+    seccionN = request.POST['SeccionVN']
+    
+    registroSeccionN = Videojuegos.objects.get(id_seccions = seccionN)
+
+    Videojuegos.objects.create(nombrev = nombreN, descripcion = descripcionN,
+                               precio = precioN, imagenv = imagenN, seccion = registroSeccionN)
+    return redirect(AgregarN)
+
 
 def AgregarP(request):
-    return render(request, 'tienda/admin/Secciones/AgregarP.html')
+    Play = 2
+    contexto = {
+        "Playstation": Play
+    }
+    return render(request, 'tienda/admin/Secciones/AgregarP.html', contexto)
+def AgregarPlaystation(request):
+    nombreP = request.POST['NameGameP']
+    descripcionP = request.POST['DescripcionP']
+    precioP = request.POST['PrecioP']
+    imagenP = request.FILES['fotoP']
+    seccionP = request.POST['SeccionVP']
+    
+    registroSeccionP = Seccion.objects.get(id_seccions = seccionP)
+
+    Videojuegos.objects.create(nombrev = nombreP, descripcion = descripcionP,
+                               precio = precioP, imagenv = imagenP, seccion = registroSeccionP)
+    return redirect(AgregarP)
 
 def AgregarPC(request):
-    return render(request, 'tienda/admin/Secciones/AgregarPC.html')
+    Compu = 4
+    contexto = {
+        "PC": Compu
+    }
+    return render(request, 'tienda/admin/Secciones/AgregarPC.html',contexto)
+def AgregarPCJuego(request):
+    nombrePC = request.POST['NameGamePc']
+    descripcionPC = request.POST['DescripcionPc']
+    precioPC = request.POST['PrecioPc']
+    imagenPC = request.FILES['FotoPc']
+    seccionPC = request.POST['SeccionVPC']
+    
+    registroSeccionPC = Seccion.objects.get(id_seccions = seccionPC)
+
+    Videojuegos.objects.create(nombrev = nombrePC, descripcion = descripcionPC,
+                               precio = precioPC, imagenv = imagenPC, seccion = registroSeccionPC)
+    return redirect(AgregarPC)
 
 def AgregarX(request):
-    return render(request, 'tienda/admin/Secciones/AgregarX.html')
+    Xbo = 3
+    contexto = {
+        "Xbox": 3
+    }
+    return render(request, 'tienda/admin/Secciones/AgregarX.html',contexto)
+def AgregarXbox(request):
+    nombreX = request.POST['NameGameX']
+    descripcionX = request.POST['DescripcionX']
+    precioX = request.POST['PrecioX']
+    imagenX = request.FILES['FotoX']
+    seccionX = request.POST['SeccionVX']
+    
+    registroSeccionX = Videojuegos.objects.get(id_seccions = seccionX)
 
+    Videojuegos.objects.create(nombrev = nombreX, descripcion = descripcionX,
+                               precio = precioX, imagenv = imagenX, seccion = registroSeccionX)
+    return redirect(AgregarX)
 
 #Modificar Usuarios
 def ModificarU(request):

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,ModificarU,Modificar,seccion_playstation,bloodborne,seccion_nintendo,zelda,seccion_Xbox,haloi,seccion_Pc,cyber,carrito,Listado
+from .views import AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,ModificarU,Modificar,seccion_playstation,bloodborne,seccion_nintendo,zelda,seccion_Xbox,haloi,seccion_Pc,cyber,carrito,Listado
  
 
 
@@ -34,10 +34,20 @@ urlpatterns = [
     #Admin
     path('Administracion/',Administracion,name="Administracion"),
     path('Agregar/',Agregar,name="Agregar"),
+
     path('Agregar/Nintendo/',AgregarN,name="AgregarN"),
+    path('AgregarNintendo/',AgregarNintendo,name="AgregarNintendo"),
+
     path('Agregar/Xbox/',AgregarX,name="AgregarX"),
+    path('AgregarXbox/',AgregarXbox,name="AgregarXbox"),
+
     path('Agregar/Playstation/',AgregarP,name="AgregarP"),
+    path('AgregarPlaystation/',AgregarPlaystation,name="AgregarPlaystation"),
+
     path('Agregar/Steam',AgregarPC,name="AgregarPC"),
+    path('AgregarPCJuego/',AgregarPCJuego,name="AgregarPCJuego"),
+
+
     path('Listado/',Listado,name="Listado"),
     path('Lista_Usuario/',ModificarU,name="ModificarU"),
     path('Lista_Videojuegos/',Modificar,name="Modificar"),
