@@ -77,7 +77,7 @@
                                 </li>
                             </ul>
                             <form class="form-inline ml-auto mt-3" action="#">
-                                <input type="text" class="form-control" placeholder="Buscar">
+                                <input type="text" class="form-control" value="Buscar">
                                 <button type="button" class="btn btn-outline-light">Buscar</button>
                             </form>
                         </div>
@@ -92,52 +92,37 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="STitulo">Mi Cuenta</h3>
+                    <h3 class="STitulo">Editar Perfil</h3>
                 </div>
             </div>
-            <div class="colorF p-4">
-                <form action="{% url '' %}" method="post">
+            <div class="form-container colorP">
+                <form class="col centrado" method="POST" action="{% url '' %}" id="formR">
                     {% csrf_token %}
-                    <div class="row mb-2">
-                        <div class="col-md-9 ">
-                            <img class="imgp perfilb " src="{% static 'tienda/IMG/FotoP.jpg' %}" alt="yo">
-                        </div>
-                        <div class="row-md-2 ml-5">
-                            <div class="col-md-4 mb-5 "><a class="btn btn-dark perfilb "
-                                    href="{% url 'Cambiar_Contrasena' %}">Cambiar Contraseña</a></div>
-                            <div class="col-md-4 mb-5 "><button type="submit" class="btn btn-dark perfilb">Guardar
-                                    Cambios</button></div>
-                            <div class="col-md-4 "><a class="btn btn-dark perfilb ml-2" href="#">Borrar Cuenta</a></div>
-
-                        </div>
+                    <div class="form-element mr-3">
+                        <label class="Letra" for="email">Correo Electronico:</label>
+                        <input type="email" id="email" name="email" value="" required>
                     </div>
-                    <div class="row mb-2 mr-2">
-                        <div class="col-md-9"><button class="btn-dark perfilb"> Cambiar Imagen</button></div>
+                    <div class="form-element mr-4">
+                        <label class="Letra" for="NombreR">Nombre de Usuario:</label>
+                        <input type="text" id="NombreR" name="NombreR" value="" required>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-md-3 ">
-                            <span class="letra ">Nuevo Nombre De Usuario:</span>
-                        </div>
-
-                        <div class="col-md-3"><input class="perfilb" type="text" title="NuevoName" name="NuevoName"
-                                required>
-                        </div>
+                    <div class="form-element mr-4">
+                        <label for="NameOp">Nombre(Opcional):</label>
+                        <input type="text" id="NameOp" name="NameOp" value="" required>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-md-3">
-                            <span class="letra">Nuevo Email:</span>
-                        </div>
-                        <div class="col-md-3"><input class="perfilb" type="text" title="NuevoEmail" name="NuevoEmail"
-                                required>
-                        </div>
+                    <div class="form-element mr-3">
+                        <label class="Letra" for="ContrasenaR">Crear Contraseña:</label>
+                        <input type="password" id="ContrasenaR" name="ContrasenaR" value="" required>
                     </div>
-                    <div class="row ">
-                        <div class="col-md-3">
-                            <span class="letra">Nuevo Nombre:</span>
-                        </div>
-                        <div class="col-md-3"><input class="perfilb" type="text" title="NuevoNombrer"
-                                name="NuevoNombrer"></div>
+                    <div class="form-element mr-5">
+                        <label class="Letra" for="ConfirmContrasenaR">Confirmar Contraseña:</label>
+                        <input type="password" id="ConfirmContrasenaR" value="" required>
                     </div>
+                    <div class="form-element mr-5">
+    
+                        <input type="number" id="rolu" name="rolu" value="1" hidden readonly>
+                    </div>
+                    <button type="submit" class="btn btn-dark mt-2">Modificar Cuenta</button>
                 </form>
             </div>
 
