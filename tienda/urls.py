@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,ModificarU,Modificar,seccion_playstation,bloodborne,seccion_nintendo,zelda,seccion_Xbox,haloi,seccion_Pc,cyber,carrito,Listado
+from .views import registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,bloodborne,seccion_nintendo,zelda,seccion_Xbox,haloi,seccion_Pc,cyber,carrito,Listado
  
 
 
@@ -23,6 +23,7 @@ urlpatterns = [
     #Paginas Principales
     path('',tienda,name="tienda"),
     path('registro/',registro,name="registro"),
+    path('registrarUsuario',registrarUsuario,name="registrarUsuario" ),
     path('olvide_contrasena/',olvide_contrasena,name="olvide_contrasena"),
     path('Nosotros/',Nosotros,name="Nosotros"),
     path('inicio_sesion/',inicio_sesion,name="inicio_sesion"),
@@ -47,11 +48,14 @@ urlpatterns = [
     path('Agregar/Steam',AgregarPC,name="AgregarPC"),
     path('AgregarPCJuego/',AgregarPCJuego,name="AgregarPCJuego"),
 
+    path('EliminarVideoJuego/<id>',EliminarVideoJuego,name="EliminarVideoJuego"),
+    path('EliminarUsuario/<id>',EliminarUsuario,name="EliminarUsuario"),
 
     path('Listado/',Listado,name="Listado"),
-    path('Lista_Usuario/',ModificarU,name="ModificarU"),
-    path('Lista_Videojuegos/',Modificar,name="Modificar"),
-
+    path('Listado_Usuarios/',Listado_Usuarios,name="Listado_Usuarios"),
+    path('Listado_Videojuegos/',Listado_Videojuegos,name="Listado_Videojuegos"),
+    path('Modificar/<id>',Modificar,name="Modificar"),
+    path('ModificarJuego',ModificarJuego,name="ModificarJuego"),
 
     #seccion play
     path('playstation/',seccion_playstation,name="seccion_playstation"),

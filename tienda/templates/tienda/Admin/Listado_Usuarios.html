@@ -73,7 +73,7 @@
                                 </li>
                             </ul>
                             <form class="form-inline ml-auto mt-3" action="#">
-                                <input type="text" class="form-control" value="Buscar">
+                                <input type="text" class="form-control" placeholder="Buscar">
                                 <button type="button" class="btn btn-outline-light">Buscar</button>
                             </form>
                         </div>
@@ -88,58 +88,40 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="STituloN">Agregar Productos:</h2>
+                    <h2 class="STitulo">Listado Usuarios:</h2>
                 </div>
             </div>
-            <div class="form-row colornin">
-                <form  class="col" action="{% url 'ModificarJuego'  %}" method="POST" enctype="multipart/form-data" name="formN">
-                    {% csrf_token %}
-                    <div class=" form-group">
-                        <label for="PrecioN">
-                            <p class="letra mr-2">ID del VideoJuego :</p>
-                        </label>
-                        <input class="centrado form-control " type="number" id="IDV" name="IDV" value="{{ datos.id_juego }}" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <label for="NameGameN">
-                            <p class="letra">Nombre Del Juego:</p>
-                        </label>
-                        <input class="centrado form-control " type="text" id="NameGameV" name="NameGameV" value="{{ datos.nombrev }}" required>
-                    </div>
-                    <div class=" form-group">
-                        <label for="PrecioN">
-                            <p class="letra mr-2">Precio del Videojuego:</p>
-                        </label>
-                        <input class="centrado form-control " type="number" id="PrecioV" name="PrecioV" value="{{ datos.precio }}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="DescripcionN">
-                            <p class="letra">Descripción:</p>
-                        </label>
-                        <textarea id="DescripcionV" name="DescripcionV" class="form-control centrado" cols="30" rows="10" value="{{ datos.descripcion }}" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="FotoVN">Imagen Del Videojuego</label>
-                        <input type="file" class="centrado form-control" id="FotoV" name="FotoV" value="{{ datos.imagenv }}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Sección</label>
-                       <select class="form-control centrado" name="seccionV" id="seccionV">
-                            {% for s in ListadoS %}
-                                {% if s.id_seccions == datos.seccion.id_seccions %}
-                                    <option value="{{ s.id_seccions }}" selected>{{ s.nombres }}</option>
-                                {% else %}
-                                    <option value="{{ s.id_seccions }}" readonly>{{ s.nombres }}</option>
-                                {% endif %}
-                            {% endfor %}
-                       </select>
-                    </div>
-                    <div class="form-group">
-                        <a class="btn btn-dark" href="{% url 'Listado' %}">Volver</a>
-                        <button type="submit" class="btn btn-dark  ">Modificar</button>
-                    </div>
-                </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped table-hover  letra">
+                        <tr>
+                            <th>ID</th>
+                            <th>Email</th>
+                            <th>Nombre De Usuario</th>
+                            <th>Nombre</th>
+                            <th>Rol</td>
+                            <th>Acciones</th>
+                        </tr>
+
+                        {% for u in listadoUsuarios %}
+                        <tr>
+                            <td>{{ u.id_usuariou }}</td>
+                            <td>{{ u.emailu }}</td>
+                            <td>{{ u.nombre_usuariou }}</td>
+                            <td>{{ u.nombreu }}</td>
+                            <td alt="No tiene Rol">{{ u.rol.nombrer }}</td>
+                            <td>
+                                <a href="{% url 'EliminarUsuario' u.id_usuariou %}" class="btn btn-danger">Eliminar</a>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+                </div>
             </div>
+
+
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

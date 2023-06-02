@@ -88,36 +88,37 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="STitulo">Modificar Usuario:</h2>
+                    <h2 class="STitulo">Modificar Juegos:</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-striped table-hover  letra">
                         <tr>
-                            <th>ID</th>
                             <th>Foto</th>
-                            <th>Email</th>
-                            <th>Nombre De Usuario</th>
-                            <th>Rol</td>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                            <th>Seccion</td>
                             <th>Acciones</th>
                         </tr>
 
-                        {% for m in listadoMascota %}
+                        {% for v in listadoVideojuegos %}
                         <tr>
-                            <td>{{ m.codigoChip }}</td>
-                            <td>EMAIL</td>
-                            <td>{{ m.nombreMascota }}</td>
-                            <td></td>
                             <td>
 
-                                <img src="{{ m.foto.url }}" alt="No foto">
+                                <img src="{{ v.imagenv.url }}" alt="No foto">
 
                             </td>
-                            <td>{{ m.raza.nombreRaza }}</td>
+                            <td>{{ v.id_juego }}</td>
+                            <td>{{ v.nombrev }}</td>
+                            <td>{{ v.descripcion }}</td>
+                            <td>{{ v.precio }}</td>
+                            <td>{{ v.seccion.nombres }}</td>
                             <td>
-                                <a href="" class="btn btn-primary">Modificar</a><br>
-                                <a href="" class="btn btn-danger">Eliminar</a>
+                                <a href="{% url 'Modificar' v.id_juego %}" class="btn btn-primary">Modificar</a><br>
+                                <a href="{% url 'EliminarVideoJuego' v.id_juego %}" class="mt-4 btn btn-danger">Eliminar</a>
                             </td>
 
                         </tr>
@@ -126,6 +127,12 @@
                     </table>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-dark btn-block perfilb" href="{% url 'Listado' %}">Volver</a>
+                </div>
+            </div>
+
 
         </div>
     </div>

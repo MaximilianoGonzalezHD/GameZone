@@ -87,27 +87,31 @@
 
         <hr>
         <div class="form-container colorP">
-            <form class="col centrado" method="POST" action="" id="formR">
+            <form class="col centrado" method="POST" action="{% url 'registrarUsuario' %}" id="formR">
                 {% csrf_token %}
                 <div class="form-element mr-3">
                     <label class="Letra" for="email">Correo Electronico:</label>
-                    <input type="email" id="emailR" placeholder="Ingrese Correo.." required>
+                    <input type="email" id="email" name="email" placeholder="Ingrese Correo.." required>
                 </div>
                 <div class="form-element mr-4">
-                    <label class="Letra" for="Nombre">Nombre de Usuario:</label>
-                    <input type="text" id="NombreR" placeholder="Ingrese Nuevo Usuario..." required>
+                    <label class="Letra" for="NombreR">Nombre de Usuario:</label>
+                    <input type="text" id="NombreR" name="NombreR" placeholder="Ingrese Nuevo Usuario..." required>
                 </div>
                 <div class="form-element mr-4">
-                    <label for="NombreR">Nombre(Opcional):</label>
-                    <input type="text" id="NombreR" placeholder="Ingrese Su Nombre" required>
+                    <label for="NameOp">Nombre(Opcional):</label>
+                    <input type="text" id="NameOp" name="NameOp" placeholder="Ingrese Su Nombre" required>
                 </div>
                 <div class="form-element mr-3">
-                    <label class="Letra" for="Contrasena">Crear Contraseña:</label>
-                    <input type="password" id="ContrasenaR" placeholder="Ingrese Contraseña..." required>
+                    <label class="Letra" for="ContrasenaR">Crear Contraseña:</label>
+                    <input type="password" id="ContrasenaR" name="ContrasenaR" placeholder="Ingrese Contraseña..." required>
                 </div>
                 <div class="form-element mr-5">
-                    <label class="Letra" for="ConfirmContrasena">Confirmar Contraseña:</label>
+                    <label class="Letra" for="ConfirmContrasenaR">Confirmar Contraseña:</label>
                     <input type="password" id="ConfirmContrasenaR" placeholder="Confirme Su contraseña..." required>
+                </div>
+                <div class="form-element mr-5">
+
+                    <input type="number" id="rolu" name="rolu" value="1" hidden readonly>
                 </div>
                 <br>
                 <a href="{% url 'inicio_sesion' %}">Ya tengo una Cuenta...</a>

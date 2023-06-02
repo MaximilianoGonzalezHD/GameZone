@@ -40,6 +40,18 @@ def cyber(request):
 #Paginas iniciales
 def registro(request):
     return render(request, 'tienda/inicio/registro.html')
+def registrarUsuario(request):
+    emailus = request.POST['email']
+    nombreuser = request.POST['NombreR']
+    contrau = request.POST['ContrasenaR']
+    nombreus = request.POST['NameOp']
+    rolu = request.POST['rolu']
+
+    registroRol = Rol.objects.get(id_rolr = rolu)
+
+    Usuario.objects.create(emailu = emailus, nombre_usuariou = nombreuser,
+                           contrasenau = contrau, nombreu = nombreus, rol = registroRol )
+    return redirect('inicio_sesion')
 
 def olvide_contrasena(request):
     return render(request, 'tienda/inicio/olvide_contrasena.html')
@@ -84,7 +96,7 @@ def AgregarNintendo(request):
     imagenN = request.FILES['FotoVN']
     seccionN = request.POST['SeccionVN']
     
-    registroSeccionN = Videojuegos.objects.get(id_seccions = seccionN)
+    registroSeccionN = Seccion.objects.get(id_seccions = seccionN)
 
     Videojuegos.objects.create(nombrev = nombreN, descripcion = descripcionN,
                                precio = precioN, imagenv = imagenN, seccion = registroSeccionN)
@@ -132,7 +144,7 @@ def AgregarPCJuego(request):
 def AgregarX(request):
     Xbo = 3
     contexto = {
-        "Xbox": 3
+        "Xbox": Xbo
     }
     return render(request, 'tienda/admin/Secciones/AgregarX.html',contexto)
 def AgregarXbox(request):
@@ -142,15 +154,65 @@ def AgregarXbox(request):
     imagenX = request.FILES['FotoX']
     seccionX = request.POST['SeccionVX']
     
-    registroSeccionX = Videojuegos.objects.get(id_seccions = seccionX)
+    registroSeccionX = Seccion.objects.get(id_seccions = seccionX)
 
     Videojuegos.objects.create(nombrev = nombreX, descripcion = descripcionX,
                                precio = precioX, imagenv = imagenX, seccion = registroSeccionX)
     return redirect(AgregarX)
 
 #Modificar Usuarios
-def ModificarU(request):
-    return render(request, 'tienda/admin/ModificarU.html')
+def Listado_Usuarios(request):
+    listado = Usuario.objects.all()
+    contexto = {
+        "listadoUsuarios":listado
+    }
+
+    return render(request, 'tienda/admin/Listado_Usuarios.html',contexto)
+
+def EliminarUsuario(request,id):
+    user = Usuario.objects.get(id_usuariou = id)
+    user.delete()
+    return redirect('Listado_Usuarios')
+
 #modificar Productos
-def Modificar(request):
-    return render(request, 'tienda/admin/Modificar.html')
+def Modificar(request, id):
+    Videojuego = Videojuegos.objects.get(id_juego = id)
+    listado = Seccion.objects.all()
+    contexto = {
+        "datos": Videojuego,
+        "ListadoS": listado
+    }
+    return render(request, 'tienda/admin/Modificar.html',contexto)
+
+def ModificarJuego(request):
+    v_id = request.POST['IDV']
+    nombrev = request.POST['NameGameV']
+    descripcionv = request.POST['DescripcionV']
+    preciov = request.POST['PrecioV']
+    imagenvid = request.FILES['FotoV']
+    seccionv = request.POST['SeccionV']
+
+    videojuego = Videojuegos.objects.get(id_juego = v_id)
+    seccionvi = Seccion.objects.get(id_seccions = seccionv)
+    videojuego.nombrev = nombrev
+    videojuego.descripcion = descripcionv
+    videojuego.precio = preciov
+    videojuego.imagenv = imagenvid
+    videojuego.seccion = seccionvi
+
+    videojuego.save()
+    return redirect('Listado_Videojuegos')
+
+def Listado_Videojuegos(request):
+    listado = Videojuegos.objects.all()
+    contexto = {
+        "listadoVideojuegos":listado
+    }
+    return render(request, 'tienda/admin/Listado_Videojuegos.html',contexto)
+
+#Eliminar VideoJuegos
+def EliminarVideoJuego(request,id):
+    videojuego = Videojuegos.objects.get(id_juego = id)
+    videojuego.delete()
+    return redirect('Listado_Videojuegos')
+
