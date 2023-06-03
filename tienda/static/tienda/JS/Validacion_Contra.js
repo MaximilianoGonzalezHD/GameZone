@@ -1,16 +1,23 @@
 $(document).ready(function(){
     $("#formCC").submit(function(e){
         
-
+        var caracteres = "!@#$%^&*()_+{}:\"<>?|=[];',./`~";
+        var mayusuculamin = /^(?=.*[A-Z])/;
         var contrasenar = $("#NuevaContrasena").val();
         var confcontrasenar = $("#ConfirmarContrasena").val();
     
         var mostrarmsj = "Advertencia:";
         let enviar = false;
     
-    
+        if(!caracteres.test(contrasenar)){
+            mostrarmsj += "<br>- La contraseña debe tener minimo un caracter especial"
+        }
+        if(!mayusuculamin.test(contrasenar)){
+            mostrarmsj += "<br>- La contraseña debe tener minimo una letra en MAYUSCULA"
+            enviar = true;
+        }
         if (contrasenar.trim().length < 4 || contrasenar.trim().length > 10) {
-            mostrarmsj += "<br>- La nueva contraseña debe tener entre 4 y 10 caracteres";
+            mostrarmsj += "<br>- La nueva contraseña debe tener entre 4 y 20 caracteres";
             enviar = true;
         }
     
@@ -20,11 +27,7 @@ $(document).ready(function(){
         }
         
     
-        var letra = contrasenar.trim().charAt(0);
-        if (!esMayuscula(letra)) {
-            mostrarmsj += "<br>- La primera letra de la contraseña debe ser mayúscula para mas seguridad";
-            enviar = true;
-            }
+        
         if (enviar) {
             $("#warnings").html(mostrarmsj);
             e.preventDefault();
