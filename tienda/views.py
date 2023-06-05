@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout
 from django.contrib import messages
+from django.db import IntegrityError
 # Create your views here.
 #Paginas Principales
 def tienda(request):
@@ -45,24 +46,40 @@ def cyber(request):
 def registro(request):
     return render(request, 'tienda/inicio/registro.html')
 def registrarUsuario(request):
-    emailus = request.POST['email']
-    nombreuser = request.POST['NombreR']
-    contrau = request.POST['ContrasenaR']
-    nombreus = request.POST['NameOp']
-    rolu = request.POST['rolu']
+    if request.method == 'POST':
+        emailus = request.POST['email']
+        nombreuser = request.POST['NombreR']
+        contrau = request.POST['ContrasenaR']
+        nombreus = request.POST['NameOp']
+        rolu = request.POST['rolu']
 
-    registroRol = Rol.objects.get(id_rolr = rolu)
+        try:
+            registroRol = Rol.objects.get(id_rolr=rolu)
+        except Rol.DoesNotExist:
+            messages.error(request, 'El rol seleccionado no existe')
+            return redirect('registro')
 
-    Usuario.objects.create(emailu = emailus, nombre_usuariou = nombreuser,
-                           contrasenau = contrau, nombreu = nombreus, rol = registroRol )
-    user = User.objects.create_user(email='email',
-                                    username = 'NombreR',
-                                    password = 'ContrasenaR'
-                                        )
-    user.is_staff = False
-    user.is_active = True
-    user.save()
-    return redirect('inicio_sesion')
+        try:
+            # Verificar si ya existe un usuario con el mismo correo electrónico
+            if User.objects.filter(email=emailus).exists():
+                messages.error(request, 'Ya existe un usuario con ese correo electrónico')
+                return redirect('registro')
+
+            usuario = Usuario.objects.create(emailu=emailus, nombre_usuariou=nombreuser,
+                                            contrasenau=contrau, nombreu=nombreus, rol=registroRol)
+            usuario.save()
+
+            user = User.objects.create_user(email=emailus, username=nombreuser, password=contrau)
+            user.is_staff = False
+            user.is_active = True
+            user.save()
+
+            return redirect('inicio_sesion')
+        except IntegrityError:
+            messages.error(request, 'Error al crear el usuario')
+            return redirect('registro')
+
+    return render(request, 'registro.html')
 
 def olvide_contrasena(request):
     return render(request, 'tienda/inicio/olvide_contrasena.html')
@@ -71,18 +88,23 @@ def Nosotros(request):
     return render(request, 'tienda/inicio/Nosotros.html')
 
 def inicio_sesion(request):
-    email1 = request.POST['correoI']
-    contrasena1 = request.POST['contrasenaI']
+    if request.method == 'POST':
+        email1 = request.POST.get('emaili')
+        contrasena1 = request.POST.get('contrasenaI')
 
-    try:
-        user1 = User.objects.get(email = email1)
-    except User.DoesNotExist:
-        messages.error(request,'El Email o La contraseña es incorrecto')
-        return redirect('inicio_sesion')
-    contra_valida = check_password(contrasena1, user1.password)
-    if not contra_valida:
-        messages.error('El Email o La contraseña es incorrecto')
-        return redirect('inicio_sesion')
+        try:
+            user1 = User.objects.get(email=email1)
+        except User.DoesNotExist:
+            messages.error(request, 'El Email o La contraseña es incorrecto')
+            return redirect('inicio_sesion')
+        
+        if user1.check_password(contrasena1):
+            login(request, user1)
+            return redirect('tienda')  # Redirecciona a la página de inicio después del inicio de sesión exitoso
+        else:
+            messages.error(request, 'El Email o La contraseña es incorrecto')
+            return redirect('inicio_sesion')
+
     return render(request, 'tienda/inicio/inicio_sesion.html')
     
 def editarPerfil(request):
