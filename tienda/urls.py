@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,bloodborne,seccion_nintendo,zelda,seccion_Xbox,haloi,seccion_Pc,cyber,carrito,Listado
+from .views import eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,bloodborne,seccion_nintendo,zelda,seccion_Xbox,haloi,seccion_Pc,cyber,carrito,Listado
  
 
 
@@ -27,6 +27,8 @@ urlpatterns = [
     path('olvide_contrasena/',olvide_contrasena,name="olvide_contrasena"),
     path('Nosotros/',Nosotros,name="Nosotros"),
     path('inicio_sesion/',inicio_sesion,name="inicio_sesion"),
+    path('cerrar_sesion/',cerrar_sesion,name="cerrar_sesion"),
+    path('eliminar_usuarios/',eliminar_usuarios,name="eliminar_usuarios"),
     path('editar_Perfil/',editarPerfil,name="editarPerfil"),
     path('Cuenta/',Cuenta,name="Cuenta"),
     path('Colaboracion/',Colaboracion,name="Colaboracion"),

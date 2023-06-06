@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect
 from .models import Compra,Detallesc,Videojuegos,Seccion,Usuario,Rol
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
-from django.contrib.auth import authenticate,login, logout
+from django.contrib.auth import authenticate,login, logout 
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.contrib import messages
 from django.db import IntegrityError
+
 # Create your views here.
 #Paginas Principales
 def tienda(request):
@@ -60,7 +63,6 @@ def registrarUsuario(request):
             return redirect('registro')
 
         try:
-            # Verificar si ya existe un usuario con el mismo correo electrónico
             if User.objects.filter(email=emailus).exists():
                 messages.error(request, 'Ya existe un usuario con ese correo electrónico')
                 return redirect('registro')
@@ -80,6 +82,11 @@ def registrarUsuario(request):
             return redirect('registro')
 
     return render(request, 'registro.html')
+@login_required
+def eliminar_usuarios(request):
+    usuarios = User.objects.all()
+    usuarios.delete()
+    return HttpResponse("Usuarios eliminados correctamente")
 
 def olvide_contrasena(request):
     return render(request, 'tienda/inicio/olvide_contrasena.html')
@@ -89,23 +96,30 @@ def Nosotros(request):
 
 def inicio_sesion(request):
     if request.method == 'POST':
-        email1 = request.POST.get('emaili')
-        contrasena1 = request.POST.get('contrasenaI')
+        email = request.POST.get('emaili')
+        contrasena = request.POST.get('contrasenaI')
 
-        try:
-            user1 = User.objects.get(email=email1)
-        except User.DoesNotExist:
-            messages.error(request, 'El Email o La contraseña es incorrecto')
-            return redirect('inicio_sesion')
-        
-        if user1.check_password(contrasena1):
-            login(request, user1)
-            return redirect('tienda')  # Redirecciona a la página de inicio después del inicio de sesión exitoso
+        # Autenticación del usuario
+        user = authenticate(request, email=email, password=contrasena)
+
+        if user is not None:
+            if user.is_superuser:
+                # Inicio de sesión del superusuario
+                login(request, user)
+                return redirect('tienda')
+            else:
+                # Inicio de sesión del usuario normal
+                login(request, user)
+                return redirect('tienda')
         else:
             messages.error(request, 'El Email o La contraseña es incorrecto')
             return redirect('inicio_sesion')
 
     return render(request, 'tienda/inicio/inicio_sesion.html')
+
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('inicio_sesion')
     
 def editarPerfil(request):
     return render(request, 'tienda/inicio/editarPerfil.html')

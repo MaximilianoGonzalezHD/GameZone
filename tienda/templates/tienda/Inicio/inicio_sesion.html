@@ -86,6 +86,7 @@
                 <h2 class="Titulo">Iniciar Sesión</h2>
             </div>
         </div>
+        
         <div class="centrado colorP p-2">
             <form action="{% url 'inicio_sesion' %}" method="POST" id="form" class="form-box login">
                 {% csrf_token %}
@@ -110,6 +111,20 @@
                 <p class="STitulo" id="mensajeAlert"></p>
             </div>
         </div>
+        {% if messages %}
+        <div class="row">
+            <div class="col-md-12 centrado colorP">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }} letra " {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
+
+            </div>
+        </div>
+        {% endif %}
 
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
