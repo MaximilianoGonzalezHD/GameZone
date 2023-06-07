@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.utils import timezone
 
 # Create your models here.
 class Rol (models.Model):
@@ -42,19 +43,22 @@ class Videojuegos (models.Model):
     def __str__(self) -> str:
             return self.nombrev
 
-class Detallesc (models.Model):
-    id_detallesc = models.AutoField(primary_key=True)
-    subtotal = models.FloatField (verbose_name='Subtotal de la compra')
-    cantidad = models.IntegerField(verbose_name='cantidad de productos')
-    id_juego = models.ForeignKey(Videojuegos, on_delete=models.CASCADE)
 
-
-class Compra (models.Model):
+class Compra(models.Model):
     id_comprac = models.AutoField(primary_key=True)
-    fechac = models.DateField(verbose_name='Fecha de compra')
-    rutc = models.CharField(max_length=16)
-    totalc = models.IntegerField(verbose_name='Total De la Compra')
-    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    id_detalles = models.ForeignKey(Detallesc, on_delete=models.CASCADE)
-    def __str__(self) -> str:
-        return self.fechac
+    fechac = models.DateField(verbose_name='Fecha de compra', default=timezone.now)
+    rutc = models.CharField(max_length=16, default=None)
+    totalc = models.IntegerField(verbose_name='Total de la compra',default=None)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE,default=None)
+    def __str__(self):
+        return f'Compra {self.id_comprac}'
+
+class Detallesc(models.Model):
+    id_detallesc = models.AutoField(primary_key=True)
+    subtotal = models.FloatField(verbose_name='Subtotal de la compra',default=None)
+    cantidad = models.IntegerField(verbose_name='Cantidad de productos',default=None)
+    videojuego = models.ForeignKey(Videojuegos, on_delete=models.CASCADE,default=None)
+    compra = models.ForeignKey(Compra, on_delete=models.CASCADE,default=None)
+    def __str__(self):
+        return f'Detallesc {self.id_detallesc} - Compra {self.compra.id_comprac}'
+    
