@@ -1,0 +1,23 @@
+{% extends 'tienda/productos/SeccionPc/plantillaPc.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>{{ producto.nombrev }}</title>
+{% endblock titulo %}
+
+
+{% block imagenp %}
+<img class="imgpj" src="{{ producto.imagenv.url }}" alt="blood">
+{% endblock imagenp %}
+
+{% block tituloV %}
+    {{ producto.nombrev }}
+{% endblock tituloV %}
+
+{% block descripcion %}
+    {{ producto.descripcion }}
+{% endblock descripcion %}
+
+{% block precioV %}
+precio: {{ producto.precio }} $
+{% endblock precioV %}   

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,16 +14,17 @@
         crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
     <style>
-        .FondoPlei{
-    background-size:  100%;
-    background-image: url("{% static 'tienda/IMG/fondoPlay.jpg' %}");
-}
-@media only screen and (max-width: 1300px)  { 
-	.FondoPlei { 
-		background-image: url("{% static 'tienda/IMG/FondoPleiC.jpg' %}");
-        background-size: 100% 100%; 
-	}   
-}
+        .FondoPlei {
+            background-size: 100%;
+            background-image: url("{% static 'tienda/IMG/fondoPlay.jpg' %}");
+        }
+
+        @media only screen and (max-width: 1300px) {
+            .FondoPlei {
+                background-image: url("{% static 'tienda/IMG/FondoPleiC.jpg' %}");
+                background-size: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -53,19 +55,19 @@
                                 </li>
                                 <li class="nav-item mt-3"><a href="{% url 'Nosotros' %}" class="nav-link">Nosotros</a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}" alt="plei"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}" alt="XBOS"></a></li>
-                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}" alt="nintendo"></a>
+                                <li class="nav-item"><a href="{% url 'seccion_playstation' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoplei.png' %}"
+                                            alt="plei"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_Xbox' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/iconoxbos.png' %}"
+                                            alt="XBOS"></a></li>
+                                <li class="nav-item"><a href="{% url 'seccion_nintendo' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/NS_logo.png' %}"
+                                            alt="nintendo"></a>
                                 </li>
-                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}"
-                                        class="nav-link"><img class="imgiconav"
-                                            src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}" alt="Steam"></a>
+                                <li class="nav-item"><a href="{% url 'Seccion_Pc' %}" class="nav-link"><img
+                                            class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
+                                            alt="Steam"></a>
                                 </li>
                                 <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
@@ -91,70 +93,23 @@
             </div>
             <div class="medio">
                 <div class="row ml-5">
+                    {% for p in producto_playstation %}
                     <div class="col-md-3 colorPL ml-5">
-                        <a href="{% url 'bloodborne' %}"><img class="imgJ" src="{% static 'tienda/IMG_JUEGOS/Blood.jpg' %}" alt="blood"></a>
+                        <a href="{% url 'mostrar_producto' producto_slug=p.slug %}"><img class="imgJ"
+                                src="{{ p.imagenv.url }}" alt="Juego"></a>
                         <div class="row">
-                            <div class="col-md-12"><span class="letraJ">BloodBorne</span>
+                            <div class="col-md-12"><span class="letraJ">{{ p.nombrev }}</span>
                             </div>
                             <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 20.000$</span></div>
+                                <div class="col-md-12"><span class="letraJ">{{ p.precio }}</span></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 colorPL ml-5">
-                        <a href="Juegos/last_2.html"><img class="imgJ" src="{% static 'tienda/IMG_JUEGOS/Thelast2.jpg' %}" alt="last2"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">The Last Of us Parte 2</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 30.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colorPL ml-5">
-                        <a href="Juegos/last.html"><img class="imgJ" src="{% static 'tienda/IMG_JUEGOS/Thelast.jpg' %}" alt="last"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">The Last Of uS Remastered</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 10.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colorPL ml-5">
-                        <a href="Juegos/demonS.html"><img class="imgJ" src="{% static 'tienda/IMG_JUEGOS/demon.jpg' %}" alt="Demon"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Demon Souls</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 20.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colorPL ml-5">
-                        <a href="Juegos/God_of_war.html"><img class="imgJ" src="{% static 'tienda/IMG_JUEGOS/god.jpeg' %}" alt="God"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">God Of War</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 10.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colorPL ml-5">
-                        <a href="Juegos/godR.html"><img class="imgJ" src="{% static 'tienda/IMG_JUEGOS/godR.jpg' %}" alt="GodR"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">God Of War Ragnarok</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 25.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

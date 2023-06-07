@@ -93,75 +93,23 @@
             </div>
             <div class="medio">
                 <div class="row ml-5">
-                    <div class="col-md-3 colostim ml-5">
-                        <a href="{% url 'cyber' %}"><img class="imgJ"
-                                src="{% static 'tienda/IMG_JuegosS/cyberpunk.jpg' %}" alt="Cyber"></a>
+                    {% for p in producto %}
+                    <div class="col colostim ml-5">
+                        <a href="{% url 'mostrar_producto' producto_slug=p.slug %}"><img class="imgJ"
+                                src="{{ p.imagenv.url }}" alt="Juego"></a>
                         <div class="row">
-                            <div class="col-md-12"><span class="letraJ">CyberPunk</span>
+                            <div class="col-md-12"><span class="letraJ">{{ p.nombrev }}</span>
                             </div>
                             <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 8.000$</span></div>
+                                <div class="col-md-12"><span class="letraJ">{{ p.precio }}</span></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/elden.html"><img class="imgJ" src="{% static 'tienda/IMG_JuegosS/Elden.jpg' %}"
-                                alt="elden"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Elden Ring</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 25.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/howar.html"><img class="imgJ" src="{% static 'tienda/IMG_JuegosS/Howar.jpg' %}"
-                                alt="Howars"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Hogwarts Legacy</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 25.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/phasmo.html"><img class="imgJ"
-                                src="{% static 'tienda/IMG_JuegosS/Phasmofobia.jpg' %}" alt="phasmo"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Phasmofobia</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 7.500$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/project.html"><img class="imgJ"
-                                src="{% static 'tienda/IMG_JuegosS/Project.jpg' %}" alt="proj"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Project Zomboid</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 7.500$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colostim ml-5">
-                        <a href="Juegos/resident.html"><img class="imgJ"
-                                src="{% static 'tienda/IMG_JuegosS/Resident.jpg' %}" alt="Residente"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Resident Evil 4 Remake</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 30.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

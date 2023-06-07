@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 # Create your models here.
 class Rol (models.Model):
@@ -9,8 +10,8 @@ class Rol (models.Model):
 
 class Usuario (models.Model):
     id_usuariou = models.AutoField(primary_key=True)
-    emailu = models.CharField(max_length=20)
-    nombre_usuariou = models.CharField(max_length=15)
+    emailu = models.CharField(max_length=30)
+    nombre_usuariou = models.CharField(max_length=20)
     contrasenau = models.CharField(max_length=15)
     nombreu = models.CharField(blank=True,max_length=30)
     imagenu = models.ImageField(blank=True,verbose_name="Imagen De Usuario",upload_to="ImagenUser")
@@ -28,10 +29,16 @@ class Seccion (models.Model):
 class Videojuegos (models.Model):
     id_juego = models.AutoField(primary_key=True)
     nombrev = models.CharField(max_length=30)
-    descripcion = models.CharField(max_length=300)
+    descripcion = models.CharField(max_length=800)
     precio = models.FloatField(verbose_name='Precio de videojuegos')
     imagenv = models.ImageField(blank=True,verbose_name="Imagen de videojuegos", upload_to="ImagenVideojuegos")
     seccion = models.ForeignKey(Seccion, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, default=slugify(nombrev))
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.nombrev)
+        super().save(*args, **kwargs)
+
     def __str__(self) -> str:
             return self.nombrev
 

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,bloodborne,seccion_nintendo,zelda,seccion_Xbox,haloi,seccion_Pc,cyber,carrito,Listado
+from .views import mostrar_producto,eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,seccion_nintendo,seccion_Xbox,seccion_Pc,carrito,Listado
  
 
 
@@ -61,21 +61,21 @@ urlpatterns = [
 
     #seccion play
     path('playstation/',seccion_playstation,name="seccion_playstation"),
-    path('playstation/bloodborne/',bloodborne,name="bloodborne"),
-
+    
     #Seccion Xbox
     path('Xbox/',seccion_Xbox,name="seccion_Xbox"),
-    path('Xbox/haloInfinite/',haloi,name="haloi"),
 
     #seccion nintendo 
     path('nintendo/',seccion_nintendo,name="seccion_nintendo"),
-    path('nintendo/zelda/',zelda,name="zelda"),
 
     #Seccion Pc
     path('Steam/',seccion_Pc,name="Seccion_Pc"),
-    path('Steam/Cyberpunk/',cyber,name="cyber"),
+
 
     #Carrito
     path('Carrito/',carrito,name="Carrito"),
+
+    #Productos
+    path('producto/<slug:producto_slug>/',mostrar_producto,name='mostrar_producto'),
 
 ]

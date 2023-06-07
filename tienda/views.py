@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from .models import Compra,Detallesc,Videojuegos,Seccion,Usuario,Rol
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
 from django.db import IntegrityError
+from django.utils.text import slugify
 
 # Create your views here.
 #Paginas Principales
@@ -15,32 +16,54 @@ def tienda(request):
 
 #Secciones
 def seccion_playstation(request):
-    return render(request,'tienda/productos/Seccion_Play/seccion_playstation.html')
+    productos_playstation = Videojuegos.objects.filter(seccion = 2)
+
+    contexto = {
+        "producto_playstation": productos_playstation
+    }
+    return render(request,'tienda/productos/Seccion_Play/seccion_playstation.html',contexto)
 
 def seccion_Xbox(request):
-    return render(request,'tienda/productos/Seccion_Xbox/seccion_xbox.html')
+    productos_xbox = Videojuegos.objects.filter(seccion = 3)
+
+    contexto = {
+        "producto": productos_xbox
+    }
+    return render(request,'tienda/productos/Seccion_Xbox/seccion_xbox.html',contexto)
 
 def seccion_nintendo(request):
-    return render(request,'tienda/productos/SeccionNintendo/seccion_nintendo.html')
+    productos_nintendo = Videojuegos.objects.filter(seccion = 1)
+
+    contexto = {
+        "producto": productos_nintendo
+    }
+    return render(request,'tienda/productos/SeccionNintendo/seccion_nintendo.html',contexto)
 
 def seccion_Pc(request):
-    return render(request,'tienda/productos/SeccionPc/Seccion_Pc.html')
+    productos_pc = Videojuegos.objects.filter(seccion = 4)
+
+    contexto = {
+        "producto": productos_pc
+    }
+    return render(request,'tienda/productos/SeccionPc/Seccion_Pc.html',contexto)
 
 def carrito(request):
     return render(request,'tienda/productos/carrito.html')
 
-#productos play
-def bloodborne(request):
-    return render(request,'tienda/productos/Seccion_Play/bloodborne.html')
-#Productos Xbox
-def haloi(request):
-    return render(request,'tienda/productos/Seccion_Xbox/haloi.html')
-#Productos nintendo
-def zelda(request):
-    return render(request,'tienda/productos/SeccionNintendo/zelda.html')
-#Productos PC
-def cyber(request):
-    return render(request,'tienda/productos/SeccionPc/cyber.html')
+#Productos
+def mostrar_producto(request, producto_slug):
+    producto = get_object_or_404(Videojuegos, slug=producto_slug)
+
+    if producto.seccion.nombres == 'Playstation':
+        return render(request, 'tienda/productos/Seccion_Play/productoPlaystation.html', {'producto': producto})
+    elif producto.seccion.nombres == 'Xbox':
+        return render(request, 'tienda/productos/Seccion_Xbox/productoXbox.html', {'producto': producto})
+    elif producto.seccion.nombres == 'Nintendo':
+        return render(request, 'tienda/productos/SeccionNintendo/productoNintendo.html', {'producto': producto})
+    elif producto.seccion.nombres == 'PC':
+        return render(request, 'tienda/productos/SeccionPc/productoPc.html', {'producto': producto})
+    else:
+        return redirect('tienda') 
 
 
 
@@ -157,8 +180,11 @@ def AgregarNintendo(request):
     
     registroSeccionN = Seccion.objects.get(id_seccions = seccionN)
 
-    Videojuegos.objects.create(nombrev = nombreN, descripcion = descripcionN,
+    videojuego = Videojuegos.objects.create(nombrev = nombreN, descripcion = descripcionN,
                                precio = precioN, imagenv = imagenN, seccion = registroSeccionN)
+    
+    videojuego.slug = slugify(videojuego.nombrev)
+    videojuego.save()
     return redirect(AgregarN)
 
 
@@ -177,8 +203,11 @@ def AgregarPlaystation(request):
     
     registroSeccionP = Seccion.objects.get(id_seccions = seccionP)
 
-    Videojuegos.objects.create(nombrev = nombreP, descripcion = descripcionP,
+    videojuego = Videojuegos.objects.create(nombrev = nombreP, descripcion = descripcionP,
                                precio = precioP, imagenv = imagenP, seccion = registroSeccionP)
+
+    videojuego.slug = slugify(videojuego.nombrev)
+    videojuego.save()
     return redirect(AgregarP)
 
 def AgregarPC(request):
@@ -196,8 +225,10 @@ def AgregarPCJuego(request):
     
     registroSeccionPC = Seccion.objects.get(id_seccions = seccionPC)
 
-    Videojuegos.objects.create(nombrev = nombrePC, descripcion = descripcionPC,
+    videojuego = Videojuegos.objects.create(nombrev = nombrePC, descripcion = descripcionPC,
                                precio = precioPC, imagenv = imagenPC, seccion = registroSeccionPC)
+    videojuego.slug = slugify(videojuego.nombrev)
+    videojuego.save()
     return redirect(AgregarPC)
 
 def AgregarX(request):
@@ -215,8 +246,11 @@ def AgregarXbox(request):
     
     registroSeccionX = Seccion.objects.get(id_seccions = seccionX)
 
-    Videojuegos.objects.create(nombrev = nombreX, descripcion = descripcionX,
+    videojuego = Videojuegos.objects.create(nombrev = nombreX, descripcion = descripcionX,
                                precio = precioX, imagenv = imagenX, seccion = registroSeccionX)
+    
+    videojuego.slug = slugify(videojuego.nombrev)
+    videojuego.save()
     return redirect(AgregarX)
 
 #Modificar Usuarios
@@ -244,23 +278,29 @@ def Modificar(request, id):
     return render(request, 'tienda/admin/Modificar.html',contexto)
 
 def ModificarJuego(request):
-    v_id = request.POST['IDV']
-    nombrev = request.POST['NameGameV']
-    descripcionv = request.POST['DescripcionV']
-    preciov = request.POST['PrecioV']
-    imagenvid = request.FILES['FotoV']
-    seccionv = request.POST['SeccionV']
+    if request.method == 'POST':
+        v_id = request.POST.get('IDV')
+        nombrev = request.POST.get('NameGameV')
+        descripcionv = request.POST.get('DescripcionV')
+        preciov = request.POST.get('PrecioV')
+        imagenvid = request.FILES.get('FotoV')
+        seccionv2 = request.POST.get('seccionV')
 
-    videojuego = Videojuegos.objects.get(id_juego = v_id)
-    seccionvi = Seccion.objects.get(id_seccions = seccionv)
-    videojuego.nombrev = nombrev
-    videojuego.descripcion = descripcionv
-    videojuego.precio = preciov
-    videojuego.imagenv = imagenvid
-    videojuego.seccion = seccionvi
+        videojuego = Videojuegos.objects.get(id_juego=v_id)
+        seccionvi = Seccion.objects.get(id_seccions=seccionv2)
+        videojuego.nombrev = nombrev
+        videojuego.descripcion = descripcionv
+        videojuego.precio = preciov
 
-    videojuego.save()
-    return redirect('Listado_Videojuegos')
+        if imagenvid:
+            videojuego.imagenv = imagenvid
+
+        videojuego.seccion = seccionvi
+
+        videojuego.save()
+        return redirect('Listado_Videojuegos')
+
+    return HttpResponse('Método no permitido')
 
 def Listado_Videojuegos(request):
     listado = Videojuegos.objects.all()

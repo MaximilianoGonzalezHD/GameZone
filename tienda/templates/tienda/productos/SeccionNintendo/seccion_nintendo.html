@@ -92,76 +92,23 @@
                 </div>
             </div>
             <div class="medio">
-                <div class="row ml-5">
-                    <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/Kirbo.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Kirby.jpg' %}"
-                                alt="kirbo"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Kirby y La Tierra Olvidada</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 150.000$</span></div>
-                            </div>
+                {% for p in producto %}
+                <div class="col colornin ml-5">
+                    <a href="{% url 'mostrar_producto' producto_slug=p.slug %}"><img class="imgJ"
+                            src="{{ p.imagenv.url }}" alt="Juego"></a>
+                    <div class="row">
+                        <div class="col-md-12"><span class="letraJ">{{ p.nombrev }}</span>
                         </div>
-                    </div>
-                    <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/mario.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Mario.jpg' %}"
-                                alt="mario"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Mario Odyssey</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 150.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/pokemon.html"><img class="imgJ"
-                                src="{% static 'tienda/img_juegosN/pokemon-escarlata.jpg' %}" alt="poke"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Pokemon Escarlata</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 150.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/smash.html"><img class="imgJ" src="{% static 'tienda/img_juegosN/Smash.jpg' %}"
-                                alt="smash"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Super Smash Ultimate</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 150.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colornin ml-5">
-                        <a href="{% url 'zelda' %}"><img class="imgJ" src="{% static 'tienda/img_juegosN/Zelda.jpg' %}"
-                                alt="zelda"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Zelda Breath Of The Wild</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 150.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colornin ml-5">
-                        <a href="Juegos/zeldaA.html"><img class="imgJ"
-                                src="{% static 'tienda/img_juegosN/zeldaA.jpg' %}" alt="zeldaA"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Zelda Link's Awakening</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 150.000$</span></div>
-                            </div>
+                        <div class="row ml-4">
+                            <div class="col-md-12"><span class="letraJ">{{ p.precio }}</span></div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
+    </div>
+    </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

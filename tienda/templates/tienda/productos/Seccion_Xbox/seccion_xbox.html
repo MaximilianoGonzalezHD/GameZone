@@ -15,14 +15,14 @@
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
     <style>
         .FondoXbos {
-            background-size: 100% 100%;
+            background-size: 100% ;
             background-image: url("{% static 'tienda/IMG/FondoXbox.jpg' %}");
         }
 
         @media only screen and (max-width: 1300px) {
             .FondoXbos {
                 background-image: url("{% static 'tienda/IMG/FondoXboxC.jpg' %}");
-                background-size: 100% 100%;
+                background-size: 100%;
             }
         }
     </style>
@@ -92,77 +92,23 @@
                 </div>
             </div>
             <div class="medio">
-                <div class="row ml-5">
-                    <div class="col-md-3 colorXbox ml-5">
-                        <a href="{% url 'haloi' %}"><img class="imgJ" src="{% static 'tienda/IMG_JUEGOSX/Halo.jpg' %}"
-                                alt="halo"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Halo Infinite</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 25.000$</span></div>
-                            </div>
+                {% for p in producto %}
+                <div class="col colorX ml-5">
+                    <a href="{% url 'mostrar_producto' producto_slug=p.slug %}"><img class="imgJ"
+                            src="{{ p.imagenv.url }}" alt="Juego"></a>
+                    <div class="row">
+                        <div class="col-md-12"><span class="letraJ">{{ p.nombrev }}</span>
                         </div>
-                    </div>
-                    <div class="col-md-3 colorXbox ml-5">
-                        <a href="Juegos/crash.html"><img class="imgJ" src="{% static 'tienda/IMG_JUEGOSX/crash.jpg' %}"
-                                alt="crash"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Crash N sane Trilogy</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 15.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colorXbox ml-5">
-                        <a href="Juegos/crashN.html"><img class="imgJ"
-                                src="{% static 'tienda/IMG_JUEGOSX/crashnitro.jpg' %}" alt="crashn"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Crash Nitro Fueled</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 10.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colorXbox ml-5">
-                        <a href="Juegos/maicra.html"><img class="imgJ"
-                                src="{% static 'tienda/IMG_JUEGOSX/maicra.jpg' %}" alt="maicra"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Minecraft Bedrock Edition</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 5.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colorXbox ml-5">
-                        <a href="Juegos/cod.html"><img class="imgJ" src="{% static 'tienda/IMG_JUEGOSX/cod.jpeg' %}"
-                                alt="cod"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">El mismo juego 5</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 10.000$</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 colorXbox ml-5">
-                        <a href="Juegos/plague.html"><img class="imgJ"
-                                src="{% static 'tienda/IMG_JUEGOSX/plaguita.jpg' %}" alt="plague"></a>
-                        <div class="row">
-                            <div class="col-md-12"><span class="letraJ">Plague Tale Innocense</span>
-                            </div>
-                            <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">Precio: 10.000$</span></div>
-                            </div>
+                        <div class="row ml-4">
+                            <div class="col-md-12"><span class="letraJ">{{ p.precio }}</span></div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-
         </div>
+    </div>
+    </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
