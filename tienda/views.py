@@ -3,11 +3,12 @@ from .models import Compra,Detallesc,Videojuegos,Seccion,Usuario,Rol
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponse
 from django.contrib import messages
 from django.db import IntegrityError
 from django.utils.text import slugify
+
 
 # Create your views here.
 #Paginas Principales
@@ -106,11 +107,12 @@ def registrarUsuario(request):
 
     return render(request, 'registro.html')
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def eliminar_usuarios(request):
     usuarios = User.objects.all()
     usuarios.delete()
     return HttpResponse("Usuarios eliminados correctamente")
-
+@login_required
 def olvide_contrasena(request):
     return render(request, 'tienda/inicio/olvide_contrasena.html')
 
@@ -139,38 +141,48 @@ def inicio_sesion(request):
             return redirect('inicio_sesion')
 
     return render(request, 'tienda/inicio/inicio_sesion.html')
-
+@login_required
 def cerrar_sesion(request):
     logout(request)
     return redirect('inicio_sesion')
-    
+@login_required   
 def editarPerfil(request):
     return render(request, 'tienda/inicio/editarPerfil.html')
-
+@login_required
 def Cuenta(request):
     return render(request, 'tienda/inicio/Cuenta.html')
 
 def Colaboracion(request):
     return render(request, 'tienda/inicio/Colaboracion.html')
-
+@login_required
 def Cambiar_Contrasena(request):
     return render(request, 'tienda/inicio/Cambiar_Contrasena.html')
 
 #Paginas Administrativas
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def Administracion(request):
     return render(request, 'tienda/admin/Administracion.html')
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def Agregar(request):
     return render(request, 'tienda/admin/Agregar.html')
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def Listado(request):
     return render(request, 'tienda/admin/Listado.html')
 
 #Seccion agregar
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def AgregarN(request):
     nin = 1
     contexto = {
         "Nintendo": nin
     }
     return render(request, 'tienda/admin/Secciones/AgregarN.html',contexto)
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def AgregarNintendo(request):
     nombreN = request.POST['NameGameN']
     descripcionN = request.POST['DescripcionN']
@@ -187,13 +199,17 @@ def AgregarNintendo(request):
     videojuego.save()
     return redirect(AgregarN)
 
-
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def AgregarP(request):
     Play = 2
     contexto = {
         "Playstation": Play
     }
     return render(request, 'tienda/admin/Secciones/AgregarP.html', contexto)
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def AgregarPlaystation(request):
     nombreP = request.POST['NameGameP']
     descripcionP = request.POST['DescripcionP']
@@ -210,12 +226,17 @@ def AgregarPlaystation(request):
     videojuego.save()
     return redirect(AgregarP)
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def AgregarPC(request):
     Compu = 4
     contexto = {
         "PC": Compu
     }
     return render(request, 'tienda/admin/Secciones/AgregarPC.html',contexto)
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def AgregarPCJuego(request):
     nombrePC = request.POST['NameGamePc']
     descripcionPC = request.POST['DescripcionPc']
@@ -231,12 +252,17 @@ def AgregarPCJuego(request):
     videojuego.save()
     return redirect(AgregarPC)
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def AgregarX(request):
     Xbo = 3
     contexto = {
         "Xbox": Xbo
     }
     return render(request, 'tienda/admin/Secciones/AgregarX.html',contexto)
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def AgregarXbox(request):
     nombreX = request.POST['NameGameX']
     descripcionX = request.POST['DescripcionX']
@@ -254,6 +280,8 @@ def AgregarXbox(request):
     return redirect(AgregarX)
 
 #Modificar Usuarios
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def Listado_Usuarios(request):
     listado = Usuario.objects.all()
     contexto = {
@@ -262,12 +290,16 @@ def Listado_Usuarios(request):
 
     return render(request, 'tienda/admin/Listado_Usuarios.html',contexto)
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def EliminarUsuario(request,id):
     user = Usuario.objects.get(id_usuariou = id)
     user.delete()
     return redirect('Listado_Usuarios')
 
 #modificar Productos
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def Modificar(request, id):
     Videojuego = Videojuegos.objects.get(id_juego = id)
     listado = Seccion.objects.all()
@@ -277,6 +309,8 @@ def Modificar(request, id):
     }
     return render(request, 'tienda/admin/Modificar.html',contexto)
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def ModificarJuego(request):
     if request.method == 'POST':
         v_id = request.POST.get('IDV')
@@ -302,6 +336,8 @@ def ModificarJuego(request):
 
     return HttpResponse('Método no permitido')
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def Listado_Videojuegos(request):
     listado = Videojuegos.objects.all()
     contexto = {
@@ -310,8 +346,12 @@ def Listado_Videojuegos(request):
     return render(request, 'tienda/admin/Listado_Videojuegos.html',contexto)
 
 #Eliminar VideoJuegos
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def EliminarVideoJuego(request,id):
     videojuego = Videojuegos.objects.get(id_juego = id)
     videojuego.delete()
     return redirect('Listado_Videojuegos')
+
+
 
