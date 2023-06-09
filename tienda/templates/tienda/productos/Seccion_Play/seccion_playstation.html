@@ -101,7 +101,7 @@
                             <div class="col-md-12"><span class="letraJ">{{ p.nombrev }}</span>
                             </div>
                             <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ ">Precio: {{ p.precio }}</span></div>
+                                <div class="col-md-12"><span class="letraJ ">Precio: {{ p.precio|floatformat:-1 }}</span></div>
                             </div>
                         </div>
                     </div>

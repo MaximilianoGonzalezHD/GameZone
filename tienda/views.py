@@ -61,7 +61,7 @@ def mostrar_producto(request, producto_slug):
         return render(request, 'tienda/productos/Seccion_Xbox/productoXbox.html', {'producto': producto})
     elif producto.seccion.nombres == 'Nintendo':
         return render(request, 'tienda/productos/SeccionNintendo/productoNintendo.html', {'producto': producto})
-    elif producto.seccion.nombres == 'PC':
+    elif producto.seccion.nombres == 'Pc':
         return render(request, 'tienda/productos/SeccionPc/productoPc.html', {'producto': producto})
     else:
         return redirect('tienda') 
@@ -238,11 +238,11 @@ def AgregarPC(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def AgregarPCJuego(request):
-    nombrePC = request.POST['NameGamePc']
-    descripcionPC = request.POST['DescripcionPc']
-    precioPC = request.POST['PrecioPc']
-    imagenPC = request.FILES['FotoPc']
-    seccionPC = request.POST['SeccionVPC']
+    nombrePC = request.POST.get('NombrePc')
+    descripcionPC = request.POST.get('DescripcionPc')
+    precioPC = request.POST.get('PrecioPc')
+    imagenPC = request.FILES.get('FotoPc')
+    seccionPC = request.POST.get('SeccionVPC')
     
     registroSeccionPC = Seccion.objects.get(id_seccions = seccionPC)
 

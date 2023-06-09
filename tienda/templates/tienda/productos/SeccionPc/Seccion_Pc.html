@@ -94,14 +94,14 @@
             <div class="medio">
                 <div class="row ml-5">
                     {% for p in producto %}
-                    <div class="col colostim ml-5">
+                    <div class="col-md-3 colostim ml-5">
                         <a href="{% url 'mostrar_producto' producto_slug=p.slug %}"><img class="imgJ"
                                 src="{{ p.imagenv.url }}" alt="Juego"></a>
                         <div class="row">
                             <div class="col-md-12"><span class="letraJ">{{ p.nombrev }}</span>
                             </div>
                             <div class="row ml-4">
-                                <div class="col-md-12"><span class="letraJ">{{ p.precio }}</span></div>
+                                <div class="col-md-12"><span class="letraJ">Precio: {{ p.precio|floatformat:-1 }}</span></div>
                             </div>
                         </div>
                     </div>

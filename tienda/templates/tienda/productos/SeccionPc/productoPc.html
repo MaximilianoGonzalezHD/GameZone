@@ -19,5 +19,5 @@
 {% endblock descripcion %}
 
 {% block precioV %}
-precio: {{ producto.precio }} $
+precio: {{ producto.precio|floatformat:-1 }} $
 {% endblock precioV %}   

@@ -113,7 +113,7 @@
                             <td>{{ v.id_juego }}</td>
                             <td>{{ v.nombrev }}</td>
                             <td>{{ v.descripcion }}</td>
-                            <td>{{ v.precio }}</td>
+                            <td>{{ v.precio|floatformat:-1 }}</td>
                             <td>{{ v.seccion.nombres }}</td>
                             <td>
                                 <a href="{% url 'Modificar' v.id_juego %}" class="btn btn-primary">Modificar</a><br>
