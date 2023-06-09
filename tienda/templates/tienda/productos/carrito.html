@@ -31,7 +31,7 @@
 <body class="FondoCarrito">
     <div class="container">
         <div class="row ">
-            <div class=" col-md-12 mb-4">
+            <div class=" col-md-12">
                 <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark ">
                     <a href="{% url 'tienda' %}" class="navbar-brand mt-3">
                         <h3>G<span>Z</span></h3>
@@ -94,23 +94,31 @@
                 <h3 class="text-center colorF p-2" style="color: white;">Carrito de Compras</h3>
             </div>
         </div>
-        <hr>
-        <div style="background-color: black;" class="centrado row">
-            <div class="letra col-md-3 ColorF p-4">Objeto1</div>
-            <div class="letra col-md-3 ColorF p-4">Objeto2</div>
-            <div class="letra col-md-3 ColorF p-4">Objeto3</div>
-            <div class="letra col-md-3 ColorF p-4">Objeto4</div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table dtable-stripe table-hover  letra">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+            </div>
         </div>
-        <br>
-        <div style="background-color: black;" class="centrado row">
-            <div class="letra col-md-3 ColorF p-4">Objeto5</div>
-            <div class="letra col-md-3 ColorF p-4">Objeto6</div>
-            <div class="letra col-md-3 ColorF p-4">Objeto7</div>
-            <div class="letra col-md-3 ColorF p-4">Objeto8</div>
 
-        </div>
-        <hr>
         <div class="centrado row">
             <div class=" col-md-6">
                 <a href="{% url 'tienda' %}" class="btn btn-dark">Volver</a>
@@ -119,13 +127,12 @@
                 <a href="#" id="Limpiar" class="btn btn-dark mt-1">Limpiar</a>
             </div>
         </div>
-        <div class="row mb-2">
+        <div class="row ">
             <div class="col-md-12 centrado mt-5">
                 <button class="btn btn-dark btn-block perfilb">Pagar</button>
             </div>
 
         </div>
-
     </div>
 
     </div>
