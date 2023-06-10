@@ -93,25 +93,29 @@
                 </div>
             </div>
             <div class="form-row colorXbox">
-                <form  class="col" action="{% url 'AgregarXbox' %}" method="POST" enctype="multipart/form-data" name="formX">
+                <form class="col" action="{% url 'AgregarXbox' %}" method="POST" enctype="multipart/form-data"
+                    name="formX">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="NameGameX">
                             <p class="letra">Nombre Del Juego:</p>
                         </label>
-                        <input class="centrado form-control " type="text" id="NameGameX" name="NameGameX" placeholder="Ingrese Nombre De Videojuego.." required>
+                        <input class="centrado form-control " type="text" id="NameGameX" name="NameGameX"
+                            placeholder="Ingrese Nombre De Videojuego.." required>
                     </div>
                     <div class=" form-group">
                         <label for="PrecioX">
                             <p class="letra mr-2">Precio del Videojuego:</p>
                         </label>
-                        <input class="centrado form-control " type="number" id="PrecioX" name="PrecioX" placeholder="Ingrece Precio..." required>
+                        <input class="centrado form-control " type="number" id="PrecioX" name="PrecioX"
+                            placeholder="Ingrece Precio..." required>
                     </div>
                     <div class="form-group">
-                        <label for="DescripcionX">
+                        <label for="DescripcionxX">
                             <p class="letra">Descripción:</p>
                         </label>
-                        <textarea id="DescripcionX" name="DescripcionX" class="form-control centrado" cols="30" rows="10" placeholder="Ingrese Decripción..." required></textarea>
+                        <textarea id="DescripcionxX" name="DescripcionxX" class="form-control centrado" cols="30"
+                            rows="10" placeholder="Ingrese Decripción..." required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="FotoX">Imagen Del Videojuego</label>
@@ -119,7 +123,8 @@
                     </div>
                     <div class="form-group">
                         <label for="SeccionVX">ID De La Sección:</label>
-                        <input type="text" id="SeccionVX" class="centrado form-control" name="SeccionVX" value="{{ Xbox }}" readonly>
+                        <input type="text" id="SeccionVX" class="centrado form-control" name="SeccionVX"
+                            value="{{ Xbox }}" readonly>
                     </div>
                     <div class="form-group">
                         <a class="btn btn-dark" href="{% url 'Agregar' %}">Volver</a>
@@ -127,11 +132,69 @@
                     </div>
                 </form>
             </div>
-
-
-
+            <div id="warningsHide" class="row">
+                <div class="col-md-12 col-sm-12  mt-1">
+                    <p class="STituloX p-3" id="warnings"></p>
+                </div>
+            </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $("#formX").submit(function (e) {
+                e.preventDefault();
+
+                if (!validarFormulario()) {
+                    return;
+                }
+
+                $("#formX").unbind('submit').submit();
+            });
+
+            function validarFormulario() {
+                var caracteres = "!@#$%^&*()_+{}:\"<>?|=[];',./`~";
+                var namex = $("#NameGameX").val();
+                var descripcionx = $("#DescripcionxX").val();
+                var precio = $("#PrecioX").val();
+                var mostrarmsj = "";
+                let enviar = true;
+
+                if (namex.trim().length < 4 || namex.trim().length > 50) {
+                    mostrarmsj += "- El nombre del juego debe tener entre 4 y 50 caracteres<br>";
+                    enviar = false;
+                }
+
+                if (caracteres.test(namex)) {
+                    mostrarmsj += "- El nombre del juego no puede contener caracteres especiales<br>";
+                    enviar = false;
+                }
+
+                if (isNaN(precio) || Number(precio) < 0) {
+                    mostrarmsj += "- Numero Invalido<br>";
+                    enviar = false;
+                }
+
+                if (descripcionx.trim().length < 100) {
+                    mostrarmsj += "- La descripción debe tener al menos 100 caracteres<br>";
+                    enviar = false;
+                }
+
+                if (descripcionx.trim().length > 800) {
+                    mostrarmsj += "- La descripción no puede tener más de 800 caracteres<br>";
+                    enviar = false;
+                }
+
+                if (caracteres.test(descripcionx)) {
+                    mostrarmsj += "- La descripción no puede contener caracteres especiales<br>";
+                    enviar = false;
+                }
+
+                $("#warnings").html("Advertencia:<br>" + mostrarmsj);
+
+                return enviar;
+            }
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

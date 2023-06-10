@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="form-row colorP">
-                <form  class="col" action="{% url 'ModificarJuego'  %}" method="POST" enctype="multipart/form-data" name="formN">
+                <form  class="col" action="{% url 'ModificarJuego'  %}" method="POST" enctype="multipart/form-data" name="formM">
                     {% csrf_token %}
                     <div class=" form-group">
                         <label for="PrecioN">
@@ -101,7 +101,7 @@
                         <input class="centrado form-control " type="number" id="IDV" name="IDV" value="{{ datos.id_juego }}" readonly required>
                     </div>
                     <div class="form-group">
-                        <label for="NameGameN">
+                        <label for="NameGameV">
                             <p class="letra">Nombre Del Juego:</p>
                         </label>
                         <input class="centrado form-control " type="text" id="NameGameV" name="NameGameV" value="{{ datos.nombrev }}" required>
@@ -140,8 +140,69 @@
                     </div>
                 </form>
             </div>
+            <div id="warningsHide" class="row">
+                <div class="col-md-12 col-sm-12  mt-1">
+                    <p class="STitulo p-3" id="warnings"></p>
+                </div>
+            </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $("#formM").submit(function (e) {
+                e.preventDefault();
+
+                if (!validarFormulario()) {
+                    return;
+                }
+
+                $("#formM").unbind('submit').submit();
+            });
+
+            function validarFormulario() {
+                var caracteres = "!@#$%^&*()_+{}:\"<>?|=[];',./`~";
+                var namev = $("#NameGameV").val();
+                var descripcionv2 = $("#DescripcionV").val();
+                var precio = $("#PrecioV").val();
+                var mostrarmsj = "";
+                let enviar = true;
+
+                if (namev.trim().length < 4 || namev.trim().length > 50) {
+                    mostrarmsj += "- El nombre del juego debe tener entre 4 y 50 caracteres<br>";
+                    enviar = false;
+                }
+
+                if (caracteres.test(namev)) {
+                    mostrarmsj += "- El nombre del juego no puede contener caracteres especiales<br>";
+                    enviar = false;
+                }
+
+                if (isNaN(precio) || Number(precio) < 0) {
+                    mostrarmsj += "- Numero Invalido<br>";
+                    enviar = false;
+                }
+
+                if (descripcionv2.trim().length < 100) {
+                    mostrarmsj += "- La descripción debe tener al menos 100 caracteres<br>";
+                    enviar = false;
+                }
+
+                if (descripcionv2.trim().length > 800) {
+                    mostrarmsj += "- La descripción no puede tener más de 800 caracteres<br>";
+                    enviar = false;
+                }
+
+                if (caracteres.test(descripcionv2)) {
+                    mostrarmsj += "- La descripción no puede contener caracteres especiales<br>";
+                    enviar = false;
+                }
+
+                $("#warnings").html("Advertencia:<br>" + mostrarmsj);
+
+                return enviar;
+            }
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

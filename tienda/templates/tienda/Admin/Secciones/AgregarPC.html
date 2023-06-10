@@ -127,11 +127,69 @@
                     </div>
                 </form>
             </div>
-
-
-
+            <div id="warningsHide" class="row">
+                <div class="col-md-12 col-sm-12  mt-1">
+                    <p class="STituloST p-3" id="warnings"></p>
+                </div>
+            </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $("#formPc").submit(function (e) {
+                e.preventDefault();
+
+                if (!validarFormulario()) {
+                    return;
+                }
+
+                $("#formPc").unbind('submit').submit();
+            });
+
+            function validarFormulario() {
+                var caracteres = "!@#$%^&*()_+{}:\"<>?|=[];',./`~";
+                var namepc = $("#NombrePc").val();
+                var descripcionpc2 = $("#DescripcionPc").val();
+                var precio = $("#PrecioPc").val();
+                var mostrarmsj = "";
+                let enviar = true;
+
+                if (namepc.trim().length < 4 || namepc.trim().length > 50) {
+                    mostrarmsj += "- El nombre del juego debe tener entre 4 y 50 caracteres<br>";
+                    enviar = false;
+                }
+
+                if (caracteres.test(namepc)) {
+                    mostrarmsj += "- El nombre del juego no puede contener caracteres especiales<br>";
+                    enviar = false;
+                }
+
+                if (isNaN(precio) || Number(precio) < 0) {
+                    mostrarmsj += "- Numero Invalido<br>";
+                    enviar = false;
+                }
+
+                if (descripcionpc2.trim().length < 100) {
+                    mostrarmsj += "- La descripción debe tener al menos 100 caracteres<br>";
+                    enviar = false;
+                }
+
+                if (descripcionpc2.trim().length > 800) {
+                    mostrarmsj += "- La descripción no puede tener más de 800 caracteres<br>";
+                    enviar = false;
+                }
+
+                if (caracteres.test(descripcionpc2)) {
+                    mostrarmsj += "- La descripción no puede contener caracteres especiales<br>";
+                    enviar = false;
+                }
+
+                $("#warnings").html("Advertencia:<br>" + mostrarmsj);
+
+                return enviar;
+            }
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

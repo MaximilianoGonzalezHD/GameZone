@@ -141,7 +141,7 @@ def inicio_sesion(request):
             return redirect('inicio_sesion')
 
     return render(request, 'tienda/inicio/inicio_sesion.html')
-@login_required
+
 def cerrar_sesion(request):
     logout(request)
     return redirect('inicio_sesion')

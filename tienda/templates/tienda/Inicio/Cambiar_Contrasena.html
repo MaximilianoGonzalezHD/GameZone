@@ -70,13 +70,79 @@
 
         </div>
     </div>
-    <div class="row">
+    <div id="warningsHide" class="row">
         <div class="col-md-12 col-sm-12  mt-1">
             <p class="STitulo p-3" id="warnings"></p>
         </div>
     </div>
     </div>
-    <script src="{% static 'tienda/JS/Validacion_Contra.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+          $("#formCC").submit(function(e) {
+            e.preventDefault();
+        
+            if (!validarFormulario()) {
+              return;
+            }
+        
+            $("#formCC").unbind('submit').submit(); 
+          });
+        
+          function validarFormulario() {
+            var caracteres = "!@#$%^&*()_+{}:\"<>?|=[];',./`~";
+            var mayusuculamin = /^(?=.*[A-Z])/;
+            var mincontra = /[0-9]/;
+            var minus =  /[a-z]/;
+
+            var contrasenar = $("#NuevaContrasena").val();
+            var confcontrasenar = $("#ConfirmarContrasena").val();
+        
+            var mostrarmsj = "";
+            let enviar = true;
+        
+        
+            if (!mayusuculamin.test(contrasenar)) {
+              mostrarmsj += "- La contraseña debe tener mínimo una MAYÚSCULA<br>";
+              enviar = false;
+            }
+            
+            if (!mincontra.test(contrasenar)) {
+              mostrarmsj += "- La contraseña debe tener mínimo un número<br>";
+              enviar = false;
+            }
+        
+            if (!minus.test(contrasenar)) {
+              mostrarmsj += "- La contraseña debe tener mínimo una minúscula<br>";
+              enviar = false;
+            }
+        
+            if (caracteres.split('').some(c => contrasenar.includes(c))) {
+              mostrarmsj += "- La contraseña debe tener mínimo un caracter especial para más seguridad<br>";
+              enviar = false;
+            }
+        
+            if (contrasenar.length < 8) {
+              mostrarmsj += "- La contraseña debe tener al menos 8 caracteres<br>";
+              enviar = false;
+            }
+        
+            if (contrasenar !== confcontrasenar) {
+              mostrarmsj += "- Las contraseñas no coinciden<br>";
+              enviar = false;
+            }
+        
+
+            $("#warningscc").html("Advertencia:<br>" + mostrarmsj);
+        
+            return enviar;
+          }
+        
+        
+          function esMayuscula(letra) {
+            return letra === letra.toUpperCase();
+          }
+        });
+        </script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

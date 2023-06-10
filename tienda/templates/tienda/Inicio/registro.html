@@ -7,13 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+       
 
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
 
@@ -121,48 +122,53 @@
         </div>
     </div>
     <div id="warningsHide" class="row">
-        <div class="col-md-12 col-sm-12  mt-1">
-            <p class="STitulo p-3" id="warnings"></p>
+        <div class="col-md-12 col-sm-12 mt-1">
+          <p class="STitulo p-3" id="warnings"></p>
         </div>
-    </div>
+      </div>
     </div>
     </div>
     <script>
         $(document).ready(function() {
+            
           $("#formR").submit(function(e) {
             e.preventDefault();
-        
             if (!validarFormulario()) {
               return;
             }
-        
             $("#formR").unbind('submit').submit(); 
           });
         
           function validarFormulario() {
+            
             var caracteres = "!@#$%^&*()_+{}:\"<>?|=[];',./`~";
             var mayusuculamin = /^(?=.*[A-Z])/;
             var mincontra = /[0-9]/;
             var minus =  /[a-z]/;
             var correor = $("#email").val();
             var nombrer = $("#NombreR").val();
-            var nombreus = $("#NameOp").val();
+            var nombreopc = $("#NameOp").val();
             var contrasenar = $("#ContrasenaR").val();
             var confcontrasenar = $("#ConfirmContrasenaR").val();
         
             var mostrarmsj = "";
             let enviar = true;
         
-            if (nombrer.trim().length < 4 || nombrer.trim().length > 15) {
-              mostrarmsj += "- El nombre debe tener entre 4 y 15 caracteres<br>";
+            if (nombrer.trim().length < 4 || nombrer.trim().length > 20) {
+              mostrarmsj += "- El nombre debe tener entre 4 y 20 caracteres<br>";
               enviar = false;
+            }
+            var letra = nombreopc.value.charAt(0);
+            if (esMayuscula(letra)){
+                mostrarmsj += "- La primera letra del nombre debe ser en mayuscula"
+                enviar = false;
             }
         
             if (!mayusuculamin.test(contrasenar)) {
               mostrarmsj += "- La contraseña debe tener mínimo una MAYÚSCULA<br>";
               enviar = false;
             }
-        
+            
             if (!mincontra.test(contrasenar)) {
               mostrarmsj += "- La contraseña debe tener mínimo un número<br>";
               enviar = false;
@@ -192,8 +198,12 @@
               mostrarmsj += "- El correo electrónico no es válido<br>";
               enviar = false;
             }
+            if (correor.trim().length < 4 || nombrer.trim().length > 30) {
+              mostrarmsj += "- El correo debe tener entre 4 y 20 caracteres<br>";
+              enviar = false;
+            }
+            
             $("#warnings").html("Advertencia:<br>" + mostrarmsj);
-        
             return enviar;
           }
         
