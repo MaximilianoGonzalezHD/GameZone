@@ -83,14 +83,19 @@ def registrarUsuario(request):
         try:
             registroRol = Rol.objects.get(id_rolr=rolu)
         except Rol.DoesNotExist:
-            messages.error(request, 'El rol seleccionado no existe')
             return redirect('registro')
+        
 
         try:
             if User.objects.filter(email=emailus).exists():
-                messages.error(request, 'Ya existe un usuario con ese correo electrónico')
-                return redirect('registro')
-
+               mensaje_error = "El correo ya existe"
+               return render(request, 'tienda/inicio/registro.html', {'mensaje_error': mensaje_error})
+            
+            if User.objects.filter(username=nombreuser).exists():
+                mensaje_error = "El usuario ya existe"
+                return render(request, 'tienda/inicio/registro.html', {'mensaje_error': mensaje_error})
+                
+            
             usuario = Usuario.objects.create(emailu=emailus, nombre_usuariou=nombreuser,
                                             contrasenau=contrau, nombreu=nombreus, rol=registroRol)
             usuario.save()
@@ -102,7 +107,6 @@ def registrarUsuario(request):
 
             return redirect('inicio_sesion')
         except IntegrityError:
-            messages.error(request, 'Error al crear el usuario')
             return redirect('registro')
 
     return render(request, 'registro.html')
