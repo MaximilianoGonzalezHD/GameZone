@@ -8,13 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cambiar contraseña</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
 
@@ -53,10 +53,18 @@
                 <div class="form-group">
                     <label class="letra" for="NuevaContrasena">Nueva Contraseña:</label>
                     <input type="password" id="NuevaContrasena" required />
-                </div>
+                    <br>
+                    <span id="error_nueva_contrasena1"> </span>
+                    <span id="error_nueva_contrasena2"> </span>
+                    <span id="error_nueva_contrasena3"> </span>
+                    <span id="error_nueva_contrasena4"> </span>
+                    <span id="error_nueva_contrasena5"> </span>
+                  </div>
                 <div class="form-group">
                     <label class="letra" for="ConfirmarContrasena">Confirmar Contraseña:</label>
                     <input type="password" id="ConfirmarContrasena" required />
+                    <br>
+                    <span id="error_confirmar_contrasena1"> </span>
                 </div>
                 <br>
                 <div class="row p-2">
@@ -76,74 +84,9 @@
         </div>
     </div>
     </div>
-    <script>
-        $(document).ready(function() {
-          $("#formCC").submit(function(e) {
-            e.preventDefault();
-        
-            if (!validarFormulario()) {
-              return;
-            }
-        
-            $("#formCC").unbind('submit').submit(); 
-          });
-        
-          function validarFormulario() {
-            var caracteres = "!@#$%^&*()_+{}:\"<>?|=[];',./`~";
-            var mayusuculamin = /^(?=.*[A-Z])/;
-            var mincontra = /[0-9]/;
-            var minus =  /[a-z]/;
-
-            var contrasenar = $("#NuevaContrasena").val();
-            var confcontrasenar = $("#ConfirmarContrasena").val();
-        
-            var mostrarmsj = "";
-            let enviar = true;
-        
-        
-            if (!mayusuculamin.test(contrasenar)) {
-              mostrarmsj += "- La contraseña debe tener mínimo una MAYÚSCULA<br>";
-              enviar = false;
-            }
-            
-            if (!mincontra.test(contrasenar)) {
-              mostrarmsj += "- La contraseña debe tener mínimo un número<br>";
-              enviar = false;
-            }
-        
-            if (!minus.test(contrasenar)) {
-              mostrarmsj += "- La contraseña debe tener mínimo una minúscula<br>";
-              enviar = false;
-            }
-        
-            if (caracteres.split('').some(c => contrasenar.includes(c))) {
-              mostrarmsj += "- La contraseña debe tener mínimo un caracter especial para más seguridad<br>";
-              enviar = false;
-            }
-        
-            if (contrasenar.length < 8) {
-              mostrarmsj += "- La contraseña debe tener al menos 8 caracteres<br>";
-              enviar = false;
-            }
-        
-            if (contrasenar !== confcontrasenar) {
-              mostrarmsj += "- Las contraseñas no coinciden<br>";
-              enviar = false;
-            }
-        
-
-            $("#warningscc").html("Advertencia:<br>" + mostrarmsj);
-        
-            return enviar;
-          }
-        
-        
-          function esMayuscula(letra) {
-            return letra === letra.toUpperCase();
-          }
-        });
-        </script>
-
+    <script src="{% static 'tienda/js/F_cambiar_Contrasena.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>

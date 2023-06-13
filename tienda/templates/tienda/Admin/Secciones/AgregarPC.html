@@ -7,12 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+    
+        <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+    
     <style>
         .FondoPici {
             background-size: 100%;
@@ -93,25 +97,35 @@
                 </div>
             </div>
             <div class="form-row colostim">
-                <form  class="col" action="{% url 'AgregarPCJuego' %}" method="POST" enctype="multipart/form-data" name="formPc">
+                <form  class="col" action="{% url 'AgregarPCJuego' %}" method="POST" enctype="multipart/form-data" id="formPc">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="NombrePc">
                             <p class="letra">Nombre Del Juego:</p>
                         </label>
                         <input class="centrado form-control " type="text" id="NombrePc" name="NombrePc" placeholder="Ingrese Nombre De Videojuego.." required>
+                        <br>
+                        <span style="color: white;" id="error_nombrePc1"></span>
                     </div>
                     <div class=" form-group">
                         <label for="PrecioPc">
                             <p class="letra mr-2">Precio del Videojuego:</p>
                         </label>
                         <input class="centrado form-control " type="number" id="PrecioPc" name="PrecioPc" placeholder="Ingrece Precio..." required>
+                        <br>
+                        <span style="color: white;" id="precio_errorpc1"></span>
+                        <span style="color: white;" id="precio_errorpc2"></span>
+                        <span style="color: white;" id="precio_errorpc3"></span>
                     </div>
                     <div class="form-group">
                         <label for="DescripcionPc">
                             <p class="letra">Descripción:</p>
                         </label>
                         <textarea id="DescripcionPc" name="DescripcionPc" class="form-control centrado" cols="30" rows="10" placeholder="Ingrese Decripción..." required></textarea>
+                        <br>
+                        <span style="color: white;" id="error_descpc1"></span>
+                        <span style="color: white;" id="error_descpc2"></span>
+                        <span style="color: white;" id="error_descpc3"></span>
                     </div>
                     <div class="form-group">
                         <label for="FotoPc">Imagen Del Videojuego</label>
@@ -134,65 +148,7 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $("#formPc").submit(function (e) {
-                e.preventDefault();
-
-                if (!validarFormulario()) {
-                    return;
-                }
-
-                $("#formPc").unbind('submit').submit();
-            });
-
-            function validarFormulario() {
-                var caracteres = "!@#$%^&*()_+{}:\"<>?|=[];',./`~";
-                var namepc = $("#NombrePc").val();
-                var descripcionpc2 = $("#DescripcionPc").val();
-                var precio = $("#PrecioPc").val();
-                var mostrarmsj = "";
-                let enviar = true;
-
-                if (namepc.trim().length < 4 || namepc.trim().length > 50) {
-                    mostrarmsj += "- El nombre del juego debe tener entre 4 y 50 caracteres<br>";
-                    enviar = false;
-                }
-
-                if (caracteres.test(namepc)) {
-                    mostrarmsj += "- El nombre del juego no puede contener caracteres especiales<br>";
-                    enviar = false;
-                }
-
-                if (isNaN(precio) || Number(precio) < 0) {
-                    mostrarmsj += "- Numero Invalido<br>";
-                    enviar = false;
-                }
-
-                if (descripcionpc2.trim().length < 100) {
-                    mostrarmsj += "- La descripción debe tener al menos 100 caracteres<br>";
-                    enviar = false;
-                }
-
-                if (descripcionpc2.trim().length > 800) {
-                    mostrarmsj += "- La descripción no puede tener más de 800 caracteres<br>";
-                    enviar = false;
-                }
-
-                if (caracteres.test(descripcionpc2)) {
-                    mostrarmsj += "- La descripción no puede contener caracteres especiales<br>";
-                    enviar = false;
-                }
-
-                $("#warnings").html("Advertencia:<br>" + mostrarmsj);
-
-                return enviar;
-            }
-        });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+    <script src="{% static 'tienda/js/agregarPC.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>

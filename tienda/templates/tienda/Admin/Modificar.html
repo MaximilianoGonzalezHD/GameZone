@@ -7,13 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
-    <style>
+    
+    
+   <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+   
+   <style>
         .tiendaFondo {
             background-size: 100% 100%;
             background-image: url("{% static 'tienda/IMG/fondoct.png' %}");
@@ -92,7 +97,7 @@
                 </div>
             </div>
             <div class="form-row colorP">
-                <form  class="col" action="{% url 'ModificarJuego'  %}" method="POST" enctype="multipart/form-data" name="formM">
+                <form  class="col" action="{% url 'ModificarJuego'  %}" method="POST" enctype="multipart/form-data" id="formM">
                     {% csrf_token %}
                     <div class=" form-group">
                         <label for="PrecioN">
@@ -105,18 +110,30 @@
                             <p class="letra">Nombre Del Juego:</p>
                         </label>
                         <input class="centrado form-control " type="text" id="NameGameV" name="NameGameV" value="{{ datos.nombrev }}" required>
+                        <br>
+                        <span style="color: white;" id="error_nombrev1"></span>
+
                     </div>
                     <div class=" form-group">
                         <label for="PrecioN">
                             <p class="letra mr-2">Precio del Videojuego:</p>
                         </label>
                         <input class="centrado form-control " type="number" id="PrecioV" name="PrecioV" value="{{ datos.precio }}" required>
+                        <br>
+                        <span style="color: white;" id="error_preciov1"></span>
+                        <span style="color: white;" id="error_preciov2"></span>
+                        <span style="color: white;" id="error_preciov3"></span>
+                        
                     </div>
                     <div class="form-group">
                         <label for="DescripcionN">
                             <p class="letra">Descripción:</p>
                         </label>
                         <textarea id="DescripcionV" name="DescripcionV" class="form-control centrado" cols="30" rows="10" value="{{ datos.descripcion }}" required></textarea>
+                        <span style="color: white;" id="error_descripcionv1"></span>
+                        <span style="color: white;" id="error_descripcionv2"></span>
+                        <span style="color: white;" id="error_descripcionv3"></span>
+                        
                     </div>
                     <div class="form-group">
                         <label for="FotoVN">Imagen Del Videojuego</label>
@@ -147,65 +164,7 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $("#formM").submit(function (e) {
-                e.preventDefault();
-
-                if (!validarFormulario()) {
-                    return;
-                }
-
-                $("#formM").unbind('submit').submit();
-            });
-
-            function validarFormulario() {
-                var caracteres = "!@#$%^&*()_+{}:\"<>?|=[];',./`~";
-                var namev = $("#NameGameV").val();
-                var descripcionv2 = $("#DescripcionV").val();
-                var precio = $("#PrecioV").val();
-                var mostrarmsj = "";
-                let enviar = true;
-
-                if (namev.trim().length < 4 || namev.trim().length > 50) {
-                    mostrarmsj += "- El nombre del juego debe tener entre 4 y 50 caracteres<br>";
-                    enviar = false;
-                }
-
-                if (caracteres.test(namev)) {
-                    mostrarmsj += "- El nombre del juego no puede contener caracteres especiales<br>";
-                    enviar = false;
-                }
-
-                if (isNaN(precio) || Number(precio) < 0) {
-                    mostrarmsj += "- Numero Invalido<br>";
-                    enviar = false;
-                }
-
-                if (descripcionv2.trim().length < 100) {
-                    mostrarmsj += "- La descripción debe tener al menos 100 caracteres<br>";
-                    enviar = false;
-                }
-
-                if (descripcionv2.trim().length > 800) {
-                    mostrarmsj += "- La descripción no puede tener más de 800 caracteres<br>";
-                    enviar = false;
-                }
-
-                if (caracteres.test(descripcionv2)) {
-                    mostrarmsj += "- La descripción no puede contener caracteres especiales<br>";
-                    enviar = false;
-                }
-
-                $("#warnings").html("Advertencia:<br>" + mostrarmsj);
-
-                return enviar;
-            }
-        });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+    <script src="{% static 'tienda/js/modificar.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>

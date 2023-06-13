@@ -28,39 +28,39 @@ $(document).ready(function () {
 
         if (!mayusuculamin.test(contrasenar)) {
             console.log("La contraseña no cumple con la expresión regular");
-            $("#contraseña_error1").html("La contraseña debe tener mínimo una MAYÚSCULA<br>");
+            $("#contrasena_error1").html("La contraseña debe tener mínimo una MAYÚSCULA<br>");
             enviar = false;
           } else {
             console.log("La contraseña cumple con la expresión regular");
-            $("#contraseña_error1").html("");
+            $("#contrasena_error1").html("");
           }
 
         if (!mincontra.test(contrasenar)) {
-            $("#contraseña_error2").html("La contraseña debe tener mínimo un número<br>");
+            $("#contrasena_error2").html("La contraseña debe tener mínimo un número<br>");
             enviar = false;
         } else {
-            $("#contraseña_error2").html("");
+            $("#contrasena_error2").html("");
         }
 
         if (!minus.test(contrasenar)) {
-            $("#contraseña_errortres").html("La contraseña debe tener mínimo una minúscula<br>");
+            $("#contrasena_errortres").html("La contraseña debe tener mínimo una minúscula<br>");
             enviar = false;
         } else {
-            $("#contraseña_errortres").html("");
+            $("#contrasena_errortres").html("");
         }
 
         if (contrasenar.trim().length < 8 || contrasenar.trim().length > 15) {
-            $("#contraseña_error4").html("La contraseña debe tener entre 8 y 15 caracteres<br>");
+            $("#contrasena_error4").html("La contraseña debe tener entre 8 y 15 caracteres<br>");
             enviar = false;
         } else {
-            $("#contraseña_error4").html("");
+            $("#contrasena_error4").html("");
         }
 
         if (contrasenar !== confcontrasenar) {
-            $("#confcontraseña_error").html("Las contraseñas no coinciden<br>");
+            $("#confcontrasena_error").html("Las contraseñas no coinciden<br>");
             enviar = false;
         } else {
-            $("#confcontraseña_error").html("");
+            $("#confcontrasena_error").html("");
         }
 
         if (correor.trim().length > 30) {
@@ -83,7 +83,7 @@ $(document).ready(function () {
             $("#warnings").html("Enviado");
         } else {
             e.preventDefault();
-            $("#warnings").html("Advertencia: Comprueba los errores en el formulario");
+            $("#warnings").html("Advertencia: Comprueba los errores en el registro");
         }
     });
 
