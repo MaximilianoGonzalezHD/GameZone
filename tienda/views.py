@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from .models import Compra,Detallesc,Videojuegos,Seccion,Usuario,Rol
+from .models import Compra,Detallesc,Videojuegos,Seccion,Usuario,Rol,Carrito,ItemCarrito
+from .serializers import UsuarioSerializer, CompraSerializer, DetallescSerializer, CarritoSerializer, ItemCarritoSerializer,VideojuegosSerializer
+from rest_framework import viewsets
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout 
@@ -357,5 +359,28 @@ def EliminarVideoJuego(request,id):
     videojuego.delete()
     return redirect('Listado_Videojuegos')
 
+#Apis
+class UsuarioViewSet(viewsets.ModelViewSet):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
 
+class CompraViewSet(viewsets.ModelViewSet):
+    queryset = Compra.objects.all()
+    serializer_class = CompraSerializer
+
+class DetallescViewSet(viewsets.ModelViewSet):
+    queryset = Detallesc.objects.all()
+    serializer_class = DetallescSerializer
+
+class CarritoViewSet(viewsets.ModelViewSet):
+    queryset = Carrito.objects.all()
+    serializer_class = CarritoSerializer
+
+class ItemCarritoViewSet(viewsets.ModelViewSet):
+    queryset = ItemCarrito.objects.all()
+    serializer_class = ItemCarritoSerializer
+
+class VideojuegosViewSet(viewsets.ModelViewSet):
+    queryset = Videojuegos.objects.all()
+    serializer_class = VideojuegosSerializer
 

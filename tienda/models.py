@@ -62,3 +62,18 @@ class Detallesc(models.Model):
     def __str__(self):
         return f'Detallesc {self.id_detallesc} - Compra {self.compra.id_comprac}'
     
+class Carrito(models.Model):
+    id_carrito = models.AutoField(primary_key=True)
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Carrito {self.id_carrito} - Usuario {self.usuario.nombre_usuariou}'
+
+class ItemCarrito(models.Model):
+    id_itemcarrito = models.AutoField(primary_key=True)
+    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
+    videojuego = models.ForeignKey(Videojuegos, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f'Item {self.id_itemcarrito} - Carrito {self.carrito.id_carrito}'

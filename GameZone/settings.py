@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tienda',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,17 @@ AUTHENTICATION_BACKENDS = [
     'tienda.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+}
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_PORT = 587 
+EMAIL_USE_TLS = True  
+EMAIL_HOST_USER = 'game.zone.pageshop@gmail.com' 
+EMAIL_HOST_PASSWORD = 'Gamezone1#'  
