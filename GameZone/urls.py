@@ -19,6 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
 from tienda.views import UsuarioViewSet, CompraViewSet, DetallescViewSet, CarritoViewSet, ItemCarritoViewSet, VideojuegosViewSet
+from tienda.viewsLogin import login
+
 router = routers.DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet)
 router.register(r'compras', CompraViewSet)
@@ -32,6 +34,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tienda.urls')),
     path('api/', include(router.urls)),
+    path('login',login,name="login"),
     
 ]
 
