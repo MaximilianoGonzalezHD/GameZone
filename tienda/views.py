@@ -1,15 +1,24 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from .models import Compra,Detallesc,Videojuegos,Seccion,Usuario,Rol,Carrito,ItemCarrito
 from .serializers import UsuarioSerializer, CompraSerializer, DetallescSerializer, CarritoSerializer, ItemCarritoSerializer,VideojuegosSerializer
-from rest_framework import viewsets
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout 
+from django.shortcuts import render
+from rest_framework import status, viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponse
 from django.contrib import messages
 from django.db import IntegrityError
 from django.utils.text import slugify
+from django.shortcuts import render
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+
 
 
 # Create your views here.
@@ -132,16 +141,22 @@ def inicio_sesion(request):
 
         # Autenticación del usuario
         user = authenticate(request, email=email, password=contrasena)
-
+        
         if user is not None:
             if user.is_superuser:
                 # Inicio de sesión del superusuario
                 login(request, user)
-                return redirect('tienda')
             else:
                 # Inicio de sesión del usuario normal
                 login(request, user)
-                return redirect('tienda')
+
+            # Crear o recuperar el token de autenticación
+            token, _ = Token.objects.get_or_create(user=user)
+
+            # Almacenar el token en la sesión del usuario
+            request.session['auth_token'] = token.key
+
+            return redirect('tienda')
         else:
             messages.error(request, 'El Email o La contraseña es incorrecto')
             return redirect('inicio_sesion')
@@ -149,7 +164,15 @@ def inicio_sesion(request):
     return render(request, 'tienda/inicio/inicio_sesion.html')
 
 def cerrar_sesion(request):
+    if request.user.is_authenticated:
+        try:
+            token = Token.objects.get(user=request.user)
+            token.delete()
+        except Token.DoesNotExist:
+            pass
+
     logout(request)
+    
     return redirect('inicio_sesion')
 @login_required   
 def editarPerfil(request):
@@ -383,4 +406,3 @@ class ItemCarritoViewSet(viewsets.ModelViewSet):
 class VideojuegosViewSet(viewsets.ModelViewSet):
     queryset = Videojuegos.objects.all()
     serializer_class = VideojuegosSerializer
-

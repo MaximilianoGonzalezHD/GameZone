@@ -19,14 +19,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
 from tienda.views import UsuarioViewSet, CompraViewSet, DetallescViewSet, CarritoViewSet, ItemCarritoViewSet, VideojuegosViewSet
-from tienda.viewsLogin import login
+
 
 router = routers.DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet)
 router.register(r'compras', CompraViewSet)
-router.register(r'detallescs', DetallescViewSet)
-router.register(r'carritos', CarritoViewSet)
-router.register(r'itemscarrito', ItemCarritoViewSet)
+router.register(r'detalles', DetallescViewSet)
+router.register(r'carrito', CarritoViewSet)
+router.register(r'items', ItemCarritoViewSet)
 router.register(r'videojuegos', VideojuegosViewSet)
 
 
@@ -34,7 +34,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tienda.urls')),
     path('api/', include(router.urls)),
-    path('login',login,name="login"),
     
 ]
 
