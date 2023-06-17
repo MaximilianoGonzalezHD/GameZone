@@ -26,13 +26,15 @@ class Seccion (models.Model):
     def __str__(self) -> str:
         return self.nombres   
     
+def get_default_image():
+    return 'media/IMG/GameZone.jpg'
 
 class Videojuegos (models.Model):
     id_juego = models.AutoField(primary_key=True)
     nombrev = models.CharField(max_length=30)
     descripcion = models.CharField(max_length=800)
     precio = models.FloatField(verbose_name='Precio de videojuegos')
-    imagenv = models.ImageField(blank=True,verbose_name="Imagen de videojuegos", upload_to="ImagenVideojuegos")
+    imagenv = models.ImageField(blank=True,verbose_name="Imagen de videojuegos", upload_to="ImagenVideojuegos",null=True, default=get_default_image)
     seccion = models.ForeignKey(Seccion, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, default=slugify(nombrev))
 

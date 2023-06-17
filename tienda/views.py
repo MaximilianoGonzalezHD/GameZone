@@ -6,18 +6,20 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout 
 from django.shortcuts import render
 from rest_framework import status, viewsets
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import permission_classes
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponse
 from django.contrib import messages
 from django.db import IntegrityError
 from django.utils.text import slugify
 from django.shortcuts import render
-from rest_framework import status
-from rest_framework.authtoken.models import Token
+from django.core.files.images import ImageFile
 
 
 
@@ -383,26 +385,31 @@ def EliminarVideoJuego(request,id):
     return redirect('Listado_Videojuegos')
 
 #Apis
+@permission_classes((IsAuthenticated,))
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
-
+@permission_classes((IsAuthenticated,))
 class CompraViewSet(viewsets.ModelViewSet):
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
-
+@permission_classes((IsAuthenticated,))
 class DetallescViewSet(viewsets.ModelViewSet):
     queryset = Detallesc.objects.all()
     serializer_class = DetallescSerializer
-
+@permission_classes((IsAuthenticated,))
 class CarritoViewSet(viewsets.ModelViewSet):
     queryset = Carrito.objects.all()
     serializer_class = CarritoSerializer
-
+@permission_classes((IsAuthenticated,))
 class ItemCarritoViewSet(viewsets.ModelViewSet):
     queryset = ItemCarrito.objects.all()
     serializer_class = ItemCarritoSerializer
-
+@permission_classes((IsAuthenticated,))
 class VideojuegosViewSet(viewsets.ModelViewSet):
     queryset = Videojuegos.objects.all()
     serializer_class = VideojuegosSerializer
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
