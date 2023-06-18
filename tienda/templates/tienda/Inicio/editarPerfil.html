@@ -8,11 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editando</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
@@ -114,37 +114,47 @@
                 </div>
             </div>
             <div class="form-container colorP">
-                <form class="col centrado" method="POST" action="{% url 'modificarcuenta' %}" id="formR">
+                <form class="col centrado" method="POST" action="{% url 'modificarcuenta' %}" id="formMod">
                     {% csrf_token %}
                     <div class="form-element">
                         <label for="FotoU">Imagen De Usuario:</label>
                         <input type="file" class="centrado" id="FotoU" name="FotoU">
                     </div>
                     <div class="form-element mr-3">
-                        <input type="number" id="idus" name="idus" value="{{ datos.id_usuariou }}" hidden>
+                        <input type="number" id="idus" name="idus" value="{{ datos.id_usuariou }}" hidden readonly>
                     </div>
                     <div class="form-element mr-3">
                         <label class="Letra" for="email">Correo Electronico:</label>
-                        <input type="email" id="email" name="email" value="{{ datos.emailu }}" required>
+                        <input type="email" id="email" name="email" value="{{ datos.emailu }}" readonly required>
                     </div>
                     <div class="form-element mr-4">
                         <label class="Letra" for="NombreR">Nombre de Usuario:</label>
                         <input type="text" id="NombreR" name="NombreR" value="{{ datos.nombre_usuariou }}" required>
+                        <br>
+                        <span id="usuario_error"></span>
                     </div>
                     <div class="form-element mr-4">
                         <label for="NameOp">Nombre(Opcional):</label>
-                        <input type="text" id="NameOp" name="NameOp" value="datos.nombreu" required>
+                        <input type="text" id="NameOp" name="NameOp" value="{{ datos.nombreu }}">
+                        <br>
+                        <span id="error_nombre"></span>
                     </div>
                     <div class="form-element mr-3">
                         <label class="Letra" for="ContrasenaR">Crear Contraseña:</label>
                         <input type="password" id="ContrasenaR" name="ContrasenaR" value="{{ datos.contrasenau }}" required>
+                        <br>
+                        <span id="contrasena_error1"></span>
+                        <span id="contrasena_error2"></span>
+                        <span id="contrasena_errortres"></span>
+                        <span id="contrasena_error4"></span>
                     </div>
                     <div class="form-element mr-5">
                         <label class="Letra" for="ConfirmContrasenaR">Confirmar Contraseña:</label>
                         <input type="password" id="ConfirmContrasenaR" placeholder="Confirme su contraseña..." required>
+                        <br>
+                        <span id="confcontrasena_error"></span>
                     </div>
                     <div class="form-element mr-5">
-
                         <input type="number" id="rolu" name="rolu" value="1" hidden readonly>
                     </div>
                     <button type="submit" class="btn btn-dark mt-2">Modificar Cuenta</button>
@@ -153,7 +163,7 @@
 
         </div>
     </div>
-
+    <script src="{% static 'tienda/js/modificarPerfil.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>

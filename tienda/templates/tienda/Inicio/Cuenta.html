@@ -125,9 +125,13 @@
                             <span class="letra">{{ usuario.email }}</span>
                         </div>
                         <div class="col-md-6">
+                            {% if datos.nombreu %}
                             <label for="nombreu">Nombre: </label>
                             <br>
                             <span class="letra">{{ datos.nombreu }}</span>
+                            {% else %}
+                            <span class="letra"></span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
