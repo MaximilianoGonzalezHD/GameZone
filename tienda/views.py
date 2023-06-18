@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from .models import Compra,Detallesc,Videojuegos,Seccion,Usuario,Rol,Carrito,ItemCarrito
 from .serializers import UsuarioSerializer, CompraSerializer, DetallescSerializer, CarritoSerializer, ItemCarritoSerializer,VideojuegosSerializer
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth import authenticate,login, logout 
 from django.shortcuts import render
 from rest_framework import status, viewsets
@@ -13,14 +13,17 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import permission_classes
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponse
 from django.contrib import messages
 from django.db import IntegrityError
 from django.utils.text import slugify
 from django.shortcuts import render
-from django.core.files.images import ImageFile
-
+from django.core.mail import send_mail
+from django.urls import reverse
+import requests
 
 
 # Create your views here.
@@ -83,6 +86,51 @@ def mostrar_producto(request, producto_slug):
 
 
 #Paginas iniciales
+@login_required   
+def editarPerfil(request, id):
+    usuario = Usuario.objects.get(id_usuariou=id)
+    rolu = Rol.objects.all()
+    contexto ={
+        "datos":usuario,
+        "datosR":rolu,
+    }
+
+    return render(request, 'tienda/inicio/editarPerfil.html',contexto)
+
+@login_required
+def modificarcuenta(request):
+    if request.method == 'POST':
+        id_usuario = request.POST.get('idus')
+        correous = request.POST.get('email')
+        nombreus = request.POST.get('NombreR')
+        nombreopc = request.POST.get('NameOp')
+        contrasena = request.POST.get('ContrasenaR')
+        imagenus = request.FILES.get('FotoU') 
+        rolu = request.POST.get('rolu')
+
+        usuario = Usuario.objects.get(id_usuariou=id_usuario)
+        rol1 = Rol.objects.get(id_rolr=rolu)
+
+        user = User.objects.get(username=usuario.nombre_usuariou)
+        user.username = nombreus
+        user.email = correous
+        user.set_password(contrasena)
+        user.save()
+
+        if imagenus:
+            usuario.imagenu = imagenus
+        
+        usuario.emailu = correous
+        usuario.nombre_usuariou = nombreus
+        usuario.nombreu = nombreopc
+        usuario.contrasenau = contrasena
+        usuario.rol = rol1
+        usuario.save()  
+       
+        return redirect('inicio_sesion')
+
+    return redirect('Cuenta')
+
 def registro(request):
     return render(request, 'tienda/inicio/registro.html')
 def registrarUsuario(request):
@@ -108,15 +156,17 @@ def registrarUsuario(request):
                 mensaje_error = "El usuario ya existe"
                 return render(request, 'tienda/inicio/registro.html', {'mensaje_error': mensaje_error})
                 
-            
-            usuario = Usuario.objects.create(emailu=emailus, nombre_usuariou=nombreuser,
-                                            contrasenau=contrau, nombreu=nombreus, rol=registroRol)
-            usuario.save()
-
             user = User.objects.create_user(email=emailus, username=nombreuser, password=contrau)
             user.is_staff = False
             user.is_active = True
             user.save()
+            django_user_id = user.id
+            usuario_id = django_user_id
+            usuario = Usuario.objects.create(id_usuariou=usuario_id,emailu=emailus, nombre_usuariou=nombreuser,
+                                contrasenau=contrau, nombreu=nombreus, rol=registroRol)
+            usuario.save()
+
+            
 
             return redirect('inicio_sesion')
         except IntegrityError:
@@ -129,8 +179,24 @@ def eliminar_usuarios(request):
     usuarios = User.objects.all()
     usuarios.delete()
     return HttpResponse("Usuarios eliminados correctamente")
-@login_required
+
 def olvide_contrasena(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return render(request, 'tienda/inicio/olvide_contrasena.html', {'error_message': 'El correo no existe'})
+
+        token, created = Token.objects.get_or_create(user=user)
+
+        reset_url = request.build_absolute_uri(reverse('cambiar_contrasena', args=[user.id, token.key]))
+
+        message = f'Haga clic en el siguiente enlace para restablecer su contraseña: {reset_url}'
+        send_mail('Restablecimiento de contraseña', message, 'game.zone.pageshop@gmail.com', [email])
+
+        return redirect('inicio_sesion')
+
     return render(request, 'tienda/inicio/olvide_contrasena.html')
 
 def Nosotros(request):
@@ -176,18 +242,53 @@ def cerrar_sesion(request):
     logout(request)
     
     return redirect('inicio_sesion')
-@login_required   
-def editarPerfil(request):
-    return render(request, 'tienda/inicio/editarPerfil.html')
+
+
+@csrf_protect
 @login_required
 def Cuenta(request):
-    return render(request, 'tienda/inicio/Cuenta.html')
+    usuario = request.user  
+    perfil_usuario = Usuario.objects.get(id_usuariou=usuario.id)
+
+    contexto = {
+        'usuario': usuario,
+        'datos':perfil_usuario,
+    }
+    return render(request, 'tienda/inicio/Cuenta.html', contexto)
 
 def Colaboracion(request):
     return render(request, 'tienda/inicio/Colaboracion.html')
-@login_required
-def Cambiar_Contrasena(request):
-    return render(request, 'tienda/inicio/Cambiar_Contrasena.html')
+
+@require_http_methods(["GET", "POST"])
+@csrf_protect
+def cambiar_contrasena(request, user_id, token):
+    django_user = User.objects.get(id=user_id)
+    token_obj = Token.objects.filter(user=django_user).first()
+    
+    if not token_obj or token != token_obj.key:
+        messages.error(request, 'El enlace de restablecimiento de contraseña no es válido')
+        return redirect('inicio_sesion')
+
+    if request.method == 'POST':
+        password = request.POST.get('NuevaContrasena')
+
+        # Actualizar la contraseña del usuario de Django
+        django_user.set_password(password)
+        django_user.save()
+
+        # Actualizar la contraseña del usuario en la base de datos
+        usuario = Usuario.objects.get(nombre_usuariou=django_user.username)
+        usuario.contrasenau = password
+        usuario.save()
+
+        messages.success(request, 'La contraseña se ha cambiado exitosamente')
+        return redirect('inicio_sesion')
+
+    contexto = {
+        'user_id': user_id,
+        'token': token, 
+    }
+    return render(request, 'tienda/inicio/cambiar_contrasena.html', contexto)
 
 #Paginas Administrativas
 @login_required
@@ -323,9 +424,16 @@ def Listado_Usuarios(request):
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
-def EliminarUsuario(request,id):
-    user = Usuario.objects.get(id_usuariou = id)
+def EliminarUsuario(request, id):
+    usuario = Usuario.objects.get(id_usuariou=id)
+    user = User.objects.get(username=usuario.nombre_usuariou)
+
+    # Eliminar el registro de Usuariow
+    usuario.delete()
+
+    # Eliminar el usuario de Django
     user.delete()
+
     return redirect('Listado_Usuarios')
 
 #modificar Productos

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import mostrar_producto,eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,Cambiar_Contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,seccion_nintendo,seccion_Xbox,seccion_Pc,carrito,Listado
+from .views import modificarcuenta,mostrar_producto,eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,cambiar_contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,seccion_nintendo,seccion_Xbox,seccion_Pc,carrito,Listado
 from rest_framework import routers
 
 
@@ -29,11 +29,12 @@ urlpatterns = [
     path('inicio_sesion/',inicio_sesion,name="inicio_sesion"),
     path('cerrar_sesion/',cerrar_sesion,name="cerrar_sesion"),
     path('eliminar_usuarios/',eliminar_usuarios,name="eliminar_usuarios"),
-    path('editar_Perfil/',editarPerfil,name="editarPerfil"),
+    path('editar_Perfil/<int:id>',editarPerfil,name="editarPerfil"),
     path('Cuenta/',Cuenta,name="Cuenta"),
     path('Colaboracion/',Colaboracion,name="Colaboracion"),
-    path('Cambiar_Contrasena/',Cambiar_Contrasena,name="Cambiar_Contrasena"),
-    
+    path('cambiar_contrasena/<int:user_id>/<str:token>/',cambiar_contrasena,name="cambiar_contrasena"),
+    path('modificarcuenta',modificarcuenta,name="modificarcuenta"),
+        
     #Admin
     path('Administracion/',Administracion,name="Administracion"),
     path('Agregar/',Agregar,name="Agregar"),

@@ -40,12 +40,6 @@ $(document).ready(function () {
         } else {
             $("#error_nueva_contrasena4").html("");
         }
-        if (contrasenar == act_contrasena) {
-            $("#error_nueva_contrasena5").html("La contraseña es igual a la anterior<br>");
-            enviar = false;
-        } else {
-            $("#error_nueva_contrasena5").html("");
-        }
 
         if (contrasenar !== confcontrasenar) {
             $("#error_confirmar_contrasena1").html("Las contraseñas no coinciden<br>");

@@ -41,34 +41,46 @@
                 <h2 class="Titulo">Game <span>Zone</span></h2>
             </div>
         </div>
+        {% if messages %}
+        <div class="row">
+            <div class="col-md-12 centrado colorP">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }} letra " {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
 
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-cente STitulo" style="color: rgb(255, 255, 255);">Cambiar Contraseña</h3>
+            </div>
+        </div>
         <div class="form-row colorP">
-            <h3 class="text-center" style="color: rgb(255, 255, 255);">Cambiar Contraseña</h3>
-            <form action="{% url '' %}" method="POST" id="formCC">
+            <form class="col centrado" action="{% url 'cambiar_contrasena' user_id=user_id token=token %}" method="POST" id="formCC">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label class="letra" for="ContrasenaA">Contraseña Actual:</label>
-                    <input type="text" id="ContrasenaA" required />
-                </div>
-                <div class="form-group">
                     <label class="letra" for="NuevaContrasena">Nueva Contraseña:</label>
-                    <input type="password" id="NuevaContrasena" required />
+                    <input type="password" id="NuevaContrasena" name="NuevaContrasena" required />
                     <br>
                     <span id="error_nueva_contrasena1"> </span>
                     <span id="error_nueva_contrasena2"> </span>
                     <span id="error_nueva_contrasena3"> </span>
                     <span id="error_nueva_contrasena4"> </span>
-                    <span id="error_nueva_contrasena5"> </span>
-                  </div>
+                </div>
                 <div class="form-group">
                     <label class="letra" for="ConfirmarContrasena">Confirmar Contraseña:</label>
-                    <input type="password" id="ConfirmarContrasena" required />
+                    <input class="mr-4" type="password" id="ConfirmarContrasena" required />
                     <br>
                     <span id="error_confirmar_contrasena1"> </span>
                 </div>
                 <br>
                 <div class="row p-2">
-                    <div class="col-md-6 mb-2"><a class="btn btn-dark" href="{% url 'cuenta' %}">Volver</a>
+                    <div class="col-md-6 mb-2"><a class="btn btn-dark" href="{% url 'Cuenta' %}">Volver</a>
                     </div>
                     <div class="col-md-6"><button type="submit" class="btn btn-dark">Cambiar Contraseña</button>
                     </div>
@@ -85,10 +97,11 @@
     </div>
     </div>
     <script src="{% static 'tienda/js/F_cambiar_Contrasena.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-    crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 </body>
 
