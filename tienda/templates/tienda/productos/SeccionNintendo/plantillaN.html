@@ -90,9 +90,9 @@
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
                                 </li>
                             </ul>
-                            <form class="form-inline ml-auto mt-3" action="#">
-                                <input type="text" class="form-control" placeholder="Buscar">
-                                <button type="button" class="btn btn-outline-light">Buscar</button>
+                            <form class="form-inline ml-auto mt-3" action="{% url 'buscar_producto' %}">
+                                <input type="text" class="form-control" name="query" placeholder="Buscar">
+                                <button type="submit" class="btn btn-outline-light">Buscar</button>
                             </form>
                         </div>
                     </div>
@@ -137,11 +137,11 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <button class="btn btn-danger"><a href="/productos/carrito.html"><span class="letra">Añadir al
+                    <button class="btn btn-danger"><a href="{% url 'agregar_al_carrito' producto.id_juego 1 %}"><span class="letra">Añadir al
                                 carrito</span></a></button>
                 </div>
                 <div class="col-md-6 mt-1">
-                    <button class="btn btn-danger"><a href="/productos/carrito.html"><span class="letra">Comprar</span>
+                    <button class="btn btn-danger"><a href="{% url 'Comprar_ahora' producto.id_juego 1 %}><span class="letra">Comprar</span>
                         </a></button>
                 </div>
 

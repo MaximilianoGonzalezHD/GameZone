@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import modificarcuenta,mostrar_producto,eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,cambiar_contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,seccion_nintendo,seccion_Xbox,seccion_Pc,carrito,Listado
+from .views import buscar_producto,Comprar_ahora,pago_confirmado,pago,limpiar_carrito,borrar_producto_del_carrito,agregar_producto_al_carrito,modificarcuenta,mostrar_producto,eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,cambiar_contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,seccion_nintendo,seccion_Xbox,seccion_Pc,carrito,Listado
 from rest_framework import routers
 
 
@@ -59,6 +59,14 @@ urlpatterns = [
     path('Listado_Videojuegos/',Listado_Videojuegos,name="Listado_Videojuegos"),
     path('Modificar/<id>',Modificar,name="Modificar"),
     path('ModificarJuego',ModificarJuego,name="ModificarJuego"),
+    path('agregar_al_carrito/<int:id>/<int:cantidad>/', agregar_producto_al_carrito, name='agregar_al_carrito'),
+    path('Comprar_ahora/<int:id>/<int:cantidad>/', Comprar_ahora, name='Comprar_ahora'),
+    path('carrito/borrar/<int:id>/', borrar_producto_del_carrito, name='borrar_producto_del_carrito'),
+    path('limpiar_carrito/', limpiar_carrito, name='limpiar_carrito'),
+    path('Pago/', pago, name='Pago'),
+    path('pago-confirmado/<int:id>/', pago_confirmado, name='pago_confirmado'),
+
+    path('buscar/', buscar_producto, name='buscar_producto'),
 
     #seccion play
     path('playstation/',seccion_playstation,name="seccion_playstation"),

@@ -91,9 +91,9 @@
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
                                 </li>
                             </ul>
-                            <form class="form-inline ml-auto mt-3" action="#">
-                                <input type="text" class="form-control" placeholder="Buscar">
-                                <button type="button" class="btn btn-outline-light">Buscar</button>
+                            <form class="form-inline ml-auto mt-3" action="{% url 'buscar_producto' %}">
+                                <input type="text" class="form-control" name="query" placeholder="Buscar">
+                                <button type="submit" class="btn btn-outline-light">Buscar</button>
                             </form>
                         </div>
                     </div>
@@ -112,19 +112,19 @@
             </div>
             <div class="colorF p-5">
             <div class="row">
-                {% if datos.imegenu.url %}
-                <div class="col-md-6"><img src="{{ datos.imagenu.url }}"> <span class="colorP letra ml-2">{{ usuario.username }}</span></div>
+                {% if datos.imagenu.url %}
+                <div class="col-md-6"><img class="imgpj colorP mb-4" src="{{ datos.imagenu.url }}"> <span class="colorP letra ml-2">{{ usuario.username }}</span></div>
                 {% else %}
                 <div class="col-md-6"><img src="{% static 'tienda/IMG/predeterminado.png' %}"> <span class="colorP letra ml-2">{{ usuario.username }}</span></div>
                 {% endif %}
                 <div class="col-md-6">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-5">
                             <label for="emailu">Email: </label>
                             <br>
                             <span class="letra">{{ usuario.email }}</span>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-5">
                             {% if datos.nombreu %}
                             <label for="nombreu">Nombre: </label>
                             <br>

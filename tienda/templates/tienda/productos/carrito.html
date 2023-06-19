@@ -89,9 +89,9 @@
                                         src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
                             </li>
                         </ul>
-                        <form class="form-inline ml-auto mt-3" action="#">
-                            <input type="text" class="form-control" placeholder="Buscar">
-                            <button type="button" class="btn btn-outline-light">Buscar</button>
+                        <form class="form-inline ml-auto mt-3" action="{% url 'buscar_producto' %}">
+                            <input type="text" class="form-control" name="query" placeholder="Buscar">
+                            <button type="submit" class="btn btn-outline-light">Buscar</button>
                         </form>
                     </div>
                 </div>
@@ -117,6 +117,7 @@
                 <table class="table dtable-stripe table-hover  letra">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Producto</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
@@ -125,13 +126,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for item in items_carrito %}
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><img src="{{ item.videojuego.imagenv.url }}" alt="No Tiene Foto"></td>
+                            <td>{{ item.videojuego.nombrev }}</td>
+                            <td>{{ item.videojuego.precio|floatformat:-1 }}</td>
+                            <td>{{ item.cantidad }}</td>
+                            <td>{{ item.subtotal|floatformat:-1 }}</td>
+                            <td> <button class="btn btn-light"><a href="{% url 'borrar_producto_del_carrito' item.videojuego.id_juego  %}">Borrar</a></button></td>
                         </tr>
+                        {% endfor %}
                     </tbody>
             </div>
         </div>
@@ -141,12 +145,12 @@
                 <a href="{% url 'tienda' %}" class="btn btn-dark">Volver</a>
             </div>
             <div class="col-md-6">
-                <a href="#" id="Limpiar" class="btn btn-dark mt-1">Limpiar</a>
+                <a href="{% url 'limpiar_carrito' %}" id="Limpiar" class="btn btn-dark mt-1">Limpiar</a>
             </div>
         </div>
         <div class="row ">
             <div class="col-md-12 centrado mt-5">
-                <button class="btn btn-dark btn-block perfilb">Pagar</button>
+                <a type="button" class="btn btn-dark btn-block perfilb" href="{% url 'Pago' %}">Pagar</a>
             </div>
 
         </div>

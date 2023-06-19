@@ -91,9 +91,9 @@
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
                                 </li>
                             </ul>
-                            <form class="form-inline ml-auto mt-3" action="#">
-                                <input type="text" class="form-control" placeholder="Buscar">
-                                <button type="button" class="btn btn-outline-light">Buscar</button>
+                            <form class="form-inline ml-auto mt-3" action="{% url 'buscar_producto' %}">
+                                <input type="text" class="form-control" name="query" placeholder="Buscar">
+                                <button type="submit" class="btn btn-outline-light">Buscar</button>
                             </form>
                         </div>
                     </div>
@@ -144,6 +144,13 @@
                     </div>
                 </div>
             </div>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }} STitulo" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+            </ul>
+            {% endif %}
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

@@ -71,9 +71,9 @@
                             <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
                                         src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a></li>
                         </ul>
-                        <form class="form-inline ml-auto mt-3" action="#">
-                            <input type="text" class="form-control" placeholder="Buscar">
-                            <button type="button" class="btn btn-outline-light">Buscar</button>
+                        <form class="form-inline ml-auto mt-3" action="{% url 'buscar_producto' %}">
+                            <input type="text" class="form-control" name="query" placeholder="Buscar">
+                            <button type="submit" class="btn btn-outline-light">Buscar</button>
                         </form>
                     </div>
                 </div>

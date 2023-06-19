@@ -12,7 +12,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes, action
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required,user_passes_test
@@ -24,6 +24,9 @@ from django.shortcuts import render
 from django.core.mail import send_mail
 from django.urls import reverse
 import requests
+from datetime import date
+import secrets
+import string
 
 
 # Create your views here.
@@ -65,8 +68,269 @@ def seccion_Pc(request):
     return render(request,'tienda/productos/SeccionPc/Seccion_Pc.html',contexto)
 
 def carrito(request):
-    return render(request,'tienda/productos/carrito.html')
+    carrito = None
+    items_carrito = []
 
+    if request.user.is_authenticated:
+        usuario_id = request.user.id
+        usuario = Usuario.objects.get(id_usuariou=usuario_id)
+        try:
+            carrito = Carrito.objects.get(usuario=usuario)
+            items_carrito = ItemCarrito.objects.filter(carrito=carrito)
+        except Carrito.DoesNotExist:
+            carrito = Carrito.objects.create(usuario=usuario)
+    else:
+        carrito_id = request.session.get('carrito_id')
+        if carrito_id:
+            carrito = get_object_or_404(Carrito, id_carrito=carrito_id)
+            items_carrito = ItemCarrito.objects.filter(carrito=carrito)
+
+    contexto = {
+        'carrito': carrito,
+        'items_carrito': items_carrito
+    }
+
+    for item in items_carrito:
+        item.subtotal = item.videojuego.precio * item.cantidad
+
+    return render(request, 'tienda/productos/Carrito.html', contexto)
+
+def agregar_producto_al_carrito(request, id, cantidad):
+    carrito = None
+    usuario = None
+
+    if request.user.is_authenticated:
+        usuario_id = request.user.id
+        usuario = Usuario.objects.get(id_usuariou=usuario_id)
+        try:
+            carrito = Carrito.objects.get(usuario=usuario)
+        except Carrito.DoesNotExist:
+            carrito = Carrito.objects.create(usuario=usuario)
+    else:
+        carrito_id = request.session.get('carrito_id')
+        if carrito_id:
+            carrito = get_object_or_404(Carrito, id_carrito=carrito_id)
+        else:
+            carrito = Carrito.objects.create(usuario=None)  
+
+            request.session['carrito_id'] = carrito.id_carrito
+
+    if carrito:
+        try:
+            producto = Videojuegos.objects.get(id_juego=id)
+            item_carrito, created = ItemCarrito.objects.get_or_create(carrito=carrito, videojuego=producto, defaults={'cantidad': cantidad})
+            if not created:
+                item_carrito.cantidad += int(cantidad)
+                item_carrito.save()
+        except Videojuegos.DoesNotExist:
+            return HttpResponse('El producto no existe')
+        
+        return redirect('Carrito')
+    else:
+        return HttpResponse('Error al agregar el producto al carrito')
+
+def Comprar_ahora(request, id, cantidad):
+    carrito = None
+    usuario = None
+
+    if request.user.is_authenticated:
+        usuario_id = request.user.id
+        usuario = Usuario.objects.get(id_usuariou=usuario_id)
+        try:
+            carrito = Carrito.objects.get(usuario=usuario)
+        except Carrito.DoesNotExist:
+            carrito = Carrito.objects.create(usuario=usuario)
+    else:
+        carrito_id = request.session.get('carrito_id')
+        if carrito_id:
+            carrito = get_object_or_404(Carrito, id_carrito=carrito_id)
+        else:
+            carrito = Carrito.objects.create(usuario=None)  
+
+            request.session['carrito_id'] = carrito.id_carrito
+
+    if carrito:
+        try:
+            producto = Videojuegos.objects.get(id_juego=id)
+            item_carrito, created = ItemCarrito.objects.get_or_create(carrito=carrito, videojuego=producto, defaults={'cantidad': cantidad})
+            if not created:
+                item_carrito.cantidad += int(cantidad)
+                item_carrito.save()
+        except Videojuegos.DoesNotExist:
+            return HttpResponse('El producto no existe')
+        
+        return redirect('Pago')
+    else:
+        return HttpResponse('Error al agregar el producto al carrito')
+
+def borrar_producto_del_carrito(request, id):
+    carrito = None
+    usuario = request.user
+
+    if usuario.is_authenticated:
+        usuario_db = get_object_or_404(Usuario, id_usuariou=usuario.id)
+        carrito = get_object_or_404(Carrito, usuario=usuario_db)
+    else:
+        carrito_id = request.session.get('carrito_id')
+        if carrito_id:
+            carrito = get_object_or_404(Carrito, id_carrito=carrito_id)
+
+    producto = get_object_or_404(Videojuegos, id_juego=id)
+
+    if carrito:
+        ItemCarrito.objects.filter(carrito=carrito, videojuego=producto).delete()
+        return redirect('Carrito')
+    else:
+        return redirect('Carrito')
+def limpiar_carrito(request):
+    if request.user.is_authenticated:
+
+        usuario_id = request.user.id
+        usuario = Usuario.objects.get(id_usuariou=usuario_id)
+        carrito = Carrito.objects.get(usuario=usuario)
+        carrito.itemcarrito_set.all().delete()
+    else:
+
+        carrito_id = request.session.get('carrito_id')
+        if carrito_id:
+            carrito = get_object_or_404(Carrito, id_carrito=carrito_id)
+            carrito.itemcarrito_set.all().delete()
+
+    return redirect('Carrito')
+
+def buscar_producto(request):
+    if request.method == 'GET':
+        slug = request.GET.get('query')
+        try:
+            producto = get_object_or_404(Videojuegos, slug=slug)
+            return redirect('mostrar_producto', producto_slug=slug)
+        except:
+            return redirect('tienda')
+    return redirect('tienda')
+def pago(request):
+    carrito = None
+    precio_total = 0
+    usuario = None
+    correo = None
+
+    if request.user.is_authenticated:
+        usuario_id = request.user.id
+        usuario = Usuario.objects.get(id_usuariou=usuario_id)
+        carrito = Carrito.objects.get(usuario=usuario)
+    else:
+        carrito_id = request.session.get('carrito_id')
+        if carrito_id:
+            carrito = get_object_or_404(Carrito, id_carrito=carrito_id)
+        else:
+            carrito = Carrito.objects.create(usuario=None)
+            request.session['carrito_id'] = carrito.id_carrito
+
+    if carrito:
+        items_carrito = ItemCarrito.objects.filter(carrito=carrito)
+        for item in items_carrito:
+            precio_total += item.videojuego.precio * item.cantidad
+
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            rutA = request.POST['rut']
+
+            compra = Compra.objects.create(rutc=rutA, totalc=precio_total, usuario=usuario)
+            
+            contexto = {
+                'usuario': usuario,
+                'carrito': carrito,
+                'precio_total': precio_total,
+                'id_compra': compra
+            }
+
+            for item in items_carrito:
+                subtotal = item.videojuego.precio * item.cantidad
+                Detallesc.objects.create(subtotal=subtotal, cantidad=item.cantidad, videojuego=item.videojuego, compra=compra)
+
+            return redirect('pago_confirmado', id=compra.id_comprac)
+        else:
+            correo = request.POST['correo']
+            rut1 = request.POST['rut']
+
+            compra = Compra.objects.create(rutc=rut1, totalc=precio_total, usuario=None)
+            
+
+            contexto = {
+                'usuario': usuario,
+                'carrito': carrito,
+                'precio_total': precio_total,
+                'id_compra': compra
+            }
+
+            for item in items_carrito:
+                subtotal = item.videojuego.precio * item.cantidad
+                Detallesc.objects.create(subtotal=subtotal, cantidad=item.cantidad, videojuego=item.videojuego, compra=compra)
+
+            enviar_correo_confirmacion(correo, compra)
+            messages.success(request, '¡Compra realizada!')
+            items_carrito.delete()
+            return redirect('tienda')
+
+    contexto = {
+        'usuario': usuario,
+        'carrito': carrito,
+        'precio_total': precio_total,
+    }
+
+    return render(request, 'tienda/inicio/Pago.html', contexto)
+
+def pago_confirmado(request, id):
+    compra = Compra.objects.get(id_comprac=id)
+    detallesc = Detallesc.objects.filter(compra=compra)
+    caracteres = string.ascii_letters + string.digits
+    codigo = ''.join(secrets.choice(caracteres) for _ in range(8))
+
+    if request.method == 'POST':
+        enviar_correo_confirmacion(compra.usuario.emailu, compra)
+        messages.success(request, '¡Compra realizada!')
+
+        carrito = Carrito.objects.get(usuario=compra.usuario)
+        ItemCarrito.objects.filter(carrito=carrito).delete()
+
+        return redirect('tienda')
+
+
+    contexto = {
+        'compra': compra,
+        'detalle': detallesc,
+        'codigos':codigo,
+    }
+
+    return render(request, 'tienda/inicio/confirmacion_pago.html', contexto)
+
+def enviar_correo_confirmacion(correo, compra):
+    id_compra = compra.id_comprac
+    fecha_compra = compra.fechac
+    total_compra = compra.totalc
+    caracteres = string.ascii_letters + string.digits
+    codigo = ''.join(secrets.choice(caracteres) for _ in range(8))
+
+    mensaje = f"¡Gracias por tu compra!\n\nDetalles de la compra (ID: {id_compra}):\n"
+    mensaje += f"Fecha de compra: {fecha_compra}\n"
+    mensaje += f"Total de la compra: {total_compra}\n\n"
+    mensaje += "Detalles de los productos:\n"
+
+    detallesc = Detallesc.objects.filter(compra=compra)  
+
+    for detalle in detallesc:
+        producto = detalle.videojuego
+        cantidad = detalle.cantidad
+        subtotal = detalle.subtotal
+
+        mensaje += f"- {producto.nombrev} (Cantidad: {cantidad}, Subtotal: {subtotal}, Código de tu producto: {codigo})\n"
+
+    send_mail(
+        'Confirmación de compra',
+        mensaje,
+        'game.zone.pageshop@gmail.com',
+        [correo],
+        fail_silently=False,
+    )
 #Productos
 def mostrar_producto(request, producto_slug):
     producto = get_object_or_404(Videojuegos, slug=producto_slug)
@@ -509,6 +773,51 @@ class DetallescViewSet(viewsets.ModelViewSet):
 class CarritoViewSet(viewsets.ModelViewSet):
     queryset = Carrito.objects.all()
     serializer_class = CarritoSerializer
+    permission_classes = [IsAuthenticated]
+
+    @action(detail=False, methods=['get'])
+    def obtener_carrito(self, request):
+        carrito = Carrito.objects.get(usuario=request.user)
+        carrito_serializer = self.get_serializer(carrito)
+        return Response(carrito_serializer.data)
+
+    @action(detail=True, methods=['post'])
+    def agregar_producto(self, request, pk=None):
+        carrito = self.get_object()
+        
+        producto_id = request.data.get('producto_id')
+        cantidad = request.data.get('cantidad', 1)
+        
+        try:
+            producto = Videojuegos.objects.get(pk=producto_id)
+
+            item_carrito = ItemCarrito.objects.get(carrito=carrito, videojuego=producto)
+            
+            item_carrito.cantidad += cantidad
+            item_carrito.save()
+            
+            carrito_serializer = self.get_serializer(carrito)
+            item_carrito_serializer = ItemCarritoSerializer(item_carrito)
+
+            response_data = {
+                'carrito': carrito_serializer.data,
+                'item_carrito': item_carrito_serializer.data
+            }
+            return Response(response_data)
+        
+        except ItemCarrito.DoesNotExist:
+            item_carrito = ItemCarrito(carrito=carrito, videojuego=producto, cantidad=cantidad)
+            item_carrito.save()
+            
+            carrito_serializer = self.get_serializer(carrito)
+            item_carrito_serializer = ItemCarritoSerializer(item_carrito)
+            
+            response_data = {
+                'carrito': carrito_serializer.data,
+                'item_carrito': item_carrito_serializer.data
+            }
+            return Response(response_data)
+        
 @permission_classes((IsAuthenticated,))
 class ItemCarritoViewSet(viewsets.ModelViewSet):
     queryset = ItemCarrito.objects.all()

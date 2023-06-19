@@ -52,7 +52,7 @@ class Compra(models.Model):
     fechac = models.DateField(verbose_name='Fecha de compra', default=timezone.now)
     rutc = models.CharField(max_length=16, default=None)
     totalc = models.IntegerField(verbose_name='Total de la compra',default=None)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE,default=None)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
     def __str__(self):
         return f'Compra {self.id_comprac}'
 
@@ -67,7 +67,7 @@ class Detallesc(models.Model):
     
 class Carrito(models.Model):
     id_carrito = models.AutoField(primary_key=True)
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f'Carrito {self.id_carrito} - Usuario {self.usuario.nombre_usuariou}'
