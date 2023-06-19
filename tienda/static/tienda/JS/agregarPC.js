@@ -26,12 +26,6 @@ $(document).ready(function () {
         } else {
             $("#error_descpc2").html("");
         }
-        if (caracteres.test(descripcionPc1)) {
-            $("#error_descpc3").html("descripción invalida<br>");
-            enviar = false;
-        } else {
-            $("#error_descpc3").html("");
-        }
         if (precioPc1 < 0) {
             $("#precio_errorpc1").html("precio invalido: numeros negativos<br>");
           } else {

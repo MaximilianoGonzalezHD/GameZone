@@ -26,12 +26,6 @@ $(document).ready(function () {
         } else {
             $("#error_descx2").html("");
         }
-        if (caracteres.test(descripcionx)) {
-            $("#error_descx3").html("descripción invalida<br>");
-            enviar = false;
-        } else {
-            $("#error_descx3").html("");
-        }
         if (preciox < 0) {
             $("#precio_errorx1").html("precio invalido: numeros negativos<br>");
           } else {
