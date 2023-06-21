@@ -1,18 +1,26 @@
 $(document).ready(function () {
     $("#formPago").submit(function (e) {
-        var rutFormato = /^\d{1}\.\d{3}\.\d{3}-[\dkK]{1}$/;
+        var rutc = $("#rut1").val();
+        var rutc1 = $("#rut2").val();
         var correo = $("#correo").val();
-        var rut = $("#rut").val();
+        var rutFormato = /^[0-9]{1,2}\.[0-9]{3}\.[0-9]{3}-[0-9kK]{1}$/;
         var emailFormato = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let enviar = true;
 
-        if (!rutFormato.test(rut)) {
-            $("#error_rut").html("RUT inválido. Utiliza el formato x.xxx.xxx-x");
+  
+          if(!rutFormato.test(rutc)){
+            $("#error_rut1").html("Rut invalido");
             enviar = false;
           } else {
-            $("#error_rut").html("");
+            $("#error_rut1").html("");
           }
-      
+          if(!rutFormato.test(rutc1)){
+            $("#error_rut2").html("Rut invalido");
+            enviar = false;
+          } else {
+            $("#error_rut2").html("");
+          }
+
           if (!emailFormato.test(correo)) {
             $("#error_correo").html("Correo electrónico inválido");
             enviar = false;
@@ -22,7 +30,6 @@ $(document).ready(function () {
 
           
         if (enviar) {
-    
             $("#warnings").html("Enviado");
         } else {
             e.preventDefault();

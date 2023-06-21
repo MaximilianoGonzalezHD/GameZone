@@ -232,7 +232,7 @@ def pago(request):
 
     if request.method == 'POST':
         if request.user.is_authenticated:
-            rutA = request.POST['rut']
+            rutA = request.POST['rut1']
 
             compra = Compra.objects.create(rutc=rutA, totalc=precio_total, usuario=usuario)
             
@@ -250,7 +250,7 @@ def pago(request):
             return redirect('pago_confirmado', id=compra.id_comprac)
         else:
             correo = request.POST['correo']
-            rut1 = request.POST['rut']
+            rut1 = request.POST['rut2']
 
             compra = Compra.objects.create(rutc=rut1, totalc=precio_total, usuario=None)
             
