@@ -307,11 +307,13 @@ def enviar_correo_confirmacion(correo, compra):
     id_compra = compra.id_comprac
     fecha_compra = compra.fechac
     total_compra = compra.totalc
+    rut1 = compra.rutc
     caracteres = string.ascii_letters + string.digits
     codigo = ''.join(secrets.choice(caracteres) for _ in range(8))
 
     mensaje = f"¡Gracias por tu compra!\n\nDetalles de la compra (ID: {id_compra}):\n"
     mensaje += f"Fecha de compra: {fecha_compra}\n"
+    mensaje += f"Su rut: {rut1}\n"
     mensaje += f"Total de la compra: {total_compra}\n\n"
     mensaje += "Detalles de los productos:\n"
 
@@ -322,7 +324,10 @@ def enviar_correo_confirmacion(correo, compra):
         cantidad = detalle.cantidad
         subtotal = detalle.subtotal
 
-        mensaje += f"- {producto.nombrev} (Cantidad: {cantidad}, Subtotal: {subtotal}, Código de tu producto: {codigo})\n"
+        mensaje += f"- {producto.nombrev} (Cantidad: {cantidad}, Subtotal: {subtotal})\n"
+        for _ in range(cantidad):
+            codigo = ''.join(secrets.choice(caracteres) for _ in range(8))
+            mensaje += f"  Código de {producto.nombrev} : {codigo}\n"
 
     send_mail(
         'Confirmación de compra',

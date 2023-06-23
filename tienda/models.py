@@ -8,15 +8,14 @@ class Rol (models.Model):
     nombrer = models.CharField(max_length=30)
     def __str__(self) -> str:
         return self.nombrer
-def get_default_image2():
-    return 'tienda/static/tienda/IMG/predeterminado.png'
+
 class Usuario (models.Model):
     id_usuariou = models.IntegerField(primary_key=True)
     emailu = models.CharField(max_length=30)
     nombre_usuariou = models.CharField(max_length=20)
     contrasenau = models.CharField(max_length=50)
     nombreu = models.CharField(blank=True,max_length=30)
-    imagenu = models.ImageField(verbose_name="Imagen De Usuario",upload_to="ImagenUser", default=get_default_image2)
+    imagenu = models.ImageField(blank=True,verbose_name="Imagen De Usuario",upload_to="ImagenUser",null=True)
     rol = models.ForeignKey(Rol,on_delete=models.CASCADE)
     def __str__(self) -> str:
         return self.nombre_usuariou
