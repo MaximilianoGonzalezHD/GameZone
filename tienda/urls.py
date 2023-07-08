@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import buscar_producto,Comprar_ahora,pago_confirmado,pago,limpiar_carrito,borrar_producto_del_carrito,agregar_producto_al_carrito,modificarcuenta,mostrar_producto,eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,cambiar_contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,seccion_nintendo,seccion_Xbox,seccion_Pc,carrito,Listado
+from .views import modificarcontrasena,editarContrasena,buscar_producto,Comprar_ahora,pago_confirmado,pago,limpiar_carrito,borrar_producto_del_carrito,agregar_producto_al_carrito,modificarcuenta,mostrar_producto,eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,cambiar_contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,seccion_nintendo,seccion_Xbox,seccion_Pc,carrito,Listado
 from rest_framework import routers
 
 
@@ -30,10 +30,12 @@ urlpatterns = [
     path('cerrar_sesion/',cerrar_sesion,name="cerrar_sesion"),
     path('eliminar_usuarios/',eliminar_usuarios,name="eliminar_usuarios"),
     path('editar_Perfil/<int:id>',editarPerfil,name="editarPerfil"),
+    path('editar_contrasena/<int:id>',editarContrasena,name="editarContrasena"),
     path('Cuenta/',Cuenta,name="Cuenta"),
     path('Colaboracion/',Colaboracion,name="Colaboracion"),
     path('cambiar_contrasena/<int:user_id>/<str:token>/',cambiar_contrasena,name="cambiar_contrasena"),
     path('modificarcuenta',modificarcuenta,name="modificarcuenta"),
+    path('modificarcontrasena',modificarcontrasena,name="modificarcontrasena"),
         
     #Admin
     path('Administracion/',Administracion,name="Administracion"),

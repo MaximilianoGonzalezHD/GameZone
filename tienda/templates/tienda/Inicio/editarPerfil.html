@@ -68,7 +68,7 @@
                                 <li class="nav-item dropdown mt-3">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cuenta</a>
                                     <div class="dropdown-menu">
-                                        <a href="{% url 'Cuenta' %}" class="dropdown-item">Mi Perfil</a>
+                                        <a href="{% url 'Cuenta' %}" class="dropdown-item" >Mi Perfil</a>
                                         <a href="{% url 'Colaboracion' %}" class="dropdown-item">Colaboración</a>
                                         <a href="{% url 'cerrar_sesion' %}" class="dropdown-item">Cerrar Sesión</a>
                                     </div>
@@ -90,9 +90,15 @@
                                             class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
                                             alt="Steam"></a>
                                 </li>
-                                <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
+                                {% if user.is_staff %}
+                                <li class="nav-item mt-2"><a href="{% url 'Carrito' %}" hidden><img class="imgiconav"
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
                                 </li>
+                                {% else %}
+                                <li class="nav-item mt-2"><a href="{% url 'Carrito' %}" ><img class="imgiconav"
+                                    src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
+                        </li>
+                                {% endif %}
                             </ul>
                             <form class="form-inline ml-auto mt-3" action="{% url 'buscar_producto' %}">
                                 <input type="text" class="form-control" name="query" placeholder="Buscar">
@@ -138,22 +144,9 @@
                         <input type="text" id="NameOp" name="NameOp" value="{{ datos.nombreu }}">
                         <br>
                         <span id="error_nombre"></span>
+                        <span id="error_nombre2"></span>
                     </div>
-                    <div class="form-element mr-3">
-                        <label class="Letra" for="ContrasenaR">Crear Contraseña:</label>
-                        <input type="password" id="ContrasenaR" name="ContrasenaR" value="{{ datos.contrasenau }}" required>
-                        <br>
-                        <span id="contrasena_error1"></span>
-                        <span id="contrasena_error2"></span>
-                        <span id="contrasena_errortres"></span>
-                        <span id="contrasena_error4"></span>
-                    </div>
-                    <div class="form-element mr-5">
-                        <label class="Letra" for="ConfirmContrasenaR">Confirmar Contraseña:</label>
-                        <input type="password" id="ConfirmContrasenaR" placeholder="Confirme su contraseña..." required>
-                        <br>
-                        <span id="confcontrasena_error"></span>
-                    </div>
+    
                     <div class="form-element mr-5">
                         <input type="number" id="rolu" name="rolu" value="1" hidden readonly>
                     </div>

@@ -65,7 +65,7 @@
                             <li class="nav-item dropdown mt-3">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cuenta</a>
                                 <div class="dropdown-menu">
-                                    <a href="{% url 'Cuenta' %}" class="dropdown-item">Mi Perfil</a>
+                                    <a href="{% url 'Cuenta' %}" class="dropdown-item" >Mi Perfil</a>
                                     <a href="{% url 'Colaboracion' %}" class="dropdown-item">Colaboración</a>
                                     <a href="{% url 'cerrar_sesion' %}" class="dropdown-item">Cerrar Sesión</a>
                                 </div>
@@ -87,9 +87,15 @@
                                         class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
                                         alt="Steam"></a>
                             </li>
-                            <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
+                            {% if user.is_staff %}
+                            <li class="nav-item mt-2"><a href="{% url 'Carrito' %}" hidden><img class="imgiconav"
                                         src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
                             </li>
+                            {% else %}
+                            <li class="nav-item mt-2"><a href="{% url 'Carrito' %}" ><img class="imgiconav"
+                                src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
+                    </li>
+                            {% endif %}
                         </ul>
                         <form class="form-inline ml-auto mt-3" action="{% url 'buscar_producto' %}">
                             <input type="text" class="form-control" name="query" placeholder="Buscar">

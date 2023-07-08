@@ -373,7 +373,6 @@ def modificarcuenta(request):
         correous = request.POST.get('email')
         nombreus = request.POST.get('NombreR')
         nombreopc = request.POST.get('NameOp')
-        contrasena = request.POST.get('ContrasenaR')
         imagenus = request.FILES.get('FotoU') 
         rolu = request.POST.get('rolu')
 
@@ -383,7 +382,6 @@ def modificarcuenta(request):
         user = User.objects.get(username=usuario.nombre_usuariou)
         user.username = nombreus
         user.email = correous
-        user.set_password(contrasena)
         user.save()
 
         if imagenus:
@@ -392,6 +390,38 @@ def modificarcuenta(request):
         usuario.emailu = correous
         usuario.nombre_usuariou = nombreus
         usuario.nombreu = nombreopc
+        usuario.rol = rol1
+        usuario.save()  
+       
+        return redirect('Cuenta')
+
+    return redirect('Cuenta')
+
+@login_required   
+def editarContrasena(request, id):
+    usuario = Usuario.objects.get(id_usuariou=id)
+    rolu = Rol.objects.all()
+    contexto ={
+        "datos":usuario,
+        "datosR":rolu,
+    }
+
+    return render(request, 'tienda/inicio/editarcontrasena.html',contexto)
+
+@login_required
+def modificarcontrasena(request):
+    if request.method == 'POST':
+        id_usuario = request.POST.get('idus')
+        contrasena = request.POST.get('ContrasenaR')
+        rolu = request.POST.get('rolu')
+
+        usuario = Usuario.objects.get(id_usuariou=id_usuario)
+        rol1 = Rol.objects.get(id_rolr=rolu)
+
+        user = User.objects.get(username=usuario.nombre_usuariou)
+        user.set_password(contrasena)
+        user.save()
+        
         usuario.contrasenau = contrasena
         usuario.rol = rol1
         usuario.save()  
@@ -542,12 +572,12 @@ def cambiar_contrasena(request, user_id, token):
         password = request.POST.get('NuevaContrasena')
 
         # Actualizar la contraseña del usuario de Django
-        django_user.set_password(password)
+        django_user.set_password(make_password(password))
         django_user.save()
 
         # Actualizar la contraseña del usuario en la base de datos
         usuario = Usuario.objects.get(nombre_usuariou=django_user.username)
-        usuario.contrasenau = password
+        usuario.contrasenau = make_password(password)
         usuario.save()
 
         messages.success(request, 'La contraseña se ha cambiado exitosamente')

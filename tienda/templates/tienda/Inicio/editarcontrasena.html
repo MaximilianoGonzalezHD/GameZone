@@ -6,28 +6,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administración</title>
+    <title>Editando</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+
     <link type="text/css" rel="stylesheet" href="{% static 'tienda/CSS/Estilo.css' %}">
+
     <style>
-        .tiendaFondo {
+        .fondoEditarP {
             background-size: 100% 100%;
             background-image: url("{% static 'tienda/IMG/fondoct.png' %}");
         }
 
         @media only screen and (max-width: 1300px) {
-            .tiendaFondo {
-                background-image: url("{% static 'tienda/IMG/FondoCel.jpg' %}");
+            .fondoEditarP {
+                background-image: url("{% static 'tienda/IMG/fondoIS.jpg' %}");
             }
         }
     </style>
 </head>
 
-<body class="tiendaFondo">
+<body class="fondoEditarP">
     <div class="container">
         <div class="centrado">
             <div class="row mb-5">
@@ -104,51 +109,54 @@
                 </div>
             </div>
             <br>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-md-12">
-                    <h2 class="Titulo"> <span>Zone</span>Administración </h2>
+                    <h2 class="Titulo">Game <span>Zone</span></h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="STitulo">Listado Usuarios:</h2>
+                    <h3 class="STitulo">Editar Contraseña:</h3>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped table-hover  letra">
-                        <tr>
-                            <th>ID</th>
-                            <th>Email</th>
-                            <th>Nombre De Usuario</th>
-                            <th>Nombre</th>
-                            <th>Rol</td>
-                            <th>Acciones</th>
-                        </tr>
+            <div class="form-container colorP">
+                <form class="col centrado" method="POST" enctype="multipart/form-data" action="{% url 'modificarcontrasena' %}" id="formModC">
+                    {% csrf_token %}
+                    <div class="form-element mr-3">
+                        <input type="number" id="idus" name="idus" value="{{ datos.id_usuariou }}" hidden readonly>
+                    </div>
 
-                        {% for u in listadoUsuarios %}
-                        <tr>
-                            <td>{{ u.id_usuariou }}</td>
-                            <td>{{ u.emailu }}</td>
-                            <td>{{ u.nombre_usuariou }}</td>
-                            <td>{{ u.nombreu }}</td>
-                            <td alt="No tiene Rol">{{ u.rol.nombrer }}</td>
-                            <td>
-                                <a href="{% url 'EliminarUsuario' u.id_usuariou %}" class="btn btn-danger">Eliminar</a>
-                            </td>
-
-                        </tr>
-                        {% endfor %}
-
-                    </table>
-                </div>
+                    <div class="form-element mr-3">
+                        <label class="Letra" for="ContrasenaA">Contraseña Actual:</label>
+                        <input type="password" id="ContrasenaA" name="ContrasenaA" value="{{ datos.contrasenau }}" readonly>
+                        
+                    </div>
+                    <div class="form-element mr-3">
+                        <label class="Letra" for="ContrasenaR">Crear Contraseña:</label>
+                        <input type="password" id="ContrasenaR" name="ContrasenaR" placeholder="Nueva Contraseña.." required>
+                        <br>
+                        <span id="contrasena_error1"></span>
+                        <span id="contrasena_error2"></span>
+                        <span id="contrasena_errortres"></span>
+                        <span id="contrasena_error4"></span>
+                        <span id="contrasena_error5"></span>
+                    </div>
+                    <div class="form-element mr-5">
+                        <label class="Letra" for="ConfirmContrasenaR">Confirmar Contraseña:</label>
+                        <input type="password" id="ConfirmContrasenaR" placeholder="Confirme su contraseña..." required>
+                        <br>
+                        <span id="confcontrasena_error"></span>
+                    </div>
+                    <div class="form-element mr-5">
+                        <input type="number" id="rolu" name="rolu" value="1" hidden readonly>
+                    </div>
+                    <button type="submit" class="btn btn-dark mt-2">Modificar Contraseña</button>
+                </form>
             </div>
-
 
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-    crossorigin="anonymous"></script>
+    <script src="{% static 'tienda/js/modificarcontrasena.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>

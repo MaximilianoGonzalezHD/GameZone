@@ -74,9 +74,15 @@
                                             class="imgiconav" src="{% static 'tienda/IMG/IconosIMG/steam-logo.png' %}"
                                             alt="Steam"></a>
                                 </li>
-                                <li class="nav-item mt-2"><a href="{% url 'Carrito' %}"><img class="imgiconav"
+                                {% if user.is_staff %}
+                                <li class="nav-item mt-2"><a href="{% url 'Carrito' %}" hidden><img class="imgiconav"
                                             src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
                                 </li>
+                                {% else %}
+                                <li class="nav-item mt-2"><a href="{% url 'Carrito' %}" ><img class="imgiconav"
+                                    src="{% static 'tienda/IMG/IconosIMG/icon_carrito.png' %}" alt="carro"></a>
+                        </li>
+                                {% endif %}
                             </ul>
                             <form class="form-inline ml-auto mt-3" action="{% url 'buscar_producto' %}">
                                 <input type="text" class="form-control" name="query" placeholder="Buscar">
