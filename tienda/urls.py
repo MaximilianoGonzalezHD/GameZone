@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import modificarcontrasena,editarContrasena,buscar_producto,Comprar_ahora,pago_confirmado,pago,limpiar_carrito,borrar_producto_del_carrito,agregar_producto_al_carrito,modificarcuenta,mostrar_producto,eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,cambiar_contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,seccion_nintendo,seccion_Xbox,seccion_Pc,carrito,Listado
+from .views import historial_compras,modificarcontrasena,editarContrasena,buscar_producto,Comprar_ahora,pago_confirmado,pago,limpiar_carrito,borrar_producto_del_carrito,agregar_producto_al_carrito,modificarcuenta,mostrar_producto,eliminar_usuarios,cerrar_sesion,registrarUsuario,EliminarUsuario,EliminarVideoJuego,ModificarJuego,Listado_Videojuegos,Listado_Usuarios,AgregarPCJuego,AgregarPlaystation,AgregarXbox,AgregarNintendo,tienda,registro,olvide_contrasena,Nosotros,inicio_sesion,editarPerfil,Cuenta,Colaboracion,cambiar_contrasena,Administracion,Agregar,AgregarN,AgregarP,AgregarPC,AgregarX,Modificar,seccion_playstation,seccion_nintendo,seccion_Xbox,seccion_Pc,carrito,Listado
 from rest_framework import routers
 
 
@@ -85,6 +85,9 @@ urlpatterns = [
 
     #Carrito
     path('Carrito/',carrito,name="Carrito"),
+    
+    #Historial_Compras
+    path('historial_compras/',historial_compras, name="historial_compras"),
 
     #Productos
     path('producto/<slug:producto_slug>/',mostrar_producto,name='mostrar_producto'),

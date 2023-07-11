@@ -152,15 +152,15 @@
                         <label for="DescripcionN">
                             <p class="letra">Descripción:</p>
                         </label>
-                        <textarea id="DescripcionV" name="DescripcionV" class="form-control centrado" cols="30" rows="10" value="{{ datos.descripcion }}" required></textarea>
+                        <textarea id="DescripcionV" name="DescripcionV" class="form-control centrado" cols="30" rows="10" required>{{ datos.descripcion }}</textarea>
                         <span style="color: white;" id="error_descripcionv1"></span>
                         <span style="color: white;" id="error_descripcionv2"></span>
-                        <span style="color: white;" id="error_descripcionv3"></span>
+                        
                         
                     </div>
                     <div class="form-group">
-                        <label for="FotoVN">Imagen Del Videojuego</label>
-                        <input type="file" class="centrado form-control" id="FotoV" name="FotoV" value="{{ datos.imagenv }}" required>
+                        <label for="FotoVN">Imagen Del Videojuego: </label>
+                        <img src="{{ datos.imagenv.url }}" alt="Imagen actual del producto">
                     </div>
                     <div class="form-group">
                         <label>Sección</label>
@@ -187,7 +187,7 @@
             </div>
         </div>
     </div>
-    <script src="{% static 'tienda/js/modificar.js' %}"></script>
+    <script src="{% static 'tienda/js/modificarv.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>

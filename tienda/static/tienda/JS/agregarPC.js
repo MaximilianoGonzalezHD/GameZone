@@ -7,8 +7,8 @@ $(document).ready(function () {
         
         let enviar = true;
 
-        if (nombrePc1.trim().length < 5 || nombrePc1.trim().length > 15) {
-            $("#error_nombrePc1").html("El nombre  debe tener entre 5 y 15 caracteres<br>");
+        if (nombrePc1.trim().length < 5 || nombrePc1.trim().length > 30) {
+            $("#error_nombrePc1").html("El nombre  debe tener entre 5 y 30 caracteres<br>");
             enviar = false;
         } else {
             $("#error_nombrePc1").html("");

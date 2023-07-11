@@ -106,54 +106,45 @@
 
             </div>
         </div>
-
+        
         <div class="row">
             <div class="col-md-12">
-                <h3 class="text-center colorF p-2" style="color: white;">Carrito de Compras</h3>
+                <h3 class="text-center colorF p-2" style="color: white;">Historial de Compras</h3>
             </div>
         </div>
         <div class="colorp">
-        <div class="row">
+        <div class="row ">
             <div class="col-md-12">
                 <table class="table dtable-stripe table-hover centrado letra">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>ID Compra</th>
                             <th>Producto</th>
-                            <th>Precio</th>
+                            <th>Nombre</th>
                             <th>Cantidad</th>
-                            <th>Subtotal</th>
-                            <th>Acciones</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for item in items_carrito %}
+                        {% for dato in detalles %}
                         <tr>
-                            <td><img src="{{ item.videojuego.imagenv.url }}" alt="No Tiene Foto"></td>
-                            <td>{{ item.videojuego.nombrev }}</td>
-                            <td>{{ item.videojuego.precio|floatformat:-1 }}</td>
-                            <td>{{ item.cantidad }}</td>
-                            <td>{{ item.subtotal|floatformat:-1 }}</td>
-                            <td> <button class="btn btn-light"><a href="{% url 'borrar_producto_del_carrito' item.videojuego.id_juego  %}">Borrar</a></button></td>
+                            <td>{{ dato.compra.id_comprac }}</td>
+                            <td><img src="{{ dato.videojuego.imagenv.url }}" alt="No Tiene Foto"></td>
+                            <td>{{ dato.videojuego.nombrev }}</td>
+                            <td>{{ dato.cantidad }}</td>
+                            <td>{{ dato.subtotal|floatformat:-1 }}</td>
+                            <td>{{ dato.compra.fechac|date:"d/m/Y" }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
             </div>
         </div>
     </div>
-        <div class="centrado row">
-            <div class=" col-md-6">
-                <a href="{% url 'tienda' %}" class="btn btn-dark">Volver</a>
+        <div class=" row">
+            <div class=" col-md-12">
+                <a href="{% url 'tienda' %}" class="btn btn-block btn-dark perfilb">Volver</a>
             </div>
-            <div class="col-md-6">
-                <a href="{% url 'limpiar_carrito' %}" id="Limpiar" class="btn btn-dark mt-1">Limpiar</a>
-            </div>
-        </div>
-        <div class="row ">
-            <div class="col-md-12 centrado mt-5">
-                <a type="button" class="btn btn-dark btn-block perfilb" href="{% url 'Pago' %}">Pagar</a>
-            </div>
-
         </div>
     </div>
 

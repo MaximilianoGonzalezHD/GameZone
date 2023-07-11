@@ -56,7 +56,7 @@ class Compra(models.Model):
         return f'Compra {self.id_comprac}'
 
 class Detallesc(models.Model):
-    id_detallesc = models.AutoField(primary_key=True)
+    id_detallesc = models.AutoField(primary_key=True, default=None)
     subtotal = models.FloatField(verbose_name='Subtotal de la compra',default=None)
     cantidad = models.IntegerField(verbose_name='Cantidad de productos',default=None)
     videojuego = models.ForeignKey(Videojuegos, on_delete=models.CASCADE,default=None)

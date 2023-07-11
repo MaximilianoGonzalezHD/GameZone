@@ -336,6 +336,25 @@ def enviar_correo_confirmacion(correo, compra):
         [correo],
         fail_silently=False,
     )
+@login_required
+def historial_compras(request):
+    usuario_id = request.user.id
+    usuario = Usuario.objects.get(id_usuariou=usuario_id)
+
+    compras = Compra.objects.filter(usuario=usuario)
+    Detalles = Detallesc.objects.filter(compra__in=compras)
+
+    
+    if Detalles.exists():
+        contexto = {
+            "detalles": Detalles, 
+        }
+        return render(request, 'tienda/productos/historial_compra.html', contexto)
+    else:
+        return render(request, 'tienda/productos/historial_compra.html')
+
+
+        
 #Productos
 def mostrar_producto(request, producto_slug):
     producto = get_object_or_404(Videojuegos, slug=producto_slug)

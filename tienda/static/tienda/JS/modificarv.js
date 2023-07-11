@@ -1,14 +1,14 @@
 $(document).ready(function () {
     $("#formM").submit(function (e) {
         var caracteres = /[!@#$%^&*()_+{}:"<>?|=[\];',./`~]/;
-        var nombrev1 = $("#IDV").val();
+        var nombrev1 = $("#NameGameV").val();
         var preciov1 = $("#PrecioV").val();
         var descripcionv1 = $("#DescripcionV").val();
         
         let enviar = true;
 
-        if (nombrev1.trim().length < 5 || nombrev1.trim().length > 15) {
-            $("#error_nombrev1").html("El nombre  debe tener entre 5 y 15 caracteres<br>");
+        if (nombrev1.trim().length < 5 || nombrev1.trim().length > 30) {
+            $("#error_nombrev1").html("El nombre  debe tener entre 5 y 30 caracteres<br>");
             enviar = false;
         } else {
             $("#error_nombrev1").html("");
@@ -26,12 +26,7 @@ $(document).ready(function () {
         } else {
             $("#error_descripcionv2").html("");
         }
-        if (caracteres.test(descripcionv1)) {
-            $("#error_descripcionv3").html("descripción invalida<br>");
-            enviar = false;
-        } else {
-            $("#error_descripcionv3").html("");
-        }
+        
         if (preciov1 < 0) {
             $("#error_preciov1").html("precio invalido: numeros negativos<br>");
           } else {
