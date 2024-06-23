@@ -84,6 +84,7 @@
                                 {% endif %}
                             </ul>
                             <form class="form-inline ml-auto mt-3" action="{% url 'buscar_producto' %}">
+                                {% csrf_token %}
                                 <input type="text" class="form-control" name="query" placeholder="Buscar">
                                 <button type="submit" class="btn btn-outline-light">Buscar</button>
                             </form>

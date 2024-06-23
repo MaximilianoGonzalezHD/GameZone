@@ -13,20 +13,23 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import permission_classes, action
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponse
 from django.contrib import messages
 from django.db import IntegrityError
 from django.utils.text import slugify
-from django.shortcuts import render
 from django.core.mail import send_mail
 from django.urls import reverse
 import requests
 from datetime import date
 import secrets
 import string
+from transbank.webpay.webpay_plus.transaction import Transaction, WebpayOptions
+from transbank.common.integration_type import IntegrationType
+from transbank.error.transbank_error import TransbankError
+from django.conf import settings
 
 
 # Create your views here.
@@ -207,11 +210,12 @@ def buscar_producto(request):
         except:
             return redirect('tienda')
     return redirect('tienda')
+
+@csrf_exempt
 def pago(request):
     carrito = None
     precio_total = 0
     usuario = None
-    correo = None
 
     if request.user.is_authenticated:
         usuario_id = request.user.id
@@ -233,44 +237,39 @@ def pago(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
             rutA = request.POST['rut']
-
             compra = Compra.objects.create(rutc=rutA, totalc=precio_total, usuario=usuario)
-            
-            contexto = {
-                'usuario': usuario,
-                'carrito': carrito,
-                'precio_total': precio_total,
-                'id_compra': compra
-            }
-
-            for item in items_carrito:
-                subtotal = item.videojuego.precio * item.cantidad
-                Detallesc.objects.create(subtotal=subtotal, cantidad=item.cantidad, videojuego=item.videojuego, compra=compra)
-
-            return redirect('pago_confirmado', id=compra.id_comprac)
         else:
             correo = request.POST['correo']
             rut = request.POST['rut']
-
             compra = Compra.objects.create(rutc=rut, totalc=precio_total, usuario=None)
-            
-
-            contexto = {
-                'usuario': usuario,
-                'carrito': carrito,
-                'precio_total': precio_total,
-                'id_compra': compra
-            }
-
-            for item in items_carrito:
-                subtotal = item.videojuego.precio * item.cantidad
-                Detallesc.objects.create(subtotal=subtotal, cantidad=item.cantidad, videojuego=item.videojuego, compra=compra)
-
             enviar_correo_confirmacion(correo, compra)
-            messages.success(request, '¡Compra realizada!')
-            items_carrito.delete()
+        
+        # Crear los detalles de la compra
+        for item in items_carrito:
+            subtotal = item.videojuego.precio * item.cantidad
+            Detallesc.objects.create(subtotal=subtotal, cantidad=item.cantidad, videojuego=item.videojuego, compra=compra)
+        
+        # Iniciar la transacción con Transbank
+        transaction = Transaction(WebpayOptions(
+            commerce_code=settings.TRANSBANK['WEBPAY_PLUS_COMMERCE_CODE'], 
+            api_key=settings.TRANSBANK['WEBPAY_PLUS_API_KEY'],
+            integration_type=IntegrationType.TEST
+        ))
+        try:
+            response = transaction.create(
+                buy_order=str(compra.id_comprac),
+                session_id=str(compra.id_comprac),
+                amount=precio_total,
+                return_url=request.build_absolute_uri(settings.TRANSBANK.get('RETURN_URL', ''))
+            )
+            # Guardar URL de retorno en la sesión para usarla en la vista de confirmación
+            request.session['return_url'] = response['url']
+            request.session['token'] = response['token']
+            return redirect(response['url'], response['token'])
+        except TransbankError as e:
+            messages.error(request, f'Error al iniciar la transacción: {e}')
             return redirect('tienda')
-
+    
     contexto = {
         'usuario': usuario,
         'carrito': carrito,
@@ -280,25 +279,51 @@ def pago(request):
     return render(request, 'tienda/inicio/Pago.html', contexto)
 
 def pago_confirmado(request, id):
-    compra = Compra.objects.get(id_comprac=id)
+    compra = get_object_or_404(Compra, id_comprac=id)
     detallesc = Detallesc.objects.filter(compra=compra)
     caracteres = string.ascii_letters + string.digits
     codigo = ''.join(secrets.choice(caracteres) for _ in range(8))
 
-    if request.method == 'POST':
-        enviar_correo_confirmacion(compra.usuario.emailu, compra)
-        messages.success(request, '¡Compra realizada!')
-
-        carrito = Carrito.objects.get(usuario=compra.usuario)
-        ItemCarrito.objects.filter(carrito=carrito).delete()
-
+    # Aquí se recibe la respuesta de Webpay
+    token = request.GET.get('token_ws')
+    
+    if not token:
+        messages.error(request, 'No se recibió token de Webpay.')
         return redirect('tienda')
 
+    transaction = Transaction(WebpayOptions(
+        commerce_code=settings.TRANSBANK['WEBPAY_PLUS_COMMERCE_CODE'], 
+        api_key=settings.TRANSBANK['WEBPAY_PLUS_API_KEY'],
+        integration_type=IntegrationType.TEST
+    ))
+
+    try:
+        response = transaction.commit(token=token)
+        
+        if response['status'] == 'AUTHORIZED':
+            if compra.usuario:
+                enviar_correo_confirmacion(compra.usuario.emailu, compra)
+                carrito = Carrito.objects.get(usuario=compra.usuario)
+                ItemCarrito.objects.filter(carrito=carrito).delete()
+            else:
+                correo = request.session.get('correo')
+                if correo:
+                    enviar_correo_confirmacion(correo, compra)
+                del request.session['correo']
+
+            messages.success(request, '¡Compra realizada!')
+        else:
+            messages.error(request, 'El pago no fue autorizado.')
+            return redirect('tienda')
+
+    except TransbankError as e:
+        messages.error(request, f'Error al confirmar la transacción: {e}')
+        return redirect('tienda')
 
     contexto = {
         'compra': compra,
         'detalle': detallesc,
-        'codigos':codigo,
+        'codigos': codigo,
     }
 
     return render(request, 'tienda/inicio/confirmacion_pago.html', contexto)
@@ -519,7 +544,7 @@ def olvide_contrasena(request):
 
 def Nosotros(request):
     return render(request, 'tienda/inicio/Nosotros.html')
-
+@csrf_exempt
 def inicio_sesion(request):
     if request.method == 'POST':
         email = request.POST.get('emaili')
@@ -884,3 +909,4 @@ class VideojuegosViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
