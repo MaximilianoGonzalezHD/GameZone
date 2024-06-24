@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-
+import paypalrestsdk
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-15!io@j902$$2#jvm@^&en@m-!81+x1cg*b5zlj!4+&10%l@0!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'ab13-190-114-39-227.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '2e42-190-114-39-227.ngrok-free.app']
 
 CSRF_COOKIE_SECURE = False
 
@@ -98,12 +98,14 @@ DATABASES = {
     }
 }
 
-TRANSBANK = {
-    'WEBPAY_PLUS_COMMERCE_CODE': '597055555532',
-    'WEBPAY_PLUS_API_KEY': '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
-    'RETURN_URL': 'pago_confirmado',  # URL absoluta para la vista de confirmación
-}
 
+paypalrestsdk.configure({
+  "mode": "sandbox", # sandbox or live
+  "client_id": "AftQCCen5FSZsm8apslLzVh6GxzoewULGYrVu-oMuNuMTkS0MUVEH05Y6wYyf9mwh-fzDDSum_q8Mx1w",
+  "client_secret": "ELF_pXCO2yK8xY5OZ7O7EAwlnTGL0VSy_36GA_OJ4y8BXFgDsSaFhhUUvv-QypijIAKlHqW1dnp3h3T-" })
+  
+PAYPAL_RETURN_URL = '/pago_confirmado/'  
+PAYPAL_CANCEL_URL = '/carrito/'
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

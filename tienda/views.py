@@ -26,9 +26,7 @@ import requests
 from datetime import date
 import secrets
 import string
-from transbank.webpay.webpay_plus.transaction import Transaction, WebpayOptions
-from transbank.common.integration_type import IntegrationType
-from transbank.error.transbank_error import TransbankError
+import paypalrestsdk
 from django.conf import settings
 
 
@@ -216,6 +214,7 @@ def pago(request):
     carrito = None
     precio_total = 0
     usuario = None
+    items_carrito = []
 
     if request.user.is_authenticated:
         usuario_id = request.user.id
@@ -249,27 +248,49 @@ def pago(request):
             subtotal = item.videojuego.precio * item.cantidad
             Detallesc.objects.create(subtotal=subtotal, cantidad=item.cantidad, videojuego=item.videojuego, compra=compra)
         
-        # Iniciar la transacción con Transbank
-        transaction = Transaction(WebpayOptions(
-            commerce_code=settings.TRANSBANK['WEBPAY_PLUS_COMMERCE_CODE'], 
-            api_key=settings.TRANSBANK['WEBPAY_PLUS_API_KEY'],
-            integration_type=IntegrationType.TEST
-        ))
-        try:
-            response = transaction.create(
-                buy_order=str(compra.id_comprac),
-                session_id=str(compra.id_comprac),
-                amount=precio_total,
-                return_url=request.build_absolute_uri(settings.TRANSBANK.get('RETURN_URL', ''))
-            )
-            # Guardar URL de retorno en la sesión para usarla en la vista de confirmación
-            request.session['return_url'] = response['url']
-            request.session['token'] = response['token']
-            return redirect(response['url'], response['token'])
-        except TransbankError as e:
-            messages.error(request, f'Error al iniciar la transacción: {e}')
-            return redirect('tienda')
-    
+        # Configurar la URL de redirección de PayPal
+        return_url = request.build_absolute_uri(settings.PAYPAL_RETURN_URL)
+
+        # Crear la lista de artículos para PayPal
+        items_paypal = []
+        for item in items_carrito:
+            items_paypal.append({
+                "name": item.videojuego.nombrev,
+                "sku": str(item.videojuego.id_juego),
+                "price": str(item.videojuego.precio),
+                "currency": "USD",  # Ajusta según la moneda de tu tienda
+                "quantity": str(item.cantidad),
+            })
+        
+
+
+
+        payment = paypalrestsdk.Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal",
+            },
+            "redirect_urls": {
+                "return_url": return_url,
+                "cancel_url": settings.PAYPAL_CANCEL_URL,
+            },
+            "transactions": [{
+                "item_list": {"items": items_paypal},
+                "amount": {
+                    "total": str(precio_total),
+                    "currency": "USD",  # Ajusta según la moneda de tu tienda
+                },
+                "description": "Compra en Tienda GameZone",
+            }]
+        })
+
+        if payment.create():
+            for link in payment.links:
+                if link.method == "REDIRECT":
+                    return redirect(link.href)
+        else:
+            messages.error(request, f'Error al iniciar el pago con PayPal: {payment.error}')
+
     contexto = {
         'usuario': usuario,
         'carrito': carrito,
@@ -279,51 +300,34 @@ def pago(request):
     return render(request, 'tienda/inicio/Pago.html', contexto)
 
 def pago_confirmado(request, id):
-    compra = get_object_or_404(Compra, id_comprac=id)
-    detallesc = Detallesc.objects.filter(compra=compra)
-    caracteres = string.ascii_letters + string.digits
-    codigo = ''.join(secrets.choice(caracteres) for _ in range(8))
+    payer_id = request.GET.get('PayerID')
+    payment_id = request.GET.get('paymentId')
 
-    # Aquí se recibe la respuesta de Webpay
-    token = request.GET.get('token_ws')
-    
-    if not token:
-        messages.error(request, 'No se recibió token de Webpay.')
-        return redirect('tienda')
+    payment = paypalrestsdk.Payment.find(payment_id)
 
-    transaction = Transaction(WebpayOptions(
-        commerce_code=settings.TRANSBANK['WEBPAY_PLUS_COMMERCE_CODE'], 
-        api_key=settings.TRANSBANK['WEBPAY_PLUS_API_KEY'],
-        integration_type=IntegrationType.TEST
-    ))
+    if payment.execute({"payer_id": payer_id}):
+        # Pago confirmado exitosamente
+        compra = get_object_or_404(Compra, id_comprac=id)
+        detallesc = Detallesc.objects.filter(compra=compra)
 
-    try:
-        response = transaction.commit(token=token)
-        
-        if response['status'] == 'AUTHORIZED':
-            if compra.usuario:
-                enviar_correo_confirmacion(compra.usuario.emailu, compra)
-                carrito = Carrito.objects.get(usuario=compra.usuario)
-                ItemCarrito.objects.filter(carrito=carrito).delete()
-            else:
-                correo = request.session.get('correo')
-                if correo:
-                    enviar_correo_confirmacion(correo, compra)
-                del request.session['correo']
-
-            messages.success(request, '¡Compra realizada!')
+        # Lógica adicional para marcar la compra como completada, enviar correos, etc.
+        if compra.usuario:
+            enviar_correo_confirmacion(compra.usuario.emailu, compra)
+            carrito = Carrito.objects.get(usuario=compra.usuario)
+            ItemCarrito.objects.filter(carrito=carrito).delete()
         else:
-            messages.error(request, 'El pago no fue autorizado.')
-            return redirect('tienda')
+            correo = request.session.get('correo')
+            if correo:
+                enviar_correo_confirmacion(correo, compra)
+            del request.session['correo']
 
-    except TransbankError as e:
-        messages.error(request, f'Error al confirmar la transacción: {e}')
-        return redirect('tienda')
+        messages.success(request, '¡Compra realizada!')
+    else:
+        messages.error(request, 'El pago con PayPal no fue completado.')
 
     contexto = {
         'compra': compra,
         'detalle': detallesc,
-        'codigos': codigo,
     }
 
     return render(request, 'tienda/inicio/confirmacion_pago.html', contexto)
