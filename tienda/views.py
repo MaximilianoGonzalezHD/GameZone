@@ -32,10 +32,12 @@ from django.conf import settings
 
 # Create your views here.
 #Paginas Principales
+@csrf_exempt
 def tienda(request):
     return render(request,'tienda/inicio/tienda.html')
 
 #Secciones
+@csrf_exempt
 def seccion_playstation(request):
     productos_playstation = Videojuegos.objects.filter(seccion = 2)
 
@@ -43,7 +45,7 @@ def seccion_playstation(request):
         "producto_playstation": productos_playstation
     }
     return render(request,'tienda/productos/Seccion_Play/seccion_playstation.html',contexto)
-
+@csrf_exempt
 def seccion_Xbox(request):
     productos_xbox = Videojuegos.objects.filter(seccion = 3)
 
@@ -51,7 +53,7 @@ def seccion_Xbox(request):
         "producto": productos_xbox
     }
     return render(request,'tienda/productos/Seccion_Xbox/seccion_xbox.html',contexto)
-
+@csrf_exempt
 def seccion_nintendo(request):
     productos_nintendo = Videojuegos.objects.filter(seccion = 1)
 
@@ -59,7 +61,7 @@ def seccion_nintendo(request):
         "producto": productos_nintendo
     }
     return render(request,'tienda/productos/SeccionNintendo/seccion_nintendo.html',contexto)
-
+@csrf_exempt
 def seccion_Pc(request):
     productos_pc = Videojuegos.objects.filter(seccion = 4)
 
@@ -67,7 +69,7 @@ def seccion_Pc(request):
         "producto": productos_pc
     }
     return render(request,'tienda/productos/SeccionPc/Seccion_Pc.html',contexto)
-
+@csrf_exempt
 def carrito(request):
     carrito = None
     items_carrito = []
@@ -95,7 +97,7 @@ def carrito(request):
         item.subtotal = item.videojuego.precio * item.cantidad
 
     return render(request, 'tienda/productos/Carrito.html', contexto)
-
+@csrf_exempt
 def agregar_producto_al_carrito(request, id, cantidad):
     carrito = None
     usuario = None
@@ -129,7 +131,7 @@ def agregar_producto_al_carrito(request, id, cantidad):
         return redirect('Carrito')
     else:
         return HttpResponse('Error al agregar el producto al carrito')
-
+@csrf_exempt
 def Comprar_ahora(request, id, cantidad):
     carrito = None
     usuario = None
@@ -163,7 +165,7 @@ def Comprar_ahora(request, id, cantidad):
         return redirect('Pago')
     else:
         return HttpResponse('Error al agregar el producto al carrito')
-
+@csrf_exempt
 def borrar_producto_del_carrito(request, id):
     carrito = None
     usuario = request.user
@@ -183,6 +185,8 @@ def borrar_producto_del_carrito(request, id):
         return redirect('Carrito')
     else:
         return redirect('Carrito')
+    
+@csrf_exempt
 def limpiar_carrito(request):
     if request.user.is_authenticated:
 
@@ -198,7 +202,7 @@ def limpiar_carrito(request):
             carrito.itemcarrito_set.all().delete()
 
     return redirect('Carrito')
-
+@csrf_exempt
 def buscar_producto(request):
     if request.method == 'GET':
         slug = request.GET.get('query')
@@ -214,7 +218,6 @@ def pago(request):
     carrito = None
     precio_total = 0
     usuario = None
-    items_carrito = []
 
     if request.user.is_authenticated:
         usuario_id = request.user.id
@@ -241,7 +244,7 @@ def pago(request):
             correo = request.POST['correo']
             rut = request.POST['rut']
             compra = Compra.objects.create(rutc=rut, totalc=precio_total, usuario=None)
-            enviar_correo_confirmacion(correo, compra)
+            request.session['correo'] = correo  # Almacenar correo en sesión
         
         # Crear los detalles de la compra
         for item in items_carrito:
@@ -249,7 +252,7 @@ def pago(request):
             Detallesc.objects.create(subtotal=subtotal, cantidad=item.cantidad, videojuego=item.videojuego, compra=compra)
         
         # Configurar la URL de redirección de PayPal
-        return_url = request.build_absolute_uri(settings.PAYPAL_RETURN_URL)
+        return_url = request.build_absolute_uri(f"{settings.PAYPAL_RETURN_URL}{compra.id_comprac}/")
 
         # Crear la lista de artículos para PayPal
         items_paypal = []
@@ -262,9 +265,7 @@ def pago(request):
                 "quantity": str(item.cantidad),
             })
         
-
-
-
+        # Crear el pago en PayPal
         payment = paypalrestsdk.Payment({
             "intent": "sale",
             "payer": {
@@ -272,7 +273,7 @@ def pago(request):
             },
             "redirect_urls": {
                 "return_url": return_url,
-                "cancel_url": settings.PAYPAL_CANCEL_URL,
+                "cancel_url": request.build_absolute_uri(settings.PAYPAL_CANCEL_URL),
             },
             "transactions": [{
                 "item_list": {"items": items_paypal},
@@ -299,18 +300,19 @@ def pago(request):
 
     return render(request, 'tienda/inicio/Pago.html', contexto)
 
+@csrf_exempt
 def pago_confirmado(request, id):
     payer_id = request.GET.get('PayerID')
     payment_id = request.GET.get('paymentId')
+    compra = None
+    detallesc = None
 
     payment = paypalrestsdk.Payment.find(payment_id)
 
     if payment.execute({"payer_id": payer_id}):
-        # Pago confirmado exitosamente
         compra = get_object_or_404(Compra, id_comprac=id)
         detallesc = Detallesc.objects.filter(compra=compra)
 
-        # Lógica adicional para marcar la compra como completada, enviar correos, etc.
         if compra.usuario:
             enviar_correo_confirmacion(compra.usuario.emailu, compra)
             carrito = Carrito.objects.get(usuario=compra.usuario)
@@ -318,8 +320,14 @@ def pago_confirmado(request, id):
         else:
             correo = request.session.get('correo')
             if correo:
-                enviar_correo_confirmacion(correo, compra)
-            del request.session['correo']
+                enviar_correo_confirmacion(correo, compra)  # Enviar correo antes de eliminar la sesión
+                del request.session['correo']  # Limpiar correo de la sesión
+
+            carrito_id = request.session.get('carrito_id')
+            if carrito_id:
+                carrito = get_object_or_404(Carrito, id_carrito=carrito_id)
+                ItemCarrito.objects.filter(carrito=carrito).delete()
+                del request.session['carrito_id']  # Limpiar carrito de la sesión
 
         messages.success(request, '¡Compra realizada!')
     else:
@@ -328,10 +336,12 @@ def pago_confirmado(request, id):
     contexto = {
         'compra': compra,
         'detalle': detallesc,
+        'correo': request.session.get('correo', None)  # Asegurar que el correo se recupere correctamente
     }
 
     return render(request, 'tienda/inicio/confirmacion_pago.html', contexto)
 
+@csrf_exempt
 def enviar_correo_confirmacion(correo, compra):
     id_compra = compra.id_comprac
     fecha_compra = compra.fechac
@@ -366,6 +376,7 @@ def enviar_correo_confirmacion(correo, compra):
         fail_silently=False,
     )
 @login_required
+@csrf_exempt
 def historial_compras(request):
     usuario_id = request.user.id
     usuario = Usuario.objects.get(id_usuariou=usuario_id)
@@ -385,6 +396,7 @@ def historial_compras(request):
 
         
 #Productos
+@csrf_exempt
 def mostrar_producto(request, producto_slug):
     producto = get_object_or_404(Videojuegos, slug=producto_slug)
 
@@ -403,6 +415,7 @@ def mostrar_producto(request, producto_slug):
 
 
 #Paginas iniciales
+@csrf_exempt
 @login_required   
 def editarPerfil(request, id):
     usuario = Usuario.objects.get(id_usuariou=id)
@@ -413,7 +426,7 @@ def editarPerfil(request, id):
     }
 
     return render(request, 'tienda/inicio/editarPerfil.html',contexto)
-
+@csrf_exempt
 @login_required
 def modificarcuenta(request):
     if request.method == 'POST':
@@ -444,7 +457,7 @@ def modificarcuenta(request):
         return redirect('Cuenta')
 
     return redirect('Cuenta')
-
+@csrf_exempt
 @login_required   
 def editarContrasena(request, id):
     usuario = Usuario.objects.get(id_usuariou=id)
@@ -455,7 +468,7 @@ def editarContrasena(request, id):
     }
 
     return render(request, 'tienda/inicio/editarcontrasena.html',contexto)
-
+@csrf_exempt
 @login_required
 def modificarcontrasena(request):
     if request.method == 'POST':
@@ -477,9 +490,10 @@ def modificarcontrasena(request):
         return redirect('inicio_sesion')
 
     return redirect('Cuenta')
-
+@csrf_exempt
 def registro(request):
     return render(request, 'tienda/inicio/registro.html')
+@csrf_exempt
 def registrarUsuario(request):
     if request.method == 'POST':
         emailus = request.POST['email']
@@ -520,13 +534,14 @@ def registrarUsuario(request):
             return redirect('registro')
 
     return render(request, 'registro.html')
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def eliminar_usuarios(request):
     usuarios = User.objects.all()
     usuarios.delete()
     return HttpResponse("Usuarios eliminados correctamente")
-
+@csrf_exempt
 def olvide_contrasena(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -545,7 +560,7 @@ def olvide_contrasena(request):
         return redirect('inicio_sesion')
 
     return render(request, 'tienda/inicio/olvide_contrasena.html')
-
+@csrf_exempt
 def Nosotros(request):
     return render(request, 'tienda/inicio/Nosotros.html')
 @csrf_exempt
@@ -577,7 +592,7 @@ def inicio_sesion(request):
             return redirect('inicio_sesion')
 
     return render(request, 'tienda/inicio/inicio_sesion.html')
-
+@csrf_exempt
 def cerrar_sesion(request):
     if request.user.is_authenticated:
         try:
@@ -591,7 +606,7 @@ def cerrar_sesion(request):
     return redirect('inicio_sesion')
 
 
-@csrf_protect
+@csrf_exempt
 @login_required
 def Cuenta(request):
     usuario = request.user  
@@ -607,7 +622,7 @@ def Colaboracion(request):
     return render(request, 'tienda/inicio/Colaboracion.html')
 
 @require_http_methods(["GET", "POST"])
-@csrf_protect
+@csrf_exempt
 def cambiar_contrasena(request, user_id, token):
     django_user = User.objects.get(id=user_id)
     token_obj = Token.objects.filter(user=django_user).first()
@@ -638,20 +653,24 @@ def cambiar_contrasena(request, user_id, token):
     return render(request, 'tienda/inicio/cambiar_contrasena.html', contexto)
 
 #Paginas Administrativas
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def Administracion(request):
     return render(request, 'tienda/admin/Administracion.html')
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def Agregar(request):
     return render(request, 'tienda/admin/Agregar.html')
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def Listado(request):
     return render(request, 'tienda/admin/Listado.html')
 
 #Seccion agregar
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def AgregarN(request):
@@ -660,6 +679,7 @@ def AgregarN(request):
         "Nintendo": nin
     }
     return render(request, 'tienda/admin/Secciones/AgregarN.html',contexto)
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def AgregarNintendo(request):
@@ -678,6 +698,7 @@ def AgregarNintendo(request):
     videojuego.save()
     return redirect(AgregarN)
 
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def AgregarP(request):
@@ -687,6 +708,7 @@ def AgregarP(request):
     }
     return render(request, 'tienda/admin/Secciones/AgregarP.html', contexto)
 
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def AgregarPlaystation(request):
@@ -705,6 +727,7 @@ def AgregarPlaystation(request):
     videojuego.save()
     return redirect(AgregarP)
 
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def AgregarPC(request):
@@ -714,6 +737,7 @@ def AgregarPC(request):
     }
     return render(request, 'tienda/admin/Secciones/AgregarPC.html',contexto)
 
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def AgregarPCJuego(request):
@@ -731,6 +755,7 @@ def AgregarPCJuego(request):
     videojuego.save()
     return redirect(AgregarPC)
 
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def AgregarX(request):
@@ -740,6 +765,7 @@ def AgregarX(request):
     }
     return render(request, 'tienda/admin/Secciones/AgregarX.html',contexto)
 
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def AgregarXbox(request):
@@ -759,6 +785,7 @@ def AgregarXbox(request):
     return redirect(AgregarX)
 
 #Modificar Usuarios
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def Listado_Usuarios(request):
@@ -768,7 +795,7 @@ def Listado_Usuarios(request):
     }
 
     return render(request, 'tienda/admin/Listado_Usuarios.html',contexto)
-
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def EliminarUsuario(request, id):
@@ -784,6 +811,7 @@ def EliminarUsuario(request, id):
     return redirect('Listado_Usuarios')
 
 #modificar Productos
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def Modificar(request, id):
@@ -795,6 +823,7 @@ def Modificar(request, id):
     }
     return render(request, 'tienda/admin/Modificar.html',contexto)
 
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def ModificarJuego(request):
@@ -822,6 +851,7 @@ def ModificarJuego(request):
 
     return HttpResponse('Método no permitido')
 
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def Listado_Videojuegos(request):
@@ -832,6 +862,7 @@ def Listado_Videojuegos(request):
     return render(request, 'tienda/admin/Listado_Videojuegos.html',contexto)
 
 #Eliminar VideoJuegos
+@csrf_exempt
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def EliminarVideoJuego(request,id):

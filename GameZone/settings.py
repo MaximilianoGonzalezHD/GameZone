@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-15!io@j902$$2#jvm@^&en@m-!81+x1cg*b5zlj!4+&10%l@0!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '2e42-190-114-39-227.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'fb69-190-114-39-227.ngrok-free.app']
 
 CSRF_COOKIE_SECURE = False
 
@@ -104,8 +104,8 @@ paypalrestsdk.configure({
   "client_id": "AftQCCen5FSZsm8apslLzVh6GxzoewULGYrVu-oMuNuMTkS0MUVEH05Y6wYyf9mwh-fzDDSum_q8Mx1w",
   "client_secret": "ELF_pXCO2yK8xY5OZ7O7EAwlnTGL0VSy_36GA_OJ4y8BXFgDsSaFhhUUvv-QypijIAKlHqW1dnp3h3T-" })
   
-PAYPAL_RETURN_URL = '/pago_confirmado/'  
-PAYPAL_CANCEL_URL = '/carrito/'
+PAYPAL_RETURN_URL = 'http://fb69-190-114-39-227.ngrok-free.app/pago_confirmado/'  
+PAYPAL_CANCEL_URL = 'http://fb69-190-114-39-227.ngrok-free.app/carrito/'
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
